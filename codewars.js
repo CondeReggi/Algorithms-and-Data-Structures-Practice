@@ -249,3 +249,245 @@ function duplicateEncode(word){
   return word.split('').map( elem => obj[elem] === 1 ? '(' : ')' ).join('')
 }
 
+//OR
+
+function duplicateEncode(word) {
+  word = word.toLowerCase();
+  return word.replace(/./g, m => word.indexOf(m) == word.lastIndexOf(m) ? '(' : ')');
+}
+
+// Digital root is the recursive sum of all the digits in a number.
+// Given n, take the sum of the digits of n. If that value has more than 
+// one digit, continue reducing in this way until a single-digit number is produced.
+// The input will be a non-negative integer.
+
+// Examples
+//     16  -->  1 + 6 = 7
+//    942  -->  9 + 4 + 2 = 15  -->  1 + 5 = 6
+// 132189  -->  1 + 3 + 2 + 1 + 8 + 9 = 24  -->  2 + 4 = 6
+// 493193  -->  4 + 9 + 3 + 1 + 9 + 3 = 29  -->  2 + 9 = 11  -->  1 + 1 = 2
+
+function digital_root(n) {
+  if ( n > 9 ) {
+    let number = n.toString().split('');
+    let sum = number.reduce( (acc , res) => acc = acc + Number(res) , 0 )
+    return digital_root(sum)
+  }else{
+    return n
+  }
+}
+
+// Write a function, persistence, that takes in a positive parameter num and returns its 
+// multiplicative persistence, which is the number of times you must multiply the digits 
+// in num until you reach a single digit.
+
+// 39 --> 3 (because 3*9 = 27, 2*7 = 14, 1*4 = 4 and 4 has only one digit)
+// 999 --> 4 (because 9*9*9 = 729, 7*2*9 = 126, 1*2*6 = 12, and finally 1*2 = 2)
+// 4 --> 0 (because 4 is already a one-digit number)
+
+function persistence(num) {
+  if ( num < 10 ) return 0 
+
+  let numero = num.toString().split('').reduce( (acc , res) => acc = acc * res , 1 )
+  
+  return persistence(numero) + 1
+}
+
+// OR
+
+const persistence = num => {
+  return `${num}`.length > 1 
+    ? 1 + persistence(`${num}`.split('').reduce((a, b) => a * +b)) 
+    : 0;
+}
+
+// You are given an array(list) strarr of strings and an integer k. Your task is to
+// return the first longest string consisting of k consecutive strings taken in the array.
+
+function longestConsec(strarr, k) {
+  if (strarr.length == 0 || k > strarr.length || k <= 0) return '';
+  
+  let longStr = '';
+  let newStr = '';
+  
+  for (let i = 0; i < strarr.length; i++){
+    newStr = strarr.slice(i, i+k);
+    if (newStr.join('').length > longStr.length ){
+      longStr = newStr.join('');
+    }
+  }
+  return longStr;
+}
+
+// Given two arrays of strings a1 and a2 return a sorted array r in 
+// lexicographical order of the strings of a1 which are substrings of strings of a2.
+
+function inArray(array1,array2){
+  let arrAux = [];
+  for ( let word of array1 ) {
+    for (let i = 0; i < array2.length; i++) {
+      if ( array2[i].includes(word) ) arrAux.push(word)
+    }
+  }
+  return arrAux.filter( (item , index ) => arrAux.indexOf( item ) === index ).sort()
+}
+
+function inArray(array1,array2){
+  return array1
+    .filter(a1 => array2.find(a2 => a2.match(a1)))
+    .sort()
+}
+
+// The number 89 is the first integer with more than one digit that fulfills the 
+// property partially introduced in the title of this kata. What's the use of saying 
+// "Eureka"? Because this sum gives the same number.
+
+// In effect: 89 = 8^1 + 9^2
+
+// The next number in having this property is 135.
+// See this property again: 135 = 1^1 + 3^2 + 5^3
+// We need a function to collect these numbers, that may receive two integers a, b 
+// that defines the range [a, b] (inclusive) and outputs a list of the sorted numbers 
+// in the range that fulfills the property described above.
+
+function sumDigPow(a, b) {
+  let arrAux = []
+
+  for (let i = a; i < b; i++) {
+    let number = i.toString().split('');
+    let sum = number.reduce( (acc , res, index) => acc = acc + Math.pow( parseInt(res) , index + 1 ) , 0 )
+    if ( sum === i ) arrAux.push( sum )
+  }
+
+  return arrAux;
+}
+
+// If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 
+// 3, 5, 6 and 9. The sum of these multiples is 23.
+
+// Finish the solution so that it returns the sum of all the multiples of 3 or 5 
+// below the number passed in. Additionally, if the number is negative, return 0 
+// (for languages that do have them).
+
+// Note: If the number is a multiple of both 3 and 5, only count it once.
+
+function solution(number){
+  let num = 0;
+
+  if ( number < 0 ) return 0
+
+  for (let i = 0; i < number ; i++) {
+    if ( i % 3 === 0 || i % 5  === 0 ) {
+      num += i
+    }
+  }
+
+  return num 
+}
+
+// Inclusion exclusion wenardiño
+
+function solution(number){
+  let n3 = Math.floor(--number/3), n5 = Math.floor(number/5), n15 = Math.floor(number/15);
+  return (3 * n3 * (n3 + 1) + 5 * n5 * (n5 + 1) - 15 * n15 * (n15+1)) /2;
+}
+
+// Given an array of integers, find the one that appears an odd number of times.
+// There will always be only one integer that appears an odd number of times.
+
+// Examples
+// [7] should return 7, because it occurs 1 time (which is odd).
+// [0] should return 0, because it occurs 1 time (which is odd).
+// [1,1,2] should return 2, because it occurs 1 time (which is odd).
+// [0,1,0,1,0] should return 0, because it occurs 3 times (which is odd).
+// [1,2,2,3,3,3,4,3,3,3,2,2,1] should return 4, because it appears 1 time (which is odd).
+
+function findOdd(A) {
+  
+  let obj = {}
+
+  for ( let number of A ) {
+    obj[number.toString()] = obj[number] + 1 || 1
+  }
+
+  let result = Object.keys(obj).filter( el => obj[el] % 2 !== 0 )
+  return parseInt(result)
+
+}
+
+// Hace como lo mismo pero usa un return dentro de un for
+
+function findOdd(A) {
+  var obj = {};
+  A.forEach(function(el){
+    obj[el] ? obj[el]++ : obj[el] = 1;
+  });
+  
+  for(prop in obj) {
+    if(obj[prop] % 2 !== 0) return Number(prop);
+  }
+}
+
+// Write Number in Expanded Form
+// You will be given a number and you will need to return 
+// it as a string in Expanded Form. For example:
+
+function expandedForm(num) {
+  let largo = num.toString().length
+  let number = num.toString()
+  let cadena = []
+
+  for (let i = 0; i < largo ; i++){
+    if ( number[i] !== '0' ) {
+      cadena.push( parseInt(number[i])*Math.pow(10 , (largo - i - 1)) )
+    }
+  }
+
+  return cadena.join(' + ')
+}
+
+
+// Programa con python
+
+// def filter_list(l) :
+//     y = []
+//     for number in l :
+//         if ( type(number) == int ) : y.append( number )
+//     return y
+
+// What is an anagram? Well, two words are anagrams of each other if they both contain 
+// the same letters. For example:
+
+// 'abba' & 'baab' == true
+
+// 'abba' & 'bbaa' == true
+
+// 'abba' & 'abbba' == false
+
+// 'abba' & 'abca' == false
+
+// Write a function that will find all the anagrams of a word from a list. 
+// You will be given two inputs a word and an array with words. You should 
+// return an array of all the anagrams or an empty array if there are none. For example:
+
+function anagrams(word, words) {
+  let palabra = word.split('').sort().join('');
+  let arrAux = [];
+
+  for ( palabraWords of words ){
+    let verificador = palabraWords.split('').sort().join('');
+
+    if ( palabra.length === verificador.length && palabra.includes( verificador ) ) {
+      arrAux.push( palabraWords )
+    }
+  }
+  return arrAux
+}
+
+
+
+
+
+
+
+
