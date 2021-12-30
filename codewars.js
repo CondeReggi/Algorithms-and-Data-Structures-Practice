@@ -522,6 +522,196 @@ function solution(input, markers) {
 
 //Trim sirve para que no hayan espacios --> ' hoo     ' => 'hoo' 
 
+// You are given a node that is the beginning of a linked list. This list always contains a tail and 
+// a loop. Your objective is to determine the length of the loop.
+
+// For example in the following picture the tail's size is 3 and the loop size is 12:
+// Use the `getNext' method or 'next' property to get the following node.
+// node.getNext()
+// node.next
+
+function loop_size(node){
+  let numberOfNodes = 0;
+  let nuevaCadena = [];
+  
+  while ( node && !nuevaCadena.includes(node) ){
+    nuevaCadena.push( node )
+    numberOfNodes++
+    node = node.next
+  }
+  
+  return numberOfNodes - nuevaCadena.indexOf(node)
+}
+
+// productFib(714) # should return (21, 34, true), 
+//                 # since F(8) = 21, F(9) = 34 and 714 = 21 * 34
+
+// productFib(800) # should return (34, 55, false), 
+//                 # since F(8) = 21, F(9) = 34, F(10) = 55 and 21 * 34 < 800 < 34 * 55
+// -----
+// productFib(714) # should return [21, 34, true], 
+// productFib(800) # should return [34, 55, false], 
+// -----
+// productFib(714) # should return {21, 34, 1}, 
+// productFib(800) # should return {34, 55, 0},        
+// -----
+// productFib(714) # should return {21, 34, true}, 
+// productFib(800) # should return {34, 55, false}, 
+
+function productFib(prod) {
+  return fib(0, 1, prod); //Condiciones inciales a0 = 0 a1= 1 
+}
+
+function fib(a, b, prod) {
+  if (a * b < prod) {
+    return fib(b, a + b, prod); // El recursivo de Fibonacci
+  } else if (a * b == prod) {
+    return [a, b, true]; // Si es eso return eso
+  } else {
+    return [a, b, false]; // Se paso entonces false
+  }
+}
+
+// OR
+
+function productFib(prod){
+  let a0 = 0;
+  let a1 = 1;
+  let aux;
+
+  while ( a0 * a1 < prod ) {
+    aux = a1;
+    a1 = a1 + a0
+    a0 = aux;
+  }
+
+  return [ a0 , a1 , a0 * a1 === prod ];
+}
+
+// Take the following IPv4 address: 128.32.10.1
+// This address has 4 octets where each octet is a single byte (or 8 bits).
+
+// 1st octet 128 has the binary representation: 10000000
+// 2nd octet 32 has the binary representation: 00100000
+// 3rd octet 10 has the binary representation: 00001010
+// 4th octet 1 has the binary representation: 00000001
+// So 128.32.10.1 == 10000000.00100000.00001010.00000001
+// Because the above IP address has 32 bits, we can represent it as the unsigned 32 bit number: 2149583361
+// Complete the function that takes an unsigned 32 bit number and returns a string representation of its IPv4 address.
+
+function int32ToIp(int32){
+  let arr = [];
+  let number = int32.toString(2);
+  
+  for ( let i = 0 ; i < 4 ; i++ ) {
+    let binary = number.slice(8*i , 8*(i+1))
+    
+    if ( binary ) {
+      arr.push( binary )
+    }else{
+      arr.push( '0' ) //Caso que es isNaN
+    }
+  }
+  
+  return arr.map( el => parseInt(el , 2) ).join('.')
+}
+
+
+function scramble(str1, str2) {
+  if ( !str1 || !str2 ){
+    return false;
+  }
+
+  for (let i = 0; i < str2.length; i++) {
+    if ( str1.indexOf( str2[i] ) === -1 ) return false
+  }
+
+  return true
+}
+
+// Consider a sequence u where u is defined as follows:
+
+// The number u(0) = 1 is the first one in u.
+// For each x in u, then y = 2 * x + 1 and z = 3 * x + 1 must be in u too. There are no other numbers in u.
+// Ex: u = [1, 3, 4, 7, 9, 10, 13, 15, 19, 21, 22, 27, ...]
+// 1 gives 3 and 4, then 3 gives 7 and 10, 4 gives 9 and 13, then 7 gives 15 and 22 and so on...
+
+// Task: Given parameter n the function dbl_linear (or dblLinear...) returns the element u(n) of the ordered (with <) sequence u.
+
+// Example: dbl_linear(10) should return 22
+
+function dblLinear(n) {
+  
+  var u = [1], pt2 = 0, pt3 = 0; //two pointer
+  
+  for(var i = 1;i<=n;i++){
+    u[i] = Math.min(2* u[pt2] + 1, 3*u[pt3] + 1);
+    if(u[i] == 2 * u[pt2] + 1) pt2++;
+    if(u[i] == 3 * u[pt3] + 1) pt3++;
+  }
+
+  return u[n];
+
+}
+
+// Complete the function/method (depending on the language) to return true/True when its argument is an array that has the same nesting 
+// structures and same corresponding length of nested arrays as the first array.
+
+// For example:
+
+//  // should return true
+// [ 1, 1, 1 ].sameStructureAs( [ 2, 2, 2 ] );          
+// [ 1, [ 1, 1 ] ].sameStructureAs( [ 2, [ 2, 2 ] ] );  
+
+Array.prototype.sameStructureAs = function (other) {
+
+  // this hace referencia a Array.prototype
+
+  if ( this.length !== other.length ) return false;
+
+  for ( let i = 0 ; i < this.length ; i++ ) {
+    if ( Array.isArray( this[i] ) && !this[i].sameStructureAs(other[i]) ) return false;
+    if ( !Array.isArray( this[i] ) && Array.isArray(other[i]) ) return false;
+  }
+
+  return true;
+};
+
+// Given an n x n array, return the array elements arranged from outermost elements to the middle element, traveling clockwise.
+
+// array = [[1,2,3],
+//          [4,5,6],
+//          [7,8,9]]
+// snail(array) #=> [1,2,3,6,9,8,7,4,5]
+
+function snail(array) {
+  var vector = [];
+  while (array.length) {
+    vector.push(...array.shift());
+    array.map( row => vector.push(row.pop()) );
+    array.reverse().map( row => row.reverse() );
+  }
+  return vector;
+}
+
+// In this kata, your task is to create a regular expression capable of evaluating binary strings 
+// (strings with only 1s and 0s) and determining whether the given string represents a number divisible by 3.
+
+// Take into account that:
+
+// An empty string might be evaluated to true (it's not going to be tested, so you don't need to worry about 
+// it - unless you want)
+// The input should consist only of binary digits - no spaces, other digits, alphanumeric characters, etc.
+// There might be leading 0s.
+// Examples (Javascript)
+// multipleof3Regex.test('000') should be true
+// multipleof3Regex.test('001') should be false
+// multipleof3Regex.test('011') should be true
+// multipleof3Regex.test('110') should be true
+// multipleof3Regex.test(' abc ') should be false
+// You can check more in the example test cases
+
+const multipleOf3Regex = /^(0*(1(01*0)*1)*)*$/;
 
 
 
