@@ -721,6 +721,29 @@ function sumStrings(a,b) {
   return result.toString()
 }
 
+// Encontrar numero duplicado en arreglo ordenado O(n^2)
+
+const findDuplicate = ( arr ) => {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i+1; j < arr.length; j++) {
+      if ( arr[i] == arr[j] ){
+        return arr[i]
+      }
+    }
+  }
+}
+
+// Emcontrar numero unico duplicado en arreglo ordenado O(n)
+
+const findDuplicateGauss = ( arr ) => {
+  const n = arr[ arr.length - 1 ]; // El mas grande
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i]
+  }
+  return sum - ( n * ( n + 1 ) ) / 2 ;
+}
+
 
 
 
