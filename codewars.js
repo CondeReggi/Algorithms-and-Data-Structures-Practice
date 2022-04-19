@@ -763,8 +763,125 @@ function sumIntervals(intervals) {
   return sum
 }
 
+// Jaden Smith, the son of Will Smith, is the star of films such as The Karate Kid (2010) and After Earth (2013). Jaden is also known for some of his philosophy 
+// that he delivers via Twitter. When writing on Twitter, he is known for almost always capitalizing every word. For simplicity, you'll have to capitalize each word, 
+// check out how contractions are expected to be in the example below.
+// Your task is to convert strings to how they would be written by Jaden Smith. The strings are actual quotes from Jaden Smith, but they are not capitalized 
+// in the same way he originally typed them.
 
+// Example:
+// Not Jaden-Cased: "How can mirrors be real if our eyes aren't real"
+// Jaden-Cased:     "How Can Mirrors Be Real If Our Eyes Aren't Real"
 
+String.prototype.toJadenCase = function () {
+  let variable = this.split(" ");
+  variable = variable.map(x => x[0].toUpperCase() + x.substring(1, x.length));
+  return variable.join(" ");
+};
 
+// The Western Suburbs Croquet Club has two categories of membership, Senior and Open. They would like your help with an application form that will tell 
+// prospective members which category they will be placed.
 
+// To be a senior, a member must be at least 55 years old and have a handicap greater than 7. In this croquet club, handicaps range from -2 to +26; 
+// the better the player the lower the handicap.
 
+// Input
+// Input will consist of a list of pairs. Each pair contains information for a single potential member. Information consists of an integer for the person's 
+// age and an integer for the person's handicap.
+
+// Output
+// Output will consist of a list of string values (in Haskell and C: Open or Senior) stating whether the respective member is to be placed in the 
+// senior or open category.
+
+function openOrSenior(data){
+  return data.map( ([a,b]) => (a >= 55 && b > 7) ? "Senior" : "Open" )
+}
+
+// In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
+
+// Examples:
+// highAndLow("1 2 3 4 5");  // return "5 1"
+// highAndLow("1 2 -3 4 5"); // return "5 -3"
+// highAndLow("1 9 3 4 -5"); // return "9 -5"
+
+function highAndLow(numbers){
+  let arr = numbers.split(" ").map(x => parseInt(x));
+  let min = arr[0] > arr[1] ? arr[1] : arr[0];
+  let max = arr[0] < arr[1] ? arr[1] : arr[0];
+  
+  for (let i = 2 ; i < arr.length ; i++){
+    if( arr[i] > max ){
+      max = arr[i];
+    }
+    if( arr[i] < min ){
+      min = arr[i];
+    }
+  }
+  return `${max} ${min}`
+  
+  //OR
+  // numbers = numbers.split(' ').map(Number);
+  // return Math.max.apply(0, numbers) + ' ' + Math.min.apply(0, numbers);
+} 
+
+// Task:
+// Given a list of integers, determine whether the sum of its elements is odd or even.
+// Give your answer as a string matching "odd" or "even".
+// If the input array is empty consider it as: [0] (array with a zero).
+
+// Examples:
+// Input: [0]
+// Output: "even"
+
+// Input: [0, 1, 4]
+// Output: "odd"
+
+function oddOrEven(array) {
+   return array.reduce( (acc, sig) => acc + sig , 0) % 2 === 0 ? "even" : "odd"
+}
+
+// Enough is enough!
+// Alice and Bob were on a holiday. Both of them took many pictures of the places they've been, and now they want to show Charlie their entire collection. However, 
+// Charlie doesn't like these sessions, since the motive usually repeats. He isn't fond of seeing the Eiffel tower 40 times. He tells them that he will only sit 
+// during the session if they show the same motive at most N times. Luckily, Alice and Bob are able to encode the motive as a number. Can you help them to remove 
+// numbers such that their list contains each number only up to N times, without changing the order?
+
+// Task
+// Given a list and a number, create a new list that contains each number of lst at most N times without reordering. For example if the input number is 2, and the 
+// input list is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2], drop the next [1,2] since this would lead to 1 and 2 being in the result 3 times, and then take 3, which 
+// leads to [1,2,3,1,2,3]. With list [20,37,20,21] and number 1, the result would be [20,37,21].
+
+function deleteNth(arr,x){
+  var obj = {}
+  return arr.filter(function(number){
+    obj[number] = obj[number] ? obj[number] + 1 : 1
+    return obj[number] <= x
+  })
+}
+
+// Make a program that filters a list of strings and returns a list with only your friends name in it.
+// If a name has exactly 4 letters in it, you can be sure that it has to be a friend of yours! Otherwise, you can be sure he's not...
+// Ex: Input = ["Ryan", "Kieran", "Jason", "Yous"], Output = ["Ryan", "Yous"]
+// i.e.
+
+// friend ["Ryan", "Kieran", "Mark"] `shouldBe` ["Ryan", "Mark"]
+
+function friend(friends){
+  return friends.filter(x => x.length === 4)
+}
+
+// Your task is to sort a given string. Each word in the string will contain a single number. This number is the position the word should have in the result.
+// Note: Numbers can be from 1 to 9. So 1 will be the first word (not 0).
+// If the input string is empty, return an empty string. The words in the input String will only contain valid consecutive numbers.
+
+// Examples
+// "is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est"
+
+function order(words){
+  let array = words.split(" ");
+  let cadena = '';
+  for(let i = 1; i <= array.length ; i++){
+    cadena += `${array.filter(x => x.includes(i))} `;
+  }
+  return cadena.trim();
+}
