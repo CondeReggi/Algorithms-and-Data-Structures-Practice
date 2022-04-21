@@ -923,3 +923,64 @@ function twoSum(numbers, target) {
     }
   }
 }
+
+// Given two arrays of strings a1 and a2 return a sorted array r in lexicographical order of the strings of a1 which are substrings of strings of a2.
+
+// Example 1:
+// a1 = ["arp", "live", "strong"]
+// a2 = ["lively", "alive", "harp", "sharp", "armstrong"]
+
+function inArray(array1,array2){
+  return array1.filter(x => array2.some(y => y.includes(x))).sort()
+}
+
+// There is an array with some numbers. All numbers are equal except for one. Try to find it!
+
+// findUniq([ 1, 1, 1, 2, 1, 1 ]) === 2
+// findUniq([ 0, 0, 0.55, 0, 0 ]) === 0.55
+// It’s guaranteed that array contains at least 3 numbers.
+// The tests contain some very huge arrays, so think about performance.
+// This is the first kata in series:
+
+function findUniq(arr) {
+  let obj = {}
+  for (let i = 0; i < arr.length; i++) {
+    obj[arr[i]] = obj[arr[i]] + 1 || 1
+  }
+  let number;
+  Object.keys(obj).forEach(x => {
+    if (obj[x] == 1) {
+      number = x;
+    }
+  })
+  return Number(number);
+  
+  //OR =>  return arr.find(n => arr.indexOf(n) === arr.lastIndexOf(n));
+}
+
+// In this simple Kata your task is to create a function that turns a string into a Mexican Wave. You will be passed a string and you must return 
+// that string in an array where an uppercase letter is a person standing up
+
+// Example
+// wave("hello") => ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+
+function wave(str){
+  let arr = [];
+  str.split("").forEach( (x,i) => { 
+    if (x !== " ") {
+      arr.push( `${ str.substring(0, i) }${ str[i].toUpperCase() }${str.substring(i + 1, str.length )}` )
+    }
+  });
+  return arr;
+}
+
+// Write a function that when given a URL as a string, parses out just the domain name and returns it as a string. For example:
+// url = "http://github.com/carbonfive/raygun" -> domain name = "github"
+
+function domainName(url){
+  let link = url.split("//")[1].split("www.");
+  if( link[0] === "" ) {
+    link.shift();
+  };
+  return link[0].split('.')[0];
+}
