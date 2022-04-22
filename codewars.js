@@ -984,3 +984,100 @@ function domainName(url){
   };
   return link[0].split('.')[0];
 }
+
+// Digital root is the recursive sum of all the digits in a number.
+// Given n, take the sum of the digits of n. If that value has more than one digit, 
+// continue reducing in this way until a single-digit number is produced. The input will be a non-negative integer.
+
+// Examples
+//    16  -->  1 + 6 = 7
+//   942  -->  9 + 4 + 2 = 15  -->  1 + 5 = 6
+
+function digital_root(n) {
+  let a = n.toString().split("").reduce((a,b) => Number(b) + Number(a), 0);
+  if (a > 9) {
+    return digital_root(a);
+  }
+  return  a;
+}
+
+// If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+// Finish the solution so that it returns the sum of all the multiples of 3 or 5 below the number passed in. Additionally, if the number 
+// is negative, return 0 (for languages that do have them).
+// Note: If the number is a multiple of both 3 and 5, only count it once.
+
+function solution(number){
+  let a = 0;
+  for(let i = number - 1 ; i > 0 ; i--){
+    if( i % 3 === 0 || i % 5 === 0 ) a += i;
+  }
+  return a;
+}
+
+// Write a function named first_non_repeating_letter that takes a string input, and returns the first character that is not repeated anywhere in the string.
+// For example, if given the input 'stress', the function should return 't', since the letter t only occurs once in the string, and occurs first in the string.
+// As an added challenge, upper- and lowercase letters are considered the same character, but the function should return the correct case for the initial letter. For example, the input 'sTreSS' should return 'T'.
+// If a string contains all repeating characters, it should return an empty string ("") or None -- see sample tests.
+
+function firstNonRepeatingLetter(s) {
+  let arr1 = s.split("")
+  let arr = arr1.map(x => x.toLowerCase());
+  arr = arr.filter(x => arr.indexOf(x) === arr.lastIndexOf(x));
+  if (arr.length > 0 && arr1.indexOf(arr[0]) !== -1){
+    return arr[0];
+  }
+  return arr[0] ? arr[0].toUpperCase() : '';
+}
+
+// Your job is to write a function which increments a string, to create a new string.
+// If the string already ends with a number, the number should be incremented by 1.
+// If the string does not end with a number. the number 1 should be appended to the new string.
+// Examples:
+
+// foo -> foo1
+// foobar23 -> foobar24
+
+function incrementString (strng) {
+  let i = 0;
+  //Encontrar primer ocurrencia de numero
+  while(i < strng.length && isNaN(strng[i])){
+    i++;
+  }
+  let numero = strng.substring(i, strng.length);
+  let numeroAPoner = eval(`${numero} + 1`).toString();
+  let returnable = `${strng.substring(0,i)}`;
+  for(let i = 0; i < numero.length - numeroAPoner.length ; i++){
+    returnable += '0'
+  }
+  return returnable + numeroAPoner;
+}
+
+// The number 89 is the first integer with more than one digit that fulfills the property partially introduced in the title of this kata. What's the use of saying "Eureka"? Because this sum gives the same number.
+// In effect: 89 = 8^1 + 9^2
+// The next number in having this property is 135.
+// See this property again: 135 = 1^1 + 3^2 + 5^3
+// We need a function to collect these numbers, that may receive two integers a, b that defines the range [a, b] (inclusive) and outputs a list of the sorted numbers in the range that fulfills the property described above.
+// Let's see some cases:
+
+// sumDigPow(1, 10) == [1, 2, 3, 4, 5, 6, 7, 8, 9]
+// sumDigPow(1, 100) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 89]
+//If there are no numbers of this kind in the range [a, b] the function should output an empty list.
+// sumDigPow(90, 100) == []
+
+function sumDigPow(a, b) {
+  let arr = [];
+  for(let i = a; i <= b; i++){
+    if (i == calculateProperty(i.toString())) arr.push(i);
+  }
+  return arr;
+}
+
+const calculateProperty = (number) => {
+  let num = number.split("").map(x => Number(x)); // [1,3,4]
+  let sum = num.reduce( (a, b, i) => a + Math.pow(b, i + 1) , 0)
+  return sum;
+}
+
+
+
+
