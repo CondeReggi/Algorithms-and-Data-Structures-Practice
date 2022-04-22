@@ -1089,3 +1089,53 @@ function sortArray(array) {
   return array.map((x) => x % 2 ? odd.shift() : x);
 }
 
+// You are given a node that is the beginning of a linked list. This list always contains a tail and a loop. Your objective is to determine the length of the loop.
+//For example in the following picture the tail's size is 3 and the loop size is 12:
+// Use the `getNext' method or 'next' property to get the following node.
+// node.getNext()
+// node.next
+// Note: do NOT mutate the nodes!
+// Thanks to shadchnev, I broke all of the methods from the Hash class.
+// Don't miss dmitry's article in the discussion after you pass the Kata !! 
+
+function loop_size(node){
+  let arr = [];
+  let valor = node;
+  
+  while( arr.indexOf(valor) === -1 ){
+    arr.push(valor);
+    valor = valor.getNext();
+  }
+  return arr.length - arr.indexOf(valor)
+}
+
+// The marketing team is spending way too much time typing in hashtags.
+// Let's help them with our own Hashtag Generator!
+
+// Here's the deal:
+
+// It must start with a hashtag (#).
+// All words must have their first letter capitalized.
+// If the final result is longer than 140 chars it must return false.
+// If the input or the result is an empty string it must return false.
+// Examples
+// " Hello there thanks for trying my Kata"  =>  "#HelloThereThanksForTryingMyKata"
+// "    Hello     World   "                  =>  "#HelloWorld"
+// ""                                        =>  false
+
+function generateHashtag (str) {
+  if (str == " " || str == "" ) return false;
+  let arr = str.split("").map(x => x.trim()).join("");
+  return arr.lenth > 140 ? false : `#${arr}`;
+}
+
+// You need to write regex that will validate a password to make sure it meets the following criteria:
+// At least six characters long
+// contains a lowercase letter
+// contains an uppercase letter
+// contains a number
+// Valid passwords will only be alphanumeric characters.
+
+function validate(password) {
+  return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/.test(password);
+}
