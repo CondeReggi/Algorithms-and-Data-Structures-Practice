@@ -1139,3 +1139,157 @@ function generateHashtag (str) {
 function validate(password) {
   return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/.test(password);
 }
+
+// This time we want to write calculations using functions and get the results. Let's have a look at some examples:
+// seven(times(five())); // must return 35
+// four(plus(nine())); // must return 13
+// eight(minus(three())); // must return 5
+// six(dividedBy(two())); // must return 3
+// Requirements:
+
+// There must be a function for each number from 0 ("zero") to 9 ("nine")
+// There must be a function for each of the following mathematical operations: plus, minus, times, dividedBy
+// Each calculation consist of exactly one operation and two numbers
+// The most outer function represents the left operand, the most inner function represents the right operand
+// Division should be integer division. For example, this should return 2, not 2.666666...:
+// eight(dividedBy(three()));
+
+function zero(a) {
+  return a !== undefined ? parseInt(0) : "0"
+}
+
+function one(a) {
+  return a !== undefined ? eval("1" + a) : "1"
+}
+function two(a) {
+  return a !== undefined ? eval("2" + a) : "2"
+}
+function three(a) {
+  return a !== undefined ? eval("3" + a) : "3"
+}
+function four(a) {
+  return a !== undefined ? eval("4" + a) : "4"
+}
+function five(a) {
+  return a !== undefined ? eval("5" + a) : "5"
+}
+function six(a) {
+  return a !== undefined ? eval("6" + a) : "6"
+}
+function seven(a) {
+  return a !== undefined ? eval("7" + a) : "7"
+}
+function eight(a) {
+  return a !== undefined ? eval("8" + a) : "8"
+}
+function nine(a) {
+  return a !== undefined ? eval("9" + a) : "9"
+}
+
+function plus(a) { 
+  return "+" + a }
+function minus(a) {
+  return "-" + a }
+function times(a) {
+  return "*" + a }
+function dividedBy(a) {
+  return "/" + a }
+
+// Given the string representations of two integers, return the string representation of the sum of those integers.
+// For example:
+// sumStrings('1','2') // => '3'
+
+function sumStrings(a,b) {
+  //Tengo que borrar los ceros a la izquierda para usar el eval
+  let arrayDeA = a.split("");
+  let arrayDeB = b.split("");
+  let i = 0;
+  while(arrayDeA[i] == "0"){
+    arrayDeA.shift();
+  }
+  i = 0;
+  while(arrayDeA[i] == "0"){
+    arrayDeB.shift();
+  }
+  a = arrayDeA.join("");
+  b = arrayDeB.join("");
+  
+  //Use big int to values — which are too large (acept string)
+  
+  return (BigInt(a || 0) + BigInt(b || 0)).toString();
+  // OR return (BigInt(a) + BigInt(b)).toString(); 
+}
+
+// In this kata you have to correctly return who is the "survivor", ie: the last element of a Josephus permutation.
+// Basically you have to assume that n people are put into a circle and that they are eliminated in steps of k elements, like this:
+// josephus_survivor(7,3) => means 7 people in a circle;
+// one every 3 is eliminated until one remains
+// [1,2,3,4,5,6,7] - initial sequence
+// [1,2,4,5,6,7] => 3 is counted out
+// [1,2,4,5,7] => 6 is counted out
+// [1,4,5,7] => 2 is counted out
+// [1,4,5] => 7 is counted out
+// [1,4] => 5 is counted out
+// [4] => 1 counted out, 4 is the last element - the survivor!
+// The above link about the "base" kata description will give you a more thorough insight about the origin of this kind of permutation, but basically that's all that there is to know to solve this kata.
+
+function josephusSurvivor(n,k){
+  if(n > 1){
+    return (josephusSurvivor(n - 1, k) + k - 1) % n + 1;
+  }
+  return 1
+}
+
+// The prime numbers are not regularly spaced. For example from 2 to 3 the gap is 1. From 3 to 5 the gap is 2. From 7 to 11 it is 4. Between 2 and 50 we have the following pairs of 2-gaps primes: 3-5, 5-7, 11-13, 17-19, 29-31, 41-43
+// A prime gap of length n is a run of n-1 consecutive composite numbers between two successive primes (see: http://mathworld.wolfram.com/PrimeGaps.html).
+// We will write a function gap with parameters:
+// g (integer >= 2) which indicates the gap we are looking for
+// m (integer > 2) which gives the start of the search (m inclusive)
+// n (integer >= m) which gives the end of the search (n inclusive)
+// n won't go beyond 1100000.
+// In the example above gap(2, 3, 50) will return [3, 5] or (3, 5) or {3, 5} which is the first pair between 3 and 50 with a 2-gap.
+// So this function should return the first pair of two prime numbers spaced with a gap of g between the limits m, n if these numbers exist otherwise `nil or null or None or Nothing (or ... depending on the language).
+
+// Examples:
+// - gap(2, 5, 7) --> [5, 7] or (5, 7) or {5, 7}
+// gap(2, 5, 5) --> nil. In C++ {0, 0}. In F# [||]. In Kotlin, Dart and Prolog return []`
+// gap(4, 130, 200) --> [163, 167] or (163, 167) or {163, 167}
+
+function gap(g, m, n) {
+  let arr = []
+  let j = m + g - 1;
+  let booleano = false;
+  while(j <= n){
+    if(esPrimo(j) && arr.length < 2){
+      arr.push(j);
+      booleano = true;
+    }
+    console.log(g ,"ocurrencia: ", j - m, "valor: ", j, "largo del array: ", arr.length, "array: ", arr)
+    j += g;
+  }
+  return arr.length !== 0 ? arr : null;
+}
+function esPrimo(a){
+  for (let i = 2; i < a; i++){
+    if( a % i === 0) return false;
+  }
+  return true;
+}
+
+// The rgb function is incomplete. Complete it so that passing in RGB decimal values will result in a hexadecimal representation being returned. Valid decimal values for RGB are 0 - 255. Any values that fall out of that range must be rounded to the closest valid value.
+// Note: Your answer should always be 6 characters long, the shorthand with 3 will not work here.
+// The following are examples of expected output values:
+
+// rgb(255, 255, 255) // returns FFFFFF
+// rgb(255, 255, 300) // returns FFFFFF
+// rgb(0,0,0) // returns 000000
+// rgb(148, 0, 211) // returns 9400D3
+
+function rgb(r, g, b){
+  let array = [r , g , b];
+  return array.map( x => {
+    if (x < 0) x = 0;
+    if(x > 255) x = 255;
+    return x.toString(16).padStart(2, '0').toUpperCase()
+  } ).join('');
+}
