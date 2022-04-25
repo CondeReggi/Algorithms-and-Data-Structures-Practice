@@ -1293,3 +1293,50 @@ function rgb(r, g, b){
     return x.toString(16).padStart(2, '0').toUpperCase()
   } ).join('');
 }
+
+// For a given chemical formula represented by a string, count the number of atoms of each element contained in the molecule and return an object (associative array in PHP, Dictionary<string, int> in C#, Map<String,Integer> in Java).
+// For example:
+// var water = 'H2O';
+// parseMolecule(water); // return {H: 2, O: 1}
+// var magnesiumHydroxide = 'Mg(OH)2';
+// parseMolecule(magnesiumHydroxide); // return {Mg: 1, O: 2, H: 2}
+// var fremySalt = 'K4[ON(SO3)2]2';
+// parseMolecule(fremySalt); // return {K: 4, O: 14, N: 2, S: 4}
+// As you can see, some formulas have brackets in them. The index outside the brackets tells you that you have to multiply count of each atom inside the bracket on this index. For example, in Fe(NO3)2 you have one iron atom, two nitrogen atoms and six oxygen atoms.
+
+function parseMolecule(formula) {
+  let arr = formula.split("");
+  let obj = {}
+  let solo_letras = arr.filter(x => RegExp(/^[A-Z]/).test(x));
+  
+  for(let i = 0; i < solo_letras.length ; i++){
+    let indexOfletraEnArray = arr.indexOf(solo_letras[i]);
+    
+    if(arr[indexOfletraEnArray + 1] && !RegExp(/^[A-Z]/).test(arr[indexOfletraEnArray + 1])){
+      obj[solo_letras[i]] = parseInt(arr[indexOfletraEnArray + 1])
+    }else{
+      obj[solo_letras[i]] = 1
+    }
+  }
+  return obj
+}
+
+// The Fibonacci numbers are the numbers in the following integer sequence (Fn):
+// 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, ...
+// such as
+// F(n) = F(n-1) + F(n-2) with F(0) = 0 and F(1) = 1.
+// Given a number, say prod (for product), we search two Fibonacci numbers F(n) and F(n+1) verifying
+// F(n) * F(n+1) = prod.
+// Your function productFib takes an integer (prod) and returns an array:
+// [F(n), F(n+1), true] or {F(n), F(n+1), 1} or (F(n), F(n+1), True)
+
+function productFib(prod){
+  var a = 1
+  var b = 1;
+  while (a*b < prod) {
+    var next = a+b;
+    a = b;
+    b = next;
+  }
+  return [a, b, a*b===prod];
+}
