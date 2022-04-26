@@ -1340,3 +1340,89 @@ function productFib(prod){
   }
   return [a, b, a*b===prod];
 }
+
+// For this exercise you will be strengthening your page-fu mastery. You will complete the PaginationHelper class, which is a utility class helpful for querying paging information related to an array.
+// The class is designed to take in an array of values and an integer indicating how many items will be allowed per each page. The types of values contained within the collection/array are not relevant.
+// The following are some examples of how this class is used:
+
+// TODO: complete this object/class
+
+// The constructor takes in an array of items and a integer indicating how many
+// items fit within a single page
+function PaginationHelper(collection, itemsPerPage){
+  this.collection = collection;
+  this.items = itemsPerPage;
+}
+
+// returns the number of items within the entire collection
+PaginationHelper.prototype.itemCount = function() {
+  return this.collection.length;
+}
+
+// returns the number of pages
+PaginationHelper.prototype.pageCount = function() {
+  return Math.ceil(this.collection.length / this.items);
+}
+
+// returns the number of items on the current page. page_index is zero based.
+// this method should return -1 for pageIndex values that are out of range
+PaginationHelper.prototype.pageItemCount = function(pageIndex) {
+  let numberOfIndex = this.items * pegeIndex; 
+  
+  if(numberOfIndex > this.itemCount() || pageIndex < 0) {
+    return -1;
+  }else{
+    if(pageIndex === this.pageCount){
+      return (this.Count() - (this.items * (this.itemCount() - 1)))
+    }else{
+      return this.items
+    }
+  }
+}
+
+// determines what page an item is on. Zero based indexes
+// this method should return -1 for itemIndex values that are out of range
+PaginationHelper.prototype.pageIndex = function(itemIndex) {
+  if(itemIndex > this.itemCount() - 1 || itemIndex < 0) return -1
+  
+  return Math.ceil(itemIndex / this.items) - 1
+}
+
+// Complete the solution so that it strips all text that follows any of a set of comment markers passed in. Any whitespace at the end of the line should also be stripped out.
+// Example:
+
+// Given an input string of:
+// apples, pears # and bananas
+// grapes
+// bananas !apples
+
+// The output expected would be:
+// apples, pears
+// grapes
+// bananas
+
+function solution(input, markers) {
+  markers.push(" ")
+  let array = JSON.stringify(markers).replace(/(["',])/g,"");
+  let regEx = new RegExp(array);
+  array = input.split(regEx);
+  return array.filter(x => x).join("");
+};
+
+//OR 
+return input.split('\n').map(line => markers.reduce((line, marker) => line.split(marker)[0].trim(), line)).join('\n')
+
+// The maximum sum subarray problem consists in finding the maximum sum of a contiguous subsequence in an array or list of integers:
+// maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+// should be 6: [4, -1, 2, 1]
+// Easy case is when the list is made up of only positive numbers and the maximum sum is the sum of the whole array. If the list is made up of only negative numbers, return 0 instead.
+
+var maxSequence = function(arr){
+  var max = 0;
+  var cur = 0;
+  arr.forEach(function(i){
+    cur = Math.max(0, cur + i);
+    max = Math.max(max, cur);
+  });
+  return max;
+}
