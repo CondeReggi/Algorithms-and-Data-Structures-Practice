@@ -1426,3 +1426,60 @@ var maxSequence = function(arr){
   });
   return max;
 }
+
+// Write an algorithm that will identify valid IPv4 addresses in dot-decimal format. IPs should be considered valid if they consist of four octets, with values between 0 and 255, inclusive.
+// Valid inputs examples:
+// Examples of valid inputs:
+// 1.2.3.4
+// 123.45.67.89
+
+function isValidIP(str) {
+  let arr = str.replace(/[\n e+-]/g, "a").split(".").map(x => {
+    return x !== '' && x[0] == "0" && x.length > 1 ? NaN : Number(x)
+  });
+  return arr.length === 4 && arr.every(x => !isNaN(x) && x >= 0 && x <= 255);
+}
+
+// Given an n x n array, return the array elements arranged from outermost elements to the middle element, traveling clockwise.
+
+// array = [[1,2,3],
+//          [4,5,6],
+//          [7,8,9]]
+// snail(array) #=> [1,2,3,6,9,8,7,4,5]
+
+snail = function(array) {
+  const arr = [];
+  while (array.length) { //Mientras haya algo en el array 
+    arr.push(
+      ...array.shift(),
+      ...array.map(a => a.pop()),
+      ...(array.pop() || []).reverse(),
+      ...array.map(a => a.shift()).reverse()
+    );
+  }
+  return arr;
+}
+
+// For a given list [x1, x2, x3, ..., xn] compute the last (decimal) digit of x1 ^ (x2 ^ (x3 ^ (... ^ xn))).
+// E. g.,
+// lastDigit([3, 4, 2]) === 1
+// because 3 ^ (4 ^ 2) = 3 ^ 16 = 43046721.
+// Beware: powers grow incredibly fast. For example, 9 ^ (9 ^ 9) has more than 369 millions of digits. lastDigit has to deal with such numbers efficiently.
+// Corner cases: we assume that 0 ^ 0 = 1 and that lastDigit of an empty list equals to 1.
+
+function lastDigit(as){
+  if( as.length === 0 ){
+    return 1;
+  }
+  if( as.length === 1 ){
+    return as.shift();
+  }  
+  let last = as.pop();
+  return Math.pow( lastDigit(as) , last )
+  
+  let first = as.shift();
+  let exp = as.reduce( (acc, sig) => acc*sig, 1);
+  
+  return Math.pow(first, exp);
+}
+
