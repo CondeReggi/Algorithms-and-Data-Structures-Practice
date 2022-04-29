@@ -1483,3 +1483,101 @@ function lastDigit(as){
   return Math.pow(first, exp);
 }
 
+// Description
+// Middle Earth is about to go to war. The forces of good will have many battles with the forces of evil. Different races will certainly be involved. Each race has a certain worth when battling against others. On the side of good we have the following races, with their associated worth:
+
+// Hobbits: 1
+// Men: 2
+// Elves: 3
+// Dwarves: 3
+// Eagles: 4
+// Wizards: 10
+// On the side of evil we have:
+
+// Orcs: 1
+// Men: 2
+// Wargs: 2
+// Goblins: 2
+// Uruk Hai: 3
+/// Trolls: 5
+// Wizards: 10
+
+// Although weather, location, supplies and valor play a part in any battle, if you add up the worth of the side of good and compare it with the worth of the side of evil, the side with the larger worth will tend to win.
+// Thus, given the count of each of the races on the side of good, followed by the count of each of the races on the side of evil, determine which side wins.
+// Input:
+// The function will be given two parameters. Each parameter will be a string of multiple integers separated by a single space. Each string will contain the count of each race on the side of good and evil.
+// The first parameter will contain the count of each race on the side of good in the following order:
+// Hobbits, Men, Elves, Dwarves, Eagles, Wizards.
+// The second parameter will contain the count of each race on the side of evil in the following order:
+// Orcs, Men, Wargs, Goblins, Uruk Hai, Trolls, Wizards.
+// All values are non-negative integers. The resulting sum of the worth for each side will not exceed the limit of a 32-bit integer.
+// Output:
+// Return "Battle Result: Good triumphs over Evil" if good wins, "Battle Result: Evil eradicates all trace of Good" if evil wins, or "Battle Result: No victor on this battle field" if it ends in a tie.
+
+function goodVsEvil(good, evil){
+  const ValuesEvil = [1,2,2,2,3,5,10];
+  const ValuesGood = [1,2,3,3,4,10];
+  
+  const countEvil = evil.split(" ").reduce( (acc, sig, index) =>  acc+(Number(sig)*ValuesEvil[index]) , 0);
+  const countGood = good.split(" ").reduce( (acc, sig, index) =>  acc+(Number(sig)*ValuesGood[index]) , 0);
+  
+  if(countEvil === countGood){
+    return 'Battle Result: No victor on this battle field'
+  }else if(countEvil > countGood){
+    return 'Battle Result: Evil eradicates all trace of Good'
+  }else{
+    return 'Battle Result: Good triumphs over Evil'
+  }
+}
+
+// Write a function that takes a positive integer and returns the next smaller positive integer containing the same digits.
+// For example:
+
+// nextSmaller(21) == 12
+// nextSmaller(531) == 513
+// nextSmaller(2071) == 2017
+// Return -1 (for Haskell: return Nothing, for Rust: return None), when there is no smaller number that contains the same digits. Also return -1 when the next smaller number with the same digits would require the leading digit to be zero.
+
+// nextSmaller(9) == -1
+// nextSmaller(111) == -1
+// nextSmaller(135) == -1
+// nextSmaller(1027) == -1 // 0721 is out since we don't write numbers with leading zeros
+// some tests will include very large numbers.
+// test data only employs positive integers.
+
+const anagrams = str => {
+  if (str.length <= 2)
+  {
+      return str.length === 2 ? [str, str[1] + str[0]] : [str];
+  }
+  else
+  {
+      return str.split('').reduce((acc, letter, i) =>
+      acc.concat(anagrams(str.slice(0, i) + str.slice(i + 1)).map(val => letter + val)), []);
+  }
+};
+
+function nextSmaller(n) {
+  let anagram = anagrams(n.toString());
+  anagram = anagram.filter(x => Number(x) < Number(n));
+  anagram = anagram.map(x => {
+    if(x[0] == "0"){
+      return -1
+    }else{
+      return Number(x)
+    }
+  }).sort((a,b) => b - a);
+  return anagram.shift() || -1;
+}
+
+// OR
+
+const nextSmaller = n => {
+  let num = Array.from(String(n), Number);
+  //Prev lexicographical permutation algorithm
+  let pivot = num.reduce((max,_,i) => num[i - 1] > num[i] ? i : max, 0);
+  let swap  = num.reduce((max,_,i) => num[i] < num[pivot - 1] ? i : max, 0);
+  [num[swap], num[pivot - 1]] = [num[pivot - 1], num[swap]];
+  return pivot && num[0] ? Number(num.concat(num.splice(pivot).reverse()).join('')) : -1;
+};
+
