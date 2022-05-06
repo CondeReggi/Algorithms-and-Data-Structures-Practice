@@ -1652,3 +1652,62 @@ const solution = (num) => {
   return str;
 };
 
+// What is an anagram? Well, two words are anagrams of each other if they both contain the same letters. For example:
+// 'abba' & 'baab' == true
+// 'abba' & 'bbaa' == true
+// 'abba' & 'abbba' == false
+// 'abba' & 'abca' == false
+// Write a function that will find all the anagrams of a word from a list. You will be given two inputs a word and an array with words. You should return an array of all the anagrams or an empty array if there are none. For example:
+// anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) => ['aabb', 'bbaa']
+
+function objetivizar(palabra){
+  let objetoInicial = {}
+  for(let i = 0 ; i < palabra.length ; i++){
+    objetoInicial[palabra[i]] = objetoInicial[palabra[i]] ? objetoInicial[palabra[i]] + 1 : 1
+  }
+  return objetoInicial;
+}
+
+function anagrams(word, words) {
+  word = objetivizar(word);
+  let boleano = false;
+  let arr = [];
+  for(let palabra of words){
+    let obj = objetivizar(palabra);
+    
+    Object.keys(obj).forEach(x => {
+      if(obj[x] !== word[x]){
+        boleano = true;
+      } 
+    })
+    
+    if(!boleano){
+      arr.push( Object.Keys(obj).join("") )
+    }
+    
+  }
+  return arr;
+}
+
+// OR
+
+function anagrams(word, words) {
+  word = word.split('').sort().join('');
+  return words.filter(function(v) {return word == v.split('').sort().join('');});
+}
+
+// Write a function that counts how many different ways you can make change for an amount of money, given an array of coin denominations. For example, there are 3 ways to give change for 4 if you have coins with denomination 1 and 2:
+// 1+1+1+1, 1+1+2, 2+2.
+// The order of coins does not matter:
+// 1+1+2 == 2+1+1
+// Also, assume that you have an infinite amount of coins.
+
+var countChange = function(money, coins) {
+  if(money < 0 || coins.length === 0)
+    return 0
+  else if(money === 0)
+    return 1
+  else
+    return countChange(money - coins[0], coins) + countChange(money, coins.slice(1))
+}
+
