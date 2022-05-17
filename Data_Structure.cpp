@@ -166,3 +166,81 @@ class SinglyLinkedListNode {
         }
         return true;
     }
+
+   
+int findMergeNode(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
+    SinglyLinkedListNode *tempB; 
+    while(head1 != NULL){ 
+        tempB = head2; 
+        while(tempB!=NULL){ 
+            if(tempB == head1){ 
+                return tempB->data; 
+            } 
+            tempB = tempB->next; 
+        } 
+        head1 = head1->next; 
+    } 
+    
+    return head1->data;
+}
+
+SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
+    SinglyLinkedListNode *p = head1;
+    SinglyLinkedListNode *q = head2;
+    SinglyLinkedListNode *r = head1;
+    
+    if(head1==NULL)
+    {
+        return head2;
+    }
+    else if(head2==NULL)
+    {
+        return head1;
+    }
+
+    if (head1->data <= head2->data)  
+    {  
+        r = head1;  
+        r->next = mergeLists(head1->next, head2);  
+    }  
+    else
+    {  
+        r = head2;  
+        r->next = mergeLists(head1, head2->next);  
+    }  
+    return r;
+}
+
+DoublyLinkedListNode* sortedInsert(DoublyLinkedListNode* llist, int data) {
+    DoublyLinkedListNode* nuevo = new DoublyLinkedListNode(data);
+    nuevo->data = data;
+    nuevo->next = nuevo->prev = NULL;
+    
+    if(llist == NULL){
+        return nuevo;
+    }else{
+        
+        if(llist->data > data){
+            nuevo->next = llist;
+            llist->prev = nuevo;
+            return nuevo;
+        }
+        
+        DoublyLinkedListNode* aux = llist;
+        while(aux->next != NULL && aux->next->data < data){
+            aux = aux->next;
+        }
+        
+        if(aux->next == NULL){
+            aux->next = nuevo;
+            nuevo->prev = aux;
+            return llist;
+        }
+        
+        nuevo->next = aux->next;
+        aux->next->prev = nuevo;
+        nuevo->prev = aux;
+        aux->next = nuevo;
+        return llist;
+    }
+}
