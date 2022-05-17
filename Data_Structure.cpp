@@ -296,4 +296,63 @@ class SinglyLinkedListNode {
         }
     }
 
+    void levelOrder(Node * root) {
+        queue<Node*> cola;
+        cola.push(root);
+        
+        while(!cola.empty()){
+            Node* front = cola.front();
+            cola.pop();
+            
+            cout << front->data << " ";
+            
+            if(front->left) cola.push(front->left);
+            if(front->right) cola.push(front->right);
+        }
+    }
+
+    Node * insert(Node * root, int data) {
+        if(root == NULL){
+            Node* newNode = new Node(data);
+            newNode->left = newNode->right = NULL;
+            return newNode;
+        }
+        
+        if(root->data < data){
+            root->right = insert(root->right, data);
+        }else if( root->data > data){
+            root->left = insert(root->left, data);
+        }
+        
+        return root;
+    }
+
+    void decode_huff(node * root, string s) {
+        node* p = root;
+
+        for(int i = 0 ; s[i]; i++) {
+
+            if(s[i] == '0') {
+                p = p->left;
+            }
+            else {
+                p = p->right;
+            }
+
+            if(p->left == NULL && p->right == NULL) {
+                printf("%c", p->data);
+                p = root;
+            }
+        }
+        printf("\n");
+
+        // decode_huff(root->left, s + "0");
+        // decode_huff(root->right, s + "1");
+
+        // root->data = decode(s);
+        // cout << root->data << " ";
+    }
+
+    
+
 
