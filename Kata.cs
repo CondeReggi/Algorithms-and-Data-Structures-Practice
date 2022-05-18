@@ -123,4 +123,42 @@ public class Kata
     }
     return facts;
   }
+	
+  public static string DecipherThis(string s)
+  {
+    if(s == "")
+      return "";
+    
+    var arr = s.Split(' '); // Seguro.
+    string result = "";
+    
+    foreach(string palabra in arr){     
+      int i = 0;
+      int variable;
+      
+      while(i < palabra.Length && Int32.TryParse( palabra[i].ToString() , out variable )){
+        i++;
+      }
+      
+      Console.WriteLine($"{i}");
+      
+      result += Convert.ToChar(Int32.Parse(palabra.Substring(0, i)));
+      
+      if(i < palabra.Length){
+        string frase = palabra.Substring(i, palabra.Length - (i) );
+        Console.WriteLine(frase);
+        char[] charsito = frase.ToCharArray();
+        
+        char aux = charsito[0];
+        charsito[0] = charsito[charsito.Length - (1)];
+        charsito[charsito.Length - (1)] = aux;
+        
+        result += new string( charsito );
+      }
+      
+      result += " ";
+    }
+    
+    return result.Trim(); // Implement me! :)
+  }
 }
