@@ -65,4 +65,62 @@ public class Kata
   {
     return Regex.IsMatch(phoneNumber, @"^\(\d{3}\) \d{3}-\d{4}\z");
   }
+  
+  public static string ToWeirdCase(string s)
+  {
+    string result = "";
+    string[] arr = s.Split(' ');
+    
+    foreach(string word in arr){
+      for(int index = 0; index < word.Length ; index++){
+        result += index % 2 == 0 ? word[index].ToString().ToUpper() : word[index].ToString().ToLower();
+      }
+      result += " ";
+    }
+    
+    return result.Substring(0, result.Length - 1);
+  }
+  
+  public static bool isPrime(int number){
+    int optimus = 2;
+    while(optimus < number){
+      if(number % optimus == 0){
+        return false;
+      }
+      optimus++;
+    }
+    return true;
+  }
+  
+	public static string factors(int lst) {
+    // Console.WriteLine(lst);
+    string facts = "";
+    int aux = lst;
+    int index = 2;
+    while(index <= aux){
+      // Console.WriteLine($"{aux} y {index}");
+      if(aux % index == 0 && isPrime(index)){
+        facts += $"{index} ";
+        aux = aux / index;
+        index = 2;
+      }else{
+        index++;
+      }
+    }
+    
+    var arr = facts.Trim().Split(' ').Select(x => Int32.Parse(x));
+    var conLinq = arr.Distinct();
+    facts = ""; 
+    
+    foreach(var valor in conLinq){
+      int cantidad = arr.Where(y => y == valor).Count();
+        
+      if(cantidad == 1){
+        facts += $"({valor})";
+      }else{
+        facts += $"({valor}**{cantidad})";
+      }
+    }
+    return facts;
+  }
 }
