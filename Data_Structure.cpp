@@ -353,6 +353,57 @@ class SinglyLinkedListNode {
         // cout << root->data << " ";
     }
 
-    
+    void topView(Node * root) {
+        if (root == NULL)
+            return;
+        
+        map<int,int> lista;
+        queue<pair<int, Node *>> cola;
+        int n = 0;
+        cola.push({n, root});
+        
+        pair<int, Node *> aux = {n, root};
+        
+        while(!cola.empty()){
+            // if(lista.count(n) == 0){
+            //     lista.insert({root->data , n});
+            // }
+            
+            if(lista.count(aux.first) == 0){
+                lista.insert({aux.first, aux.second->data});
+            }
+            
+            if(aux.second->right != NULL){
+                cola.push({aux.first + 1, aux.second->right});
+            }
+            if(aux.second->left != NULL){
+                cola.push({aux.first - 1, aux.second->left});
+            }
+            
+            cola.pop();
+            aux = cola.front();
+        }
+        
+        for(const auto& elem : lista){
+            std:cout << elem.second << " ";
+        }
+    }
+
+    Node *lca(Node *root, int v1,int v2) {
+		if(root == NULL){
+            return NULL;
+        }
+        
+        if(root->data < v2 && root->data < v1){
+            return lca(root->right, v1, v2);
+        }
+        
+        if(root->data > v2 && root->data > v1){
+            return lca(root->left, v1, v2);
+        }
+        
+        return root;
+    }
+
 
 
