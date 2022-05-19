@@ -170,3 +170,24 @@ function timeConversion(s) {
             (arr[0] == 12 ? '00' : arr[0]);
     return arr.join(':');
 }
+
+function gradingStudents(grades) {
+    let arrayToReturn = [];
+    let index = 0;
+    for(let x of grades){
+        let aux = x;
+        
+        while(aux % 5 !== 0){
+            aux++;
+        }
+        
+        if( aux - x < 3 && aux >= 38){
+            arrayToReturn.push(aux);
+        }else{
+            arrayToReturn.push(x);
+        }
+        index++;
+    }
+    return arrayToReturn;
+}
+
