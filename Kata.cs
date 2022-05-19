@@ -161,4 +161,54 @@ public class Kata
     
     return result.Trim(); // Implement me! :)
   }
+	
+  public static int[] PartsSums(int[] ls)
+  {
+  	int[] arrayToReturn = new int[ls.Length + 1];
+        for (int index = 0; index <= ls.Length; index++)
+        {
+        	int valor = 0;
+                for (int j = index; j < ls.Length; j++)
+                {
+                    valor += ls[j];
+                }
+                arrayToReturn[index] = valor;
+        }
+        return arrayToReturn;
+ }
+	public static long factorial(long number)
+        {
+            if (number == 1)
+            {
+                return 1;
+            }
+            return number * factorial(number - 1);
+        }
+
+        public static string Decomp(int n)
+        {
+            long factorialN = factorial(Convert.ToInt64(n));
+            List<string> lista = new List<string>();
+
+            for (int index = 2; index <= factorialN; index++)
+            {
+                bool variable = (factorialN % index == 0 && isPrime(index));
+                int exponente = 0;
+                while (factorialN % index == 0 && isPrime(index))
+                {
+                    factorialN = factorialN / index;
+                    exponente++;
+                }
+                if (exponente == 1 && variable)
+                {
+                    lista.Add(index.ToString());
+                }
+                else if (variable)
+                {
+                    lista.Add($"{index}^{exponente}");
+                }
+            }
+            return String.Join(" * ", lista);
+        }
+	
 }
