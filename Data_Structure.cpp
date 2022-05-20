@@ -405,5 +405,70 @@ class SinglyLinkedListNode {
         return root;
     }
 
+Node* buildTree(vector<vector<int>> indexes){
+    Node* tree = new Node(1,1); //Data 1 y altura 1
+    queue<Node*> q;
+    q.push(tree);
+    int index = 0;
+    
+    while(!q.empty()){
+        Node* node = q.front(); //Front obtiene el valor
+        
+        if(indexes[index][0] != -1){
+            node->left = new Node(indexes[index][0], node->depth - 1);
+            q.push(node->left);
+        }
+        if(indexes[index][1] != -1){
+            node->right = new Node(indexes[index][1], node->depth + 1);
+            q.push(node->right);
+        }
+        
+        q.pop(); //Lo saca
+        index ++;
+    }
+    return tree;
+}
+
+void inOrderTraversal(Node* root, vector<int> &res) //Crea un vector inOrder
+{
+    if(root == NULL) return;
+    inOrderTraversal(root->left, res);
+    res.push_back(root->data); //Agrega al final
+    inOrderTraversal(root->right, res);
+}
+
+vector<int> inOrderTraversal(Node* root) //Llama la funcion para llenar el vector inOrder
+{
+    vector<int> res;
+    inOrderTraversal(root, res);
+    return res;
+}
+
+void swapKMultipleDepth(Node* root, int k)
+{
+    queue<Node*> q; //Creo cola
+    q.push(root); //Agrego el nodo
+    
+    while(!q.empty()){
+        if(q.front()->left != NULL) q.push(q.front()->left);
+        if(q.front()->right != NULL) q.push(q.front()->right);
+        if(q.front()->depth % k == 0) {
+            Node* tmp = q.front()->left;
+            q.front()->left = q.front()->right;
+            q.front()->right = tmp;
+        }
+        q.pop();
+    }
+}
+
+vector<vector<int>> swapNodes(vector<vector<int>> indexes, vector<int> queries) {
+    vector<vector<int>> res;
+    Node* root = buildTree(indexes);
+    for(int i = 0; i < queries.size(); i++) {
+        swapKMultipleDepth(root, queries[i]);
+        res.push_back(inOrderTraversal(root));
+    }
+    return res;
+}
 
 
