@@ -294,3 +294,39 @@ class Solution
         textWriter.Close();
     }
 }
+
+public static string Codificar(int n)
+        {
+            int cantidad = (int)Math.Ceiling(Convert.ToDouble(n % 100000)); 
+            int cantidadLetras = (int)Math.Round(Convert.ToDouble(n / 100000)); 
+            int sumarValores = 0;
+
+            if (cantidadLetras > 0 && n >= (cantidadLetras) * 100000) {
+                n += cantidadLetras;
+
+                if (n >= (cantidadLetras + 1) * 100000)
+                {
+                    n += 1;
+                    cantidad = (int)Math.Ceiling(Convert.ToDouble(n % 100000));
+                    cantidadLetras++;
+                }
+                else
+                {
+                    sumarValores = (int)Math.Ceiling(Convert.ToDouble(n / 100000));
+                }
+
+            }
+            int count = (int)Math.Ceiling(Convert.ToDouble(cantidadLetras % 26)); 
+            int countDos = (int)Math.Ceiling(Convert.ToDouble(cantidadLetras / 26)); 
+
+            string result = "";
+            string modulo = (cantidad + sumarValores).ToString();
+
+            if (modulo.Length < 5)
+            {
+                modulo = new String('0', 5 - modulo.Length) + (cantidad + (int)Math.Ceiling(Convert.ToDouble(n / 100000))).ToString();
+            }
+
+            result = $"{Convert.ToChar(countDos + 65)}{Convert.ToChar(count + 65)}{modulo}";
+            return result;
+        }
