@@ -1777,3 +1777,48 @@ function UriBuilder(fullUrl){
   }
 }
 
+// TODO
+// Multiply two numbers! Simple!
+
+// Rules
+// The arguments are passed as strings.
+// The numbers will be very large
+// The arguments can be negative, in decimals, and might have leading and trailing zeros. e.g. "-01.300"
+// Answer should be returned as string
+// The returned answer should not have leading or trailing zeroes (when applicable) e.g. "0123" and "1.100" are wrong, they should be "123" and "1.1"
+// Zero should not be signed and "-0.0" should be simply returned as "0".
+
+function multiply(n, o){
+  if(o[0] === "0") return "0";
+  
+  //let countToFixed = o[o.length - 1] === "0" ? n.length : o.length;
+  
+  let multi = o;
+  let multiplicacion = eval(`${n}*${multi}`)
+  let oArr = o.split("").reverse();
+  
+  let toFix = 0;
+  while(oArr[0] && oArr[0] === "0"){
+    toFix++;
+    oArr.shift();
+  }
+  
+  if(toFix >= n.length){
+    toFix = n.length - n.indexOf(".");
+  }
+  
+  let result = toFix > 0 ? multiplicacion.toFixed(toFix - 1).toString() : multiplicacion.toString()
+  
+  if(result.includes("+") || result.includes("n")){
+    result = result.split(".");
+    const positionDot = parseInt(result[1].split("+")[1]);
+    const bigNumber = BigInt(parseFloat(result[1]));
+    
+    console.log(positionDot, bigNumber, result)
+    
+    //return `${result[0]}${bigNumber.toString().substring(0,positionDot-1)}.${bigNumber.substring(positionDot-1, bigNumber.toString().length - 1)}`
+    //TO DO
+  }else{
+    return result;
+  }
+}
