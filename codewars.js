@@ -1822,3 +1822,36 @@ function multiply(n, o){
     return result;
   }
 }
+
+// Consider an array/list of sheep where some sheep may be missing from their place. 
+// We need a function that counts the number of sheep present in the array (true means present).
+
+function countSheeps(arrayOfSheep) {
+  return arrayOfSheep.filter(x => x).length;
+  
+  /*---------------------------------------*/
+  
+  let cantidad = 0;
+  for(let oveja of arrayOfSheep){
+    if (oveja === true){
+      cantidad = cantidad + 1;
+    }
+  }
+  return cantidad;
+  
+   /*---------------------------------------*/
+  
+  return arrayOfSheep.reduce((acc, res) => acc + res, 0)
+  
+   /*---------------------------------------*/
+  
+  const newArrayInOrder = arrayOfSheep.sort((a,b) => b-a);
+  return newArrayInOrder.indexOf(false)
+  
+   /*---------------------------------------*/
+  
+  const newArrayInOrder = arrayOfSheep.sort((a,b) => b-a);
+  const index = newArrayInOrder.indexOf(false);
+  return newArrayInOrder.slice(0, index).length
+}
+
