@@ -1855,3 +1855,24 @@ function countSheeps(arrayOfSheep) {
   return newArrayInOrder.slice(0, index).length
 }
 
+
+function formatDuration (seconds) {
+  const medidas = ["second","minute","hour"];
+  let arr = [];
+  while(seconds > 1){
+    let aux = seconds % 60;
+    
+    if(aux === 0){
+      arr.push(seconds / 60);
+    }else{
+      
+    }
+    
+    arr.push(seconds);
+  }
+  
+  console.log(arr)
+  
+  return arr.length > 0 ? arr.join("") : (seconds > 1 ? `${seconds} seconds` : `${seconds} second`)
+}
+
