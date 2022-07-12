@@ -1913,4 +1913,33 @@ function permutations(arr) {
     return finalArr;
 };
 
+// A rectangle with sides equal to even integers a and b is drawn on the Cartesian plane. Its center (the intersection point of its diagonals) coincides with the point (0, 0), but the sides of the rectangle are not parallel to the axes; instead, they are forming 45 degree angles with the axes.
+// How many points with integer coordinates are located inside the given rectangle (including on its sides)?
+// Example
+// For a = 6 and b = 4, the output should be 23
+
+function rectangleRotation(a, b) {
+  let cantidadRaizDosAncho = 0;
+  let sumCantidadRaizDosAncho = 0;
+  
+  while(sumCantidadRaizDosAncho < b){
+    sumCantidadRaizDosAncho += Math.sqrt(2);
+    cantidadRaizDosAncho ++;
+  }
+  
+  let cantidadRaizDosAlto = 0;
+  let sumCantidadRaizDosAlto = 0;
+  
+  while(sumCantidadRaizDosAlto < a){
+    sumCantidadRaizDosAlto += Math.sqrt(2);
+    cantidadRaizDosAlto ++;
+  }
+  let rest = (cantidadRaizDosAlto - cantidadRaizDosAncho) < 2 ? 1 : 0;
+  
+  if((b/2) > ((cantidadRaizDosAncho/2)*Math.sqrt(2))){
+    rest = rest - 1
+  }
+  
+  return ((cantidadRaizDosAlto) * (cantidadRaizDosAncho)) + ((cantidadRaizDosAlto > 0 && cantidadRaizDosAncho > 0) ? ((cantidadRaizDosAlto - 1) * (cantidadRaizDosAncho - 1)) : 0) - rest 
+}
 
