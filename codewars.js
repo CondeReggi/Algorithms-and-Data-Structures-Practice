@@ -1876,3 +1876,41 @@ function formatDuration (seconds) {
   return arr.length > 0 ? arr.join("") : (seconds > 1 ? `${seconds} seconds` : `${seconds} second`)
 }
 
+
+// You are given a string s. Every letter in s appears once.
+// Consider all strings formed by rearranging the letters in s. After ordering these strings in dictionary order, return the middle term. (If the sequence has a even length n, define its middle term to be the (n/2)th term.)
+// Example For s = "abc", the result should be "bac".
+// The permutations in order are: "abc", "acb", "bac", "bca", "cab", "cba" So, The middle term is "bac".
+
+function middlePermutation(s) {
+  let arr = s.split("");
+  arr = permutations(arr.sort()).map(x => x.join("")).sort();
+  let count = 0;
+  if(arr.length % 2 === 0){
+    count = Math.ceil((arr.length)/2) - 1
+  }else{
+    count = Math.ceil((arr.length)/2)
+  }
+  console.log(arr, count)
+  return arr[count]
+}
+
+function permutations(arr) {
+    var finalArr = [];
+    function iterator(arrayTaken, tree) {
+        var temp;
+        for (var i = 0; i < tree; i++) {
+            temp = arrayTaken.slice();
+            temp.splice(tree - 1 - i, 0, temp.splice(tree - 1, 1)[0]);
+            if (tree >= arr.length) {
+                finalArr.push(temp);
+            } else {
+                iterator(temp, tree + 1);
+            }
+        }
+    }
+    iterator(arr, 1);
+    return finalArr;
+};
+
+
