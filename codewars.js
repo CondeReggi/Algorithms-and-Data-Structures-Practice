@@ -1942,4 +1942,61 @@ function rectangleRotation(a, b) {
   
   return ((cantidadRaizDosAlto) * (cantidadRaizDosAncho)) + ((cantidadRaizDosAlto > 0 && cantidadRaizDosAncho > 0) ? ((cantidadRaizDosAlto - 1) * (cantidadRaizDosAncho - 1)) : 0) - rest 
 }
+// A rectangle with sides equal to even integers a and b is drawn on the Cartesian plane. Its center (the intersection point of its diagonals) coincides with the point (0, 0), but the sides of the rectangle are not parallel to the axes; instead, they are forming 45 degree angles with the axes.
 
+function rectangleRotation(a, b) {
+  let raiz2sobre2A = 2 * Math.floor(a/(Math.sqrt(2))) + 1; //hay que revisar esto
+  let raiz2sobre2B = 2 * Math.floor(b/(Math.sqrt(2))) + 1; //hay que revisar esto
+  let cantidad = Math.ceil(((a)/(Math.sqrt(2)))) //La linea mas grande
+  let imparesMasUno = 2 * Math.floor(((b/2)/(Math.sqrt(2)))) + 1
+  
+  let resta = 0;
+  let restaAux = 0;
+  
+  console.log(raiz2sobre2A, raiz2sobre2B, cantidad)
+  
+  if(raiz2sobre2B % 2 !== 0){
+    let aBorrar = raiz2sobre2B - imparesMasUno;
+    resta += (cantidad) * aBorrar + (imparesMasUno * (cantidad - 1)); 
+    restaAux += (cantidad - 1) * aBorrar + (imparesMasUno * (cantidad)); 
+    
+    console.log("entee", raiz2sobre2A * raiz2sobre2B, resta, restaAux, "\n")
+  }
+  
+  //Revisar la condicion para que este en el medio el chico
+  const lineaGrandeEnMedio = ((a/2) % (Math.sqrt(2))) <= (Math.sqrt(2)/2);
+  //console.log((a % Math.sqrt(2)), 2 * Math.floor((a/2)/Math.sqrt(2)) + 1, cantidad, lineaGrandeEnMedio)
+  console.log(lineaGrandeEnMedio)
+  //Estoy haciendo inclusion exclusion, tengo que deducir cuando el del medio es mas chico que los pares a su alrededor
+  //No se
+  
+  //return raiz2sobre2A * raiz2sobre2B - (lineaGrandeEnMedio ? Math.min(resta, restaAux) : Math.max(resta, restaAux))
+  
+  return raiz2sobre2A * raiz2sobre2B - (restaAux % 2 === 0 ? restaAux : resta)
+  
+  //Intento fallido
+  
+  let suma = 0;
+  let booleano = ((((a/2) % Math.sqrt(2))/2) > (Math.sqrt(2)/2)) // Resto
+  
+  
+  for(let i = 1; i <= imparesMasUno; i++){
+    //Quiere decir que 
+    if(imparesMasUno % 2 !== 0){
+      if(i % 2 !== 0){
+        suma += cantidad
+      }else{
+        suma += cantidad - 1
+      }
+    }else{
+      if(i % 2 === 0){
+        suma += cantidad - 1
+      }else{
+        suma += cantidad
+      }
+    }
+  }
+  console.log(imparesMasUno, a,b, suma, cantidad)
+  
+  return imparesMasUno % 2 === 0 ? cantidad + 2 * suma : cantidad + 2 * suma - 1; 
+}
