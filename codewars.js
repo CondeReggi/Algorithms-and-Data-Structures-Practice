@@ -2000,3 +2000,27 @@ function rectangleRotation(a, b) {
   
   return imparesMasUno % 2 === 0 ? cantidad + 2 * suma : cantidad + 2 * suma - 1; 
 }
+
+// Professor Chambouliard hast just discovered a new type of magnet material. He put particles of this material in a box made of small boxes arranged in K rows and N columns as a kind of 2D matrix K x N where K and N are postive integers. He thinks that his calculations show that the force exerted by the particle in the small box (k, n) is:
+// v(k,n)=1k(n+1)2k \displaystyle v(k,n) = \dfrac{1}{k(n+1)^{2k}}v(k,n)= k(n+1) 2k 1 ​
+// The total force exerted by the first row with k = 1 is:
+//u(1,N)=∑n=1n=Nv(1,n)=11⋅22+1⋅32+⋯+11⋅(N+1)2 \displaystyle u(1, N) = \sum_{n=1}^{n=N}v(1, n) = \dfrac{1}{1 \cdot 2^2}+\dfrac{1}{1\cdot 3^2} + \dots + \frac{1}{1 \cdot (N+1)^2}u(1,N)=  n=1∑n=N​v(1,n)= 1⋅2 21​ + ⋅3 1​ +⋯+ 1⋅(N+1) 2 1​
+ 
+// We can go on with k = 2 and then k = 3 etc ... and consider:
+// S(K,N)=∑k=1k=Ku(k,N)=∑k=1k=K(∑n=1n=Nv(k,n))→(double(maxk,maxn))\
+// displaystyle S(K, N) = \sum_{k=1}^{k=K} u(k, N) = \sum_{k=1}^{k=K} \bigg(\sum_{n=1}^{n=N} v(k, n) \bigg) \to(double(max_k, max_n))S(K,N)= 
+// k=1 ∑ k=K ​ u(k,N)=  k=1 ∑ k=K ​ ( n=1 ∑ n=N ​ v(k,n))→(double(max k ​,max n ​))
+
+function doubles(maxk, maxn) {
+    let result = 0;
+    for(let i = 1; i <= maxk ; i++){
+      let sum = 0;
+      for(let j = 1; j <= maxn; j++){
+        sum += (1 / ( i * Math.pow((j + 1), 2 * i) ) )
+      }
+      result += sum;
+    }
+    return result;
+}
+
+
