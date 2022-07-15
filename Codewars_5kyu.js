@@ -50,4 +50,37 @@ function factorial(n, values = []){
   return valorToReturn;
 }
 
+/*-Closest and Smallest-*/
+// TO DO
+
+function  closest(strng) {
+  console.log(strng)
+  if(strng === ""){
+    return [];
+  }
+  const arrayAux = strng.split(" ")
+  
+  const array = arrayAux.map((x, index) => {    
+    return {
+      number_weight : Array.from(x).reduce((acc, res) => Number(acc) + Number(res) ,0),
+      index_strng : index,
+      original_corresponding : Number(x)
+    }
+  });
+  
+  array.forEach((x, index) => {
+    if(array[index + 1]){
+      x['diff_next'] = Math.abs(array[index + 1].number_weight - x.number_weight);
+    }else{
+      if(array[index - 1]){
+        x['diff_next'] = array[index - 1].diff_next;
+      }else{
+        x['diff_next'] = 0;
+      }
+    }
+  })
+  array.sort((a,b) => (a.diff_next + a.number_weight) - (b.number_weight + b.diff_next));
+  console.log(array)
+}
+
 
