@@ -80,7 +80,23 @@ function  closest(strng) {
     }
   })
   array.sort((a,b) => (a.diff_next + a.number_weight) - (b.number_weight + b.diff_next));
-  console.log(array)
 }
 
+/*-Buddy Pairs-*/
+
+function arrayDivisior(n){
+  let result = [];
+  let num = 2;
+  while(n > 1){
+    if(n % num === 0){
+      n = n / num;
+      if(!result[n]){
+        result.push(n)
+      }
+    }else{
+      num++;
+    }
+  }
+  return result.reduce((acc, res) => acc + res, 1);
+}
 
