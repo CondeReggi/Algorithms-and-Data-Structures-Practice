@@ -100,3 +100,18 @@ function arrayDivisior(n){
   return result.reduce((acc, res) => acc + res, 1);
 }
 
+/*-Pascal's Diagonals-*/
+
+function generateDiagonal(n, l){
+  if (l === 0) {
+    return []
+  }
+  let result = [1]
+  for(let i = 1; i < l; i++) {
+      result[i] =  ( result[i-1] *  (n + i) /  i);
+  }
+  
+  return result;
+}
+
+
