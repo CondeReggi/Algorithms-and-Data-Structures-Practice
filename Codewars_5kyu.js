@@ -173,3 +173,45 @@ function humanReadable (seconds) {
   return `${hours}:${minutes}:${segundos}`
 }
 
+/*-Number of trailing zeros of N!-*/
+
+function zeros (n) {
+  if (n === 0) return 0;
+  
+  let count = 0;
+ 
+  for (let i = 5; Math.floor(n / i) >= 1; i *= 5)
+      count += Math.floor(n / i);
+ 
+  return count;
+  
+  //Esta idea no funciono, era mas rebuscada :(
+  
+  const valor = factorial(n).toString()
+  
+  const array = Array.from(valor);
+  let index = 0;
+  let results = [];
+  
+  while(index < array.length){
+    if(array[index] === '0'){
+      let valueToPush = 0;
+      while(index < array.length && array[index] === '0'){
+        index++
+        valueToPush++;
+      }
+      results.push(valueToPush)
+    }else{
+      index++;
+    }
+  }
+  
+  
+  console.log(valor, array, results)
+  return Math.max(...results);
+}
+
+function factorial(n){
+  return n === 1 ? 1 : n * factorial(n - 1)
+}
+
