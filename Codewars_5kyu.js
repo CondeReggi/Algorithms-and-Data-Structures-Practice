@@ -114,4 +114,42 @@ function generateDiagonal(n, l){
   return result;
 }
 
+/*-John and Ann sign up for Codewars-*/
+
+function createJohnAnna(n) {
+  let john = [0];
+  let ann = [1];
+
+  for (let i = 1; i < n; i++) {
+    john.push(i - ann[john[i - 1]]);
+    ann.push(i - john[ann[i - 1]]);
+  }
+
+  return {
+    john,
+    ann
+  }
+}        
+
+function john(n) {
+  const { john } = createJohnAnna(n);
+  return john;
+}
+
+function ann(n) {
+  const { ann } = createJohnAnna(n);
+  return ann;
+}
+
+function sumJohn(n) {
+  const { john } = createJohnAnna(n);
+  return john.reduce((acc, res) => acc + res, 0);
+}
+
+function sumAnn(n) {
+  const { ann } = createJohnAnna(n);
+  return ann.reduce((acc, res) => acc + res, 0);
+}
+
+
 
