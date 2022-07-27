@@ -151,5 +151,25 @@ function sumAnn(n) {
   return ann.reduce((acc, res) => acc + res, 0);
 }
 
+/*-Human Readable Time-*/
 
+function humanReadable (seconds) {
+  let hours = Math.trunc(seconds / (60*60));
+  let minutes = Math.trunc( (seconds - (hours*60*60)) / 60 );
+  let segundos = seconds - minutes*60 - (hours*60*60);
+  
+  if(hours.toString().length === 1){
+    hours = `0${hours}`
+  }
+  
+  if(minutes.toString().length === 1){
+    minutes = `0${minutes}`
+  }
+  
+  if(segundos.toString().length === 1){
+    segundos = `0${segundos}`
+  }
+  
+  return `${hours}:${minutes}:${segundos}`
+}
 
