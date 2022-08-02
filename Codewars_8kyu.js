@@ -269,4 +269,34 @@ function sum (numbers) {
   return numbers.reduce((acc, res) => acc + res, 0)
 };
 
+/*-Playing with cubes II-*/
+
+class Cube {
+  constructor(n){
+    this.setSide(n || 0);
+  }
+  getSide() {
+    return this.side; 
+  }
+  setSide(n) {
+    this.side = Math.abs(n);
+  }
+}
+
+/*-Powers of 2-*/
+
+function powersOfTwo(n){
+  let result = [1];
+  for(let i = 1; i <= n; i++){
+    result.push( Math.pow(2, i) )
+  }
+  return result
+}
+
+/*-CSV representation of array-*/
+
+function toCsvText(array) {
+   const mapeado = array.map(x => x.join()).join('\n')
+   return mapeado
+}
 
