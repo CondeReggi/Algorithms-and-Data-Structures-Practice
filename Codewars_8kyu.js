@@ -203,3 +203,70 @@ var replaceDots = function(str) {
   return str.replace(/[.]/g, '-');
 }
 
+/*-N-th Power-*/
+
+function index(array, n){
+  if(n > (array.length - 1)) return -1
+  return Math.pow(array[n],n)
+}
+
+/*-Convert a Boolean to a String-*/
+
+function booleanToString(b){
+  return b ? "true" : "false"
+}
+
+/*-Find the position!-*/
+
+function position(letter){
+  const letterLower = letter.toLowerCase();
+  return "Position of alphabet: " + (letterLower.charCodeAt() + 1 - "a".charCodeAt())
+}
+
+/*-Sum without highest and lowest number-*/
+
+function sumArray(array) {
+  if(!array || array === NaN || array.length < 2) return 0
+  const max = Math.max(...array);
+  const min = Math.min(...array);
+  return array.reduce((acc, res) => acc + res, 0) - (max + min)
+}
+
+/*-Is he gonna survive?-*/
+
+function hero(bullets, dragons){
+  return bullets / 2 - dragons >= 0 
+}
+
+/*-Return Negative-*/
+
+function makeNegative(num) {
+  if(num < 0) return num
+  return (-1)*num
+}
+
+/*-Hex to Decimal-*/
+
+function hexToDec(hexString){
+  return parseInt(hexString, 16)
+}
+
+/*-Is n divisible by x and y?-*/
+
+function isDivisible(n, x, y) {
+  return (n % x === 0 && n % y === 0)
+}
+
+/*-Capitalization and Mutability-*/
+
+function capitalizeWord(word) {
+  return word[0].toUpperCase() + word.substring(1, word.length);
+}
+
+/*-Sum Arrays-*/
+
+function sum (numbers) {
+  return numbers.reduce((acc, res) => acc + res, 0)
+};
+
+
