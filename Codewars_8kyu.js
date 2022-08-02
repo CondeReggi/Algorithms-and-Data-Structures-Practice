@@ -50,5 +50,118 @@ function countPositivesSumNegatives(input) {
   return arrayResult.reverse().map(x => x === 0 ? 0 : (-1)*x);
 }
 
-/*-Wilson primes-*/
+/*-Take the Derivative-*/
+
+function derive(coefficient,exponent) {
+  let multiplicacion = coefficient * exponent;
+  let exponentDerivate = exponent - 1;
+  return `${multiplicacion}x^${exponentDerivate}`
+}
+
+/*-Count by X-*/
+
+function countBy(x, n) {
+  let z = [];
+  for(let i = 1; i <= n ; i++){
+    z.push(i * x)
+  }
+  return z;
+}
+
+/*-Beginner Series #4 Cockroach-*/
+
+function cockroachSpeed(s) {
+  return Math.floor((s / 3.6)*100)
+}
+
+/*-Find Nearest square number-*/
+
+function nearestSq(n){
+  let truncateOne = Math.floor(Math.sqrt(n));
+  let truncateTwo = Math.ceil(Math.sqrt(n));
+  
+  let firstDiff = Math.abs(Math.pow(truncateOne, 2) - n);
+  let secondDiff = Math.abs(Math.pow(truncateTwo, 2) - n);
+  
+  if(firstDiff <= secondDiff){
+    return Math.pow(truncateOne, 2);
+  }
+  return Math.pow(truncateTwo, 2);
+}
+
+/*-Even or Odd-*/
+
+function even_or_odd(number) {
+  return number % 2 ? "Odd" : "Even"
+}
+
+/*-Quarter of the year-*/
+
+const quarterOf = (month) => {
+  if(month <= 12 && month > 9){
+    return 4
+  }else if(month <= 9 && month > 6){
+    return 3
+  }else if(month <= 6 && month > 3){
+    return 2
+  }else{
+    return 1
+  }
+}
+
+/*-Beginner - Lost Without a Map-*/
+
+function maps(x){
+  return x.map(x => 2 * x)
+}
+
+/*-Online RPG: player to qualifying stage?-*/
+
+function playerRankUp (points) {
+  return points >= 100 ? "Well done! You have advanced to the qualifying stage. Win 2 out of your next 3 games to rank up." : false
+}
+
+/*-Square(n) Sum-*/
+
+function squareSum(numbers){
+  return numbers.reduce((acc, val) => acc + (Math.pow(val,2)), 0)
+}
+
+/*-Remove String Spaces-*/
+
+function noSpace(x){
+  return Array.from(x).filter(x => x !== " ").join("")
+}
+
+/*-Sum of positive-*/
+
+function positiveSum(arr) {
+  let suma = 0;
+  for(let i = 0; i < arr.length ; i++){
+    if(arr[i] > 0){
+      suma += arr[i];
+    }
+  }
+  return suma;
+}
+
+/*-How good are you really?-*/
+
+function betterThanAverage(classPoints, yourPoints) {
+  const average = classPoints.reduce((acc, res) => acc + (res/classPoints.length),0);
+  return yourPoints > average ? true : false
+}
+
+/*-Convert boolean values to strings 'Yes' or 'No'-*/
+
+function boolToWord( bool ){
+  return bool ? "Yes" : "No"
+}
+
+
+
+
+
+
+
 
