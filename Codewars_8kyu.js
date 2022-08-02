@@ -158,10 +158,48 @@ function boolToWord( bool ){
   return bool ? "Yes" : "No"
 }
 
+/*-Convert a Number to a String!-*/
 
+function numberToString(num) {
+  return num.toString()
+}
 
+/*-Find Multiples of a Number-*/
 
+function findMultiples(integer, limit) {
+  let result = []
+  let counter = integer;
+  do{
+    result.push(counter)
+    counter += integer;
+  }while(counter <= limit)
+  return result;
+}
 
+/*-Opposite number-*/
 
+function opposite(number) {
+  return (-1)*number
+}
 
+/*-Beginner Series #1 School Paperwork-*/
+
+function paperwork(n, m) {
+  if(n <= 0 || m <= 0) return 0;
+  
+  return n*m
+}
+
+/*-Geometry Basics: Distance between points in 2D-*/
+
+function distanceBetweenPoints(a, b) {
+  const distance = Math.sqrt( Math.pow((a.x - b.x),2) + Math.pow((a.y - b.y),2) );
+  return distance
+}
+
+/*-FIXME: Replace all dots-*/
+
+var replaceDots = function(str) {
+  return str.replace(/[.]/g, '-');
+}
 
