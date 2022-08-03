@@ -329,4 +329,55 @@ function setAlarm(employed, vacation){
   return employed && !vacation
 }
 
+/*-A wolf in sheep's clothing-*/
+
+function warnTheSheep(queue) {
+  const lastWolf = queue.lastIndexOf("wolf");
+  if (queue.length === lastWolf + 1) return "Pls go away and stop eating my sheep"
+  
+  return `Oi! Sheep number ${queue.length - lastWolf - 1}! You are about to be eaten by a wolf!`
+}
+
+/*-Convert a String to a Number!-*/
+
+const stringToNumber = function(str){
+  return parseInt(str);
+}
+
+/*-Correct the mistakes of the character recognition software-*/
+
+function correct(string){
+	const values = {
+    5: 'S',
+    0: 'O',
+    1: 'I'
+  }
+  
+  return string.split('').map(x => {
+    if(values[x]){
+      return values[x]
+    }
+    return x
+  }).join('')
+}
+
+/*-Function 3 - multiplying two numbers-*/
+
+const multiply = (a,b) => a*b
+
+/*-String Templates - Bug Fixing #5-*/
+
+function buildString(...template){
+  return `I like ${template.join(', ')}!`;
+}
+
+/*-Find Maximum and Minimum Values of a List-*/
+
+var min = function(list){
+    return Math.min(...list);
+}
+
+var max = function(list){
+    return Math.max(...list);
+}
 
