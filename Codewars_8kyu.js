@@ -300,3 +300,33 @@ function toCsvText(array) {
    return mapeado
 }
 
+/*-Well of Ideas - Easy Version-*/
+
+function well(x){
+  const goods = x.filter(x => x === 'good')
+  if(goods.length > 2) return 'I smell a series!'
+  if(goods.length === 0) return 'Fail!'
+  return 'Publish!'
+}
+
+/*-Reverse List Order-*/
+
+function reverseList(list) {
+  return list.reverse()
+}
+
+/*-Volume of a Cuboid-*/
+
+class Kata {
+  static getVolumeOfCuboid(length, width, height) {
+    return length* width* height;
+  }
+}
+
+/*-L1: Set Alarm-*/
+
+function setAlarm(employed, vacation){
+  return employed && !vacation
+}
+
+
