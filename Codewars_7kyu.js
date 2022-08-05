@@ -87,3 +87,42 @@ function checkHappyYear(x){
   return true;
 }
 
+/*-Two to One-*/
+
+function longest(s1, s2) {
+  let obj = {}
+ 
+  for(let i = 0; i < Math.max(s1.length, s2.length) ; i++){
+    if(obj[s1[i]]){
+      obj[s1[i]] = obj[s1[i]] + 1
+    }else{
+      obj[s1[i]] = 1;
+    }
+    
+    if(obj[s2[i]]){
+      obj[s2[i]] = obj[s2[i]] + 1
+    }else{
+      obj[s2[i]] = 1;
+    }
+  }
+  
+  return Object.keys(obj).filter(x => x !== 'undefined').sort().join('')
+}
+
+const longest = (s1, s2) => [...new Set(s1+s2)].sort().join('') // Con Set
+
+/*-Vowel Count-*/
+
+function getCount(str) {
+  const vowels = ['a','e','i','o','u'];
+  
+  return [...str].filter(x => vowels.includes(x)).length
+}
+
+/*-Form The Minimum-*/
+
+function minValue(values){
+  const unique = [...new Set(values)];
+  return parseInt(unique.sort((a,b) => a - b).reduce((acc, res) => acc + res, ""))
+}
+
