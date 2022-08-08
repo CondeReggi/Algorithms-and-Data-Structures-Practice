@@ -212,3 +212,122 @@ function moveTen(s){
   return array.map(x => x.toString().charAt(0)).join('')
 }
 
+/*-Ordered Count of Characters-*/
+
+const orderedCount = function (text) {
+  let result = {}
+  let resultArr = []
+  
+  for(let element of text.split('')){
+    if(result[element]){
+      result[element] = result[element] + 1;
+    }else{
+      result[element] = 1;
+      resultArr.push([element, 1]);
+    }
+  }
+  resultArr.map(x => {
+    x[0] = x[0];
+    x[1] = result[x[0]];
+  })
+  
+  return resultArr;
+}
+
+/*-Holiday III - Fire on the boat-*/
+
+function fireFight(s){
+  return s.replace(/Fire/gi, '~~')
+}
+
+/*-Numbers to Letters-*/
+
+function switcher(x){
+  const arr =  x.map(x => {
+    const number = Math.abs((-1)*parseInt(x) + 27);
+    const char = String.fromCharCode(number + 96);
+    const values = {
+      27: '!',
+      28: '?',
+      29: ' '
+    }
+    return values[x] ? values[x] : char;
+  })
+  return arr.join('')
+}
+
+/*-Geometry Basics: Triangle Perimeter in 2D-*/
+
+function trianglePerimeter(triangle){
+  const first = Math.hypot(triangle.a.x - triangle.b.x, triangle.a.y - triangle.b.y);
+  const second = Math.hypot(triangle.a.x - triangle.c.x, triangle.a.y - triangle.c.y);
+  const third = Math.hypot(triangle.b.x - triangle.c.x, triangle.b.y - triangle.c.y);
+  return first + second + third
+}
+
+/*-How many consecutive numbers are needed?-*/
+
+function consecutive(arr) {
+  let sum = 0;
+  arr = arr.sort((a,b) => a - b)
+  
+  for(let i = 0; i < arr.length - 1 ; i++){
+    if(arr[i + 1] - arr[i] > 1){
+      sum += arr[i + 1] - arr[i] - 1;
+    }
+  }
+  return sum
+}
+
+/*-Bumps in the Road-*/
+
+function bump(x){
+  const arr = x.split('');
+  const countN = arr.filter(x => x === 'n').length;
+  const count_ = arr.filter(x => x === '_').length;
+  
+  if(countN <= 15){
+    return 'Woohoo!'
+  }
+  return "Car Dead"
+}
+
+/*-Makes the Sentence-*/
+
+function makesTheSentence(characterArray, sentenceString) {
+  const nonSpaces = sentenceString.split('').sort().join('').replace(/\s/g, '');
+  const word = characterArray.sort().join('')
+  
+  return word === nonSpaces
+}
+
+/*-Arithmetic progression-*/
+
+function arithmeticSequenceElements(a, d, n) {
+  let arr = []
+  arr[0] = a;
+  for(let i = 1; i < n ; i++){
+    arr[i] = arr[i - 1] + d;
+  }
+  return arr.join(', ')
+}
+
+/*-Cryptanalysis Word Patterns-*/
+
+function wordPattern(word) {
+  const toLower = word.toLowerCase();
+  let obj = {}
+  let result = []
+  let value = 0;
+  
+  for(let i = 0; i < toLower.length ; i++){
+    if(!obj[toLower[value]]){
+      obj[toLower[value]] = value;
+      result.push(obj[toLower[i]])
+      value++;
+    }else{
+      result.push(obj[toLower[value]])
+    }
+  }
+  return result.join('.'); 
+}
