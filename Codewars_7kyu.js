@@ -331,3 +331,72 @@ function wordPattern(word) {
   }
   return result.join('.'); 
 }
+
+/*-99 Problems, #1: last in list-*/
+
+const last = xs => {
+  return xs.length === 0 ? null : xs.pop()
+}
+
+/*-Tower of Hanoi-*/
+
+function towerOfHanoi(rings){
+  return Math.pow(2, rings) - 1
+}
+
+/*-Fibonacci's FizzBuzz-*/
+
+var fibsFizzBuzz = function(n) {
+  let result = []
+  for(let i = 1; i <= n ; i++){
+    if(i === 1){
+      result.push(1)
+    }else if(i === 2){
+      result.push(1)
+    }else{
+      let primero = Array.isArray(result[i - 2]) ? result[i - 2][1] : result[i - 2];
+      let segundo = Array.isArray(result[i - 3]) ? result[i - 3][1] : result[i - 3];
+      let value = primero + segundo;
+      
+      if(value % 3 === 0 && value % 5 === 0){
+        result.push(['FizzBuzz', primero + segundo]);
+      }else if(value % 3 === 0){
+        result.push(['Fizz', primero + segundo]);
+      }else if(value % 5 === 0){
+        result.push(['Buzz', primero + segundo]);
+      }else{
+        result.push(primero + segundo);
+      }
+    }
+  }
+  
+  return result.map(x => {
+    return Array.isArray(x) ? x[0] : x
+  })
+}
+
+/*-Return the closest number multiple of 10-*/
+
+const closestMultiple10 = num => {
+  return Math.round(num / 10) * 10;
+};
+
+/*-Smallest value of an array-*/
+
+function min(arr, toReturn) {
+  const min = Math.min(...arr);
+  return toReturn === 'value' ? min : arr.indexOf(min)
+}
+
+/*-Hells Kitchen-*/
+
+function gordon(a){
+  const split = a.split(' ').map(x => {
+    x = x.replace(/[aA]/g, '@')
+    x = x.replace(/[eEiIoOuU]/g, '*')
+    
+    return `${x.toUpperCase()}!!!!`;
+  }).join(' ')
+  
+  return split;
+}
