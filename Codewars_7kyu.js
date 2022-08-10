@@ -400,3 +400,27 @@ function gordon(a){
   
   return split;
 }
+
+/*-Binary Addition-*/
+
+function addBinary(a,b) {
+  return (a + b).toString(2)
+}
+
+/*-Area of an arrow-*/
+
+function arrowArea(a,b) {
+  return (a*b) / 4
+}
+
+/*-Multiply Word in String-*/
+
+function modifyMultiply (str,loc,num) {
+  let values = str.split(' ');
+  let arr = []
+  
+  for(let i = 0; i < num; i++){
+    arr.push(values[loc]);
+  }
+  return arr.join('-')
+} 
