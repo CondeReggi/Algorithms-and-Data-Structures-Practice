@@ -456,3 +456,34 @@ function colourAssociation(array){
     return value
   })
 }
+
+/*-Adding Arrays-*/
+
+function arrAdder(arr) {
+  if(arr.length === 0){
+    return ""
+  }
+  const cantidad = arr[0].length;
+  let constructor = [];
+  
+  for(let i = 0; i < cantidad; i++){
+    let palabra = ""
+    for(let j = 0; j < arr.length ; j++){
+      palabra += arr[j][i];
+    }
+    constructor.push(palabra);
+  }
+  
+  return constructor.join(" ")
+}
+
+/*-Four/Seven-*/
+
+function fourSeven(n){
+  const answers = {
+    4: 7,
+    7: 4
+  }
+  return answers[n] || 0
+}
+
