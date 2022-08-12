@@ -424,3 +424,35 @@ function modifyMultiply (str,loc,num) {
   }
   return arr.join('-')
 } 
+
+/*-String ends with?-*/
+
+function solution(str, ending){
+  return str.endsWith(ending);
+}
+
+/*-Collatz Conjecture Length-*/
+
+function collatz(n) {
+  let arr = [n]
+  let value = n;
+  while(value !== 1){
+    if(value % 2 === 0){
+      value = value / 2;
+    }else{
+      value = value * 3 + 1;
+    }
+    arr.push(value)
+  }
+  return arr.length
+}
+
+/*-Colour Association-*/
+
+function colourAssociation(array){
+  return array.map(x => {
+    const value = {};
+    value[x[0]] = x[1];
+    return value
+  })
+}
