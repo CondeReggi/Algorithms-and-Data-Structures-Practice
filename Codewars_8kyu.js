@@ -424,4 +424,21 @@ function solution(str){
   return str.split("").reverse().join("")
 }
 
-/*--*/
+/*-Sum of a sequence-*/
+
+const sequenceSum = (begin, end, step) => {
+  let sum = 0;
+  for(let i = begin; i <= end; i += step) {
+     sum += i;
+  }
+  return sum
+};
+
+/*-Sum of two lowest positive integers-*/
+
+function sumTwoSmallestNumbers(numbers) {  
+  numbers = numbers.sort((a,b) => a-b);
+  return numbers.shift() + numbers.shift()
+}
+
+
