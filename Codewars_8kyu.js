@@ -381,3 +381,47 @@ var max = function(list){
     return Math.max(...list);
 }
 
+/*-You only need one - Beginner-*/
+
+function check(a, x) {
+  return a.some(y => y === x)
+}
+
+/*-I love you, a little , a lot, passionately ... not at all-*/
+
+function howMuchILoveYou(nbPetals) {
+   const values = {
+     0: "not at all",
+     1: "I love you",
+     2: "a little",
+     3: "a lot",
+     4: "passionately",
+     5: "madly",
+   }
+   
+   return values[nbPetals % 6]
+}
+
+/*-If you can't sleep, just count sheep!!-*/
+
+var countSheep = function (num){
+  let array = [];
+  for(let i = 1; i <= num ; i++){
+    array.push(i + " sheep...");
+  }
+  return array.join("")
+}
+
+/*-Returning Strings-*/
+
+function greet(name){
+  return `Hello, ${name} how are you doing today?`
+}
+
+/*-Reversed Strings-*/
+
+function solution(str){
+  return str.split("").reverse().join("")
+}
+
+/*--*/
