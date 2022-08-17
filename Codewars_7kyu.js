@@ -487,3 +487,44 @@ function fourSeven(n){
   return answers[n] || 0
 }
 
+/*-Breaking chocolate problem-*/
+
+function breakChocolate(n,m) {
+  return n * m - 1 < 0 ? 0 : n * m - 1
+}
+
+/*-Make acronym-*/
+
+function toAcronym(inp){
+  return inp.split(" ").map(x => x[0].toUpperCase()).join("")
+}
+
+/*-Credit Card Mask-*/
+
+function maskify(cc) {
+  if(cc.length >= 5){
+    let substring = cc.substring(cc.length - 4, cc.length)
+    return substring.padStart(cc.length , "#")
+  }else{
+    return cc;
+  }
+}
+
+/*-Square Every Digit-*/
+
+function squareDigits(num){
+  let aux = num.toString().split("").map(Number);
+  let number = aux.map(x => Math.pow(x, 2))
+  return parseInt(number.join(""))
+}
+
+/*-You're a square!-*/
+
+var isSquare = function(n){
+  let aux = Math.sqrt(n)
+  return Math.floor(aux) === aux
+}
+
+/*--*/
+
+
