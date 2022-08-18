@@ -525,6 +525,30 @@ var isSquare = function(n){
   return Math.floor(aux) === aux
 }
 
-/*--*/
+/*-String ends with?-*/
 
+function solution(str, ending){
+  return str.endsWith(ending)
+}
+
+/*-Flatten and sort an array-*/
+
+function flattenAndSort(array) {
+  let arr = []
+  array.forEach((acc) => {arr.push(...acc)});
+  return arr.sort((a,b) => a - b)
+}
+
+/*-Printer Errors-*/
+
+function printerError(s) {
+  let ordenada = s.split("").sort().join("");
+  return `${s.length - ordenada.lastIndexOf("m") - 1}/${s.length}`
+}
+
+/*-Number of Decimal Digits-*/
+
+function digits(n) {
+  return n.toString().length
+}
 
