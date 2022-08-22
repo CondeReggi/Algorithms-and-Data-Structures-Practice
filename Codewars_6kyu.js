@@ -63,3 +63,26 @@ function decode(bits) {
   return string.join("")
 }
 
+/*-ASCII Fun #1: X- Shape-*/
+
+function x(n){
+  let result = [] 
+  for(let i = 1; i <= n; i++)
+    result.push(constructorMap(n, i))
+  
+  return result.join("\n")
+}
+
+const constructorMap = (n, index) => {
+  let result = "";
+  for(let i = 1; i <= n; i++){
+    if(i === index || i === (n - index + 1)){
+      result += "■";
+    }else{
+      result += "□";
+    }
+  }
+  return result;
+}
+
+/*--*/
