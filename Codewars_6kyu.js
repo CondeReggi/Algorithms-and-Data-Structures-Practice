@@ -85,4 +85,22 @@ const constructorMap = (n, index) => {
   return result;
 }
 
-/*--*/
+/*-The Spider and the Fly (Jumping Spider)-*/
+
+var spiderToFly = function(spider, fly) {
+  if(spider === fly)
+    return 0;
+  
+  const numberSpider = parseInt(spider.replace(/^[a-zA-Z]/ig,""));
+  const numberFly = parseInt(fly.replace(/^[a-zA-Z]/ig,""));
+  
+  const numberWordSpider = spider.replace(/^[0-9]/ig,"");
+  const numberWordFly = fly.replace(/^[0-9]/ig,"");
+                                    
+  if((["H","B","D","F"].some(numberWordSpider) && ["H","B","D","F"].some(numberWordFly)) || (["G","A","C","E"].some(numberWordSpider) && ["G","A","C","E"].some(numberWordFly))){
+    return numberSpider;
+  }
+  
+  return Math.hypot()
+                                    
+}
