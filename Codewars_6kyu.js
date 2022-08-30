@@ -104,3 +104,21 @@ var spiderToFly = function(spider, fly) {
   return Math.hypot()
                                     
 }
+
+/*-Back and forth then Reverse!-*/
+
+function arrange(s, arr = []) {
+  for(let i = 0; i < s.length / 2 ; i++){
+    let index = i % 2 === 0 ? i : s.length - i - 1 ;
+    const first = s[index];
+    const last = s[s.length - index - 1];
+    
+    if(first || first === 0)
+      arr.push(first)
+  
+    if((last || last === 0) && ((s.length - index - 1) !== index))
+      arr.push(last)
+  }
+  return arr
+}
+
