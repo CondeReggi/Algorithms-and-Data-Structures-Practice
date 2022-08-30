@@ -441,4 +441,30 @@ function sumTwoSmallestNumbers(numbers) {
   return numbers.shift() + numbers.shift()
 }
 
+/*-Reversed Words-*/
+
+function reverseWords(str){
+  return str.split(" ").reverse().join(" ")
+}
+
+/*-Exclamation marks series #1: Remove an exclamation mark from the end of string-*/
+
+function remove (string) {
+  if(string[string.length - 1] == "!"){
+    return string.substring(0, string.length - 1)
+  }
+  return string;
+}
+
+/*-Remove exclamation marks-*/
+
+function removeExclamationMarks(s) {
+  return s.replace(/!/gi, "");
+}
+
+/*-Basic Training: Add item to an Array-*/
+var websites = []
+websites.push("codewars")
+
+
 
