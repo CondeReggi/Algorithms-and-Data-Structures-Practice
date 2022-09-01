@@ -466,5 +466,27 @@ function removeExclamationMarks(s) {
 var websites = []
 websites.push("codewars")
 
+/*-Beginner - Reduce but Grow-*/
+
+function grow(x){
+  return x.reduce((acc, res) => acc * res ,1)
+}
+
+/*-Filling an array (part 1)-*/
+
+function arr(N){
+  let arr = [];
+  for (let i = 0; i < N; i++){
+    arr.push(i)
+  }
+  return arr;
+}
+
+/*-Factorial-*/
+
+function factorial(n){ 
+  if (n < 0 || n > 12) throw new RangeError('Range must be between 0 and 12')
+  return n > 1 ? n * factorial(n-1) : 1;
+}
 
 
