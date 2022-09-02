@@ -215,3 +215,37 @@ function factorial(n){
   return n === 1 ? 1 : n * factorial(n - 1)
 }
 
+/*-Evaluate a postfix expression-*/
+
+function postfixEvaluator(string) {
+  const array = string.split(" ");
+  const numbers = array.filter(x => !isNaN(x)).map(Number).sort((a,b) => a - b);
+  const expresions = array.filter(x => isNaN(x)).sort();
+  
+  while(numbers.length > 1){
+    let first = numbers.pop();
+    let second = numbers.pop();
+    let expresion = expresions.pop();
+    let result = calculate(first, second, expresion);
+    numbers.push(result);
+  }
+  
+  return numbers.pop();
+}
+
+function calculate(num1, num2, expresion){
+  let result;
+  switch(expresion){
+      case "+": result = num1 + num2;
+        break;
+      case "-": result = num1 - num2;
+        break;
+      case "*": result = num1 * num2;
+        break;
+      case "/": result = num1 / num2;
+        break
+      default:
+        return;
+  }
+  return result;
+}
