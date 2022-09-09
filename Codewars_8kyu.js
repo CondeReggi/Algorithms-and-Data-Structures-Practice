@@ -489,4 +489,22 @@ function factorial(n){
   return n > 1 ? n * factorial(n-1) : 1;
 }
 
+/*-Array plus array-*/
 
+function arrayPlusArray(arr1, arr2) {
+  return [...arr1, ...arr2].reduce((acc, res) => acc + res, 0) //something went wrong
+}
+
+/*-Grasshopper - Personalized Message-*/
+
+function greet (name, owner) {
+  return name == owner ? 'Hello boss' : 'Hello guest'
+}
+
+/*-Simple multiplication-*/
+
+function simpleMultiplication(number) {
+  return number % 2 ? 9 * number : 8 * number
+}
+
+/*--*/
