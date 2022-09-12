@@ -552,3 +552,52 @@ function digits(n) {
   return n.toString().length
 }
 
+/*-Name on billboard-*/
+
+function billboard(name, price = 30){
+  let suma = 0;
+  for(let i = 1; i <= name.length ; i++){
+    suma += price
+  }
+  return suma
+} 
+
+/*-You Got Change?-*/
+
+function giveChange(amount) {
+  const values = [1,5,10,20,50,100].reverse();
+  let i = 0;
+  let result = [];
+  while(amount >= 0 && i < values.length){
+    let value = Math.floor(amount / values[i]);
+    result.push(value);
+    amount = amount % values[i]
+    i++;
+  }
+  return result.reverse();
+}
+
+/*-Currying functions: multiply all elements in an array-*/
+
+const multiplyAll = (array) => {
+  return function map(num){
+    return array.map(x => x*num);
+  }
+}
+
+/*-Predict your age!-*/
+
+function predictAge(age1,age2,age3,age4,age5,age6,age7,age8){
+  const args = Object.entries(arguments).map(x => x[1]);
+  const multiply = args.map(x => Math.pow(x, 2)).reduce((acc, res) => acc + res, 0)
+  return Math.floor((Math.sqrt(multiply) /2))
+}
+
+/*-Simple Fun #176: Reverse Letter-*/
+
+function reverseLetter(str) {
+  const arr = str.split("").filter(x => /^[a-zA-Z]/.test(x))
+  return arr.reverse().join("")
+}
+
+
