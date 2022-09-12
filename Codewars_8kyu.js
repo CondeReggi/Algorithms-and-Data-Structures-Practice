@@ -507,4 +507,19 @@ function simpleMultiplication(number) {
   return number % 2 ? 9 * number : 8 * number
 }
 
-/*--*/
+/*-Remove First and Last Character-*/
+
+function removeChar(str){
+  return str.slice(1, -1)
+};
+
+/*-Grasshopper - If/else syntax debug-*/
+
+function checkAlive(health) {
+  return health > 0;
+}
+
+/*-To square(root) or not to square(root)-*/
+
+
+
