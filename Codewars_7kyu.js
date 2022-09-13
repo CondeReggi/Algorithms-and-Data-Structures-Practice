@@ -600,4 +600,19 @@ function reverseLetter(str) {
   return arr.reverse().join("")
 }
 
+/*-Product Array (Array Series #5)-*/
 
+function productArray(numbers){
+  return numbers.map((x, i) => {
+    let numbersNoIndex = numbers.reduce((acc, res, index) => index !== i ? acc * res : acc , 1);
+    return numbersNoIndex;
+  })
+}
+
+/*-V A P O R C O D E-*/
+
+function vaporcode(string) {
+  return string.replace(/\s/ig, "").toUpperCase().split("").join("  ")
+}
+
+/*--*/
