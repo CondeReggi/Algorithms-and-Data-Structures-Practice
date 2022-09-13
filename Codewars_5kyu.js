@@ -249,3 +249,60 @@ function calculate(num1, num2, expresion){
   }
   return result;
 }
+
+/*-Mean Square Error-*/
+
+var solution = function(firstArray, secondArray) {
+  let sum = 0;
+  for(let i = 0; i < firstArray.length; i++){
+    sum += Math.pow(Math.abs(secondArray[i] - firstArray[i]), 2);
+  }
+  return sum / firstArray.length
+}
+
+/*-Numbers and its Reversal Having Same Prime Factors.-*/
+
+function esPrimo(n){
+  for(let i = n-1; i > 1 ; i--){
+    if(n % i === 0){
+      return false;
+    }
+  }
+  return true;
+}
+
+function isPalindrome(str){
+  return str.toString() === str.toString().split("").reverse().join("")
+}
+
+function descompositionFactorial(n){
+  let value = 2
+  let arr = []
+  while(n > 1 && value < n){
+    if(n % value === 0 && esPrimo(value)){
+      n = n / value;
+      if(arr.indexOf(value) === -1){
+        arr.push(value);
+      }
+    }else{
+      value++;
+    }
+  }
+  return arr.sort((a,b) => a-b).join();
+}
+
+
+function sameFactRev(nMax) {
+  let descomposicionNMax = descompositionFactorial(nMax);
+  let number = nMax - 1;
+  let result = [];
+  while(number > 1){
+    if(!isPalindrome(number) && descompositionFactorial(number) === descomposicionNMax){
+      result.push(number);
+    }
+    number--;
+  }
+  return result;
+}
+
+
