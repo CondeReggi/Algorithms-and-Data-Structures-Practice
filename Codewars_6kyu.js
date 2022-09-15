@@ -122,3 +122,19 @@ function arrange(s, arr = []) {
   return arr
 }
 
+/*-Help the bookseller !-*/
+
+function stockList(listOfArt, listOfCat){
+  let result = []
+  
+  for(let word of listOfCat){
+    let words = listOfArt.filter(x => x[0] == word);
+    words = words.map(x => Number(x.split(" ")[1]));
+    
+    let sum = words.reduce((acc, res) => acc + res, 0);
+    result.push(`(${word} : ${sum})`)
+  }
+  
+  let str = result.join(" - ");
+  return /[1-9]/.test(str) ? result.join(" - ") : ""
+}
