@@ -519,7 +519,22 @@ function checkAlive(health) {
   return health > 0;
 }
 
-/*-To square(root) or not to square(root)-*/
+/*-The Wide-Mouthed frog!-*/
 
+function mouthSize(animal) {
+  return animal.toLowerCase() == "alligator" ? "small" : "wide"
+}
+
+/*-Remove duplicates from list-*/
+
+function distinct(a) {
+  return Array.from(new Set(a));
+}
+
+/*-Grasshopper - Messi goals function-*/
+
+function goals (laLigaGoals, copaDelReyGoals, championsLeagueGoals) {
+  return laLigaGoals + copaDelReyGoals + championsLeagueGoals
+}
 
 
