@@ -615,4 +615,15 @@ function vaporcode(string) {
   return string.replace(/\s/ig, "").toUpperCase().split("").join("  ")
 }
 
-/*--*/
+/*-Array.prototype.reverse()-*/
+
+Array.prototype.reverse = function() {
+  for(let i = 0; i < Math.ceil(this.length/2) ; i++){
+    let value = this[i];
+    this[i] = this[this.length - i - 1] 
+    this[this.length - i - 1] = value
+  }
+  return this
+};
+
+
