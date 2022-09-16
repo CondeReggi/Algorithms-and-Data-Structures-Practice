@@ -537,4 +537,63 @@ function goals (laLigaGoals, copaDelReyGoals, championsLeagueGoals) {
   return laLigaGoals + copaDelReyGoals + championsLeagueGoals
 }
 
+/*-Find the first non-consecutive number-*/
 
+function firstNonConsecutive (arr) {
+  for(let i = 1; i < arr.length ; i++){
+    if(arr[i] !== arr[i - 1] + 1) return arr[i]
+  }
+  return null
+}
+
+/*-Abbreviate a Two Word Name-*/
+
+function abbrevName(name){
+  const spliteo = name.split(" ").map(x => x[0].toUpperCase()).join(".");
+  return spliteo
+}
+
+/*-Basic Mathematical Operations-*/
+
+function basicOp(operation, value1, value2)
+{
+  let result = 0;
+  switch(operation){
+      case "+": 
+        result += value1 + value2;
+        break;
+      case "-": 
+        result += value1 - value2;
+        break;
+      case "*": 
+        result += value1 * value2;
+        break;
+      case "/": 
+        result += value1 / value2;
+        break;
+      default:
+  }
+  return result;
+}
+
+/*-Grasshopper - Check for factor-*/
+
+function checkForFactor (base, factor) {
+  return !(base % factor)
+}
+
+/*-For Twins: 1. Types-*/
+
+function typeValidation(variable, type) {
+  if(type == "number"){
+    return typeof variable === "number"
+  }else{
+    return typeof variable !== "number"
+  }
+}
+
+/*-For Twins: 1. Types-*/
+
+function typeValidation(variable, type) {
+  return typeof variable === type
+}
