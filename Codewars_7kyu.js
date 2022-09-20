@@ -626,4 +626,68 @@ Array.prototype.reverse = function() {
   return this
 };
 
+/*-Drone Fly-By-*/
 
+function flyBy(lamps, drone){
+  if((lamps.length - drone.length) < 0){
+    return 'o'.repeat(lamps.length)
+  }else{
+    return 'o'.repeat(drone.length) + 'x'.repeat(lamps.length - drone.length)
+  }
+}
+
+/*-Sum of all arguments-*/
+
+function sum() {
+  return Array.from(arguments).reduce((acc, res) => acc + res , 0)
+}
+
+/*-Build a square-*/
+
+function generateShape(integer){
+  let result = [];
+  for(let i = 0; i < integer; i++){
+    result.push("+".repeat(integer))
+  }
+  return result.join("\n")
+}
+
+/*-Dot Calculator-*/
+
+function dotCalculator (equation) {
+  const [first, equal, second] = equation.split(" ");
+  
+  switch(equal){
+      case "+":
+        return ".".repeat(first.length + second.length)
+        break;
+      case "-":
+        return ".".repeat(first.length - second.length)
+        break;
+      case "//":
+        return ".".repeat(Math.floor(first.length / second.length))
+        break;
+      case "*":
+        return ".".repeat(first.length * second.length)
+        break;
+      default:
+        return;
+  }
+}
+
+/*-TO DO Stanton measure-*/
+
+function stantonMeasure(arr = []){
+  let obj = {}
+  if(arr.some(x=>x<0)) return 0
+  
+  for(let elem of arr){
+    if(obj[Math.abs(elem)]){
+      obj[Math.abs(elem)] = obj[Math.abs(elem)] + 1;
+    }else{
+      obj[Math.abs(elem)] = 1;
+    }
+  }
+  console.log(obj)
+  return Object.entries(obj).map(x => x[1]).sort((a,b) => b-a).shift()
+}
