@@ -691,3 +691,38 @@ function stantonMeasure(arr = []){
   console.log(obj)
   return Object.entries(obj).map(x => x[1]).sort((a,b) => b-a).shift()
 }
+
+/*-Isograms-*/
+
+function isIsogram(str){
+  return !str.toLowerCase().split("").some((x, index, arr) => arr.indexOf(x) !== arr.lastIndexOf(x))
+}
+
+/*-Simple Fun #37: House Numbers Sum-*/
+
+function houseNumbersSum(arr) {
+  let sum = 0;
+  let index = 0;
+  let aux = arr[0];
+  
+  while(aux !== 0){
+    sum += arr[index];
+    aux = arr[index];
+    index++;
+  }
+  return sum;
+}
+
+/*-Simple Fun #63: Shape Area-*/
+
+function shapeArea(n) {
+  return n*n + (n-1)*(n-1)
+}
+
+/*-Simple Fun #152: Invite More Women?-*/
+
+function inviteMoreWomen(L) {
+  return L.reduce((acc, res) => acc + res, 0) > 0
+}
+
+/*--*/
