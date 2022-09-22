@@ -725,4 +725,45 @@ function inviteMoreWomen(L) {
   return L.reduce((acc, res) => acc + res, 0) > 0
 }
 
-/*--*/
+/*-Coding 3min: Bug in Apple-*/
+
+function sc(apple){
+  let i = 0
+  let j = 0;
+  while(i < apple.length && apple[i][j] !== 'B'){
+    j = 0;
+    while(j < apple[i].length && apple[i][j] !== 'B'){
+      j++;
+    }
+    if(apple[i][j] !== 'B'){
+      i++;
+    }
+  }
+  return [i,j]
+}
+
+/*-ex Hash Sum-*/
+
+function hexHash(code){
+  let arr = code.split("").map(x => x.charCodeAt(0).toString(16));
+  let numbers = []
+  for(let ar of arr){
+    const filtrados = ar.split("").filter(x => !isNaN(x));
+    numbers.push(...filtrados);
+  }
+  numbers = numbers.map(x => parseInt(x));
+  return numbers.reduce((acc, res) => acc + res, 0)
+}
+
+/*-Maximum Multiple-*/
+
+function maxMultiple(divisor, bound){
+  const aRestar = bound % divisor 
+  return bound - aRestar
+}
+
+/*-Remove anchor from URL-*/
+
+function removeUrlAnchor(url){
+  return url.split("#")[0]
+}
