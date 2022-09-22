@@ -138,3 +138,69 @@ function stockList(listOfArt, listOfCat){
   let str = result.join(" - ");
   return /[1-9]/.test(str) ? result.join(" - ") : ""
 }
+
+/*-Count characters in your string-*/
+
+function count (string) {  
+  const order = string.split("").sort();
+  let counter = {}
+  for(let word of order){
+    if(counter[word]){
+      counter[word] = counter[word] + 1;
+    }else{
+      counter[word] = 1
+    }
+  }
+  return counter;
+}
+
+/*-1RM Calculator-*/
+
+function calculate1RM(w, r){
+  if(r === 1) return w
+  if(r === 0) return 0
+  
+  let results = []
+  results.push(Math.round(w * (1 + (r/30))));
+  results.push(Math.round(100 * w / (101.3 - 2.67123 * r) ))
+  results.push(Math.round(w * Math.pow(r, 0.10)))
+  return Math.max(...results)
+}
+
+/*-Who likes it?-*/
+
+function likes(names) {
+  const counter = names.length;
+  if(counter === 0) return "no one likes this";
+  if(counter === 1) return `${names.shift()} likes this`;
+  if(counter === 2) return `${names.shift()} and ${names.shift()} like this`;
+  if(counter === 3) return `${names.shift()}, ${names.shift()} and ${names.shift()} like this`;
+  
+  return `${names.shift()}, ${names.shift()} and ${counter - 2} others like this`;
+}
+
+/*-Roman Numerals Encoder-*/
+
+function solution(number){
+  const numeros = [[1,'I'],[5,'V'],[10,'X'],[50,'L'],[100,'C'],[500,'D'],[1000,'M']];
+  let lastIndex = numeros.length - 1;
+  let numeroRomano = []
+  while(number > 0 && lastIndex >= 0){
+    if(number - numeros[lastIndex][0] >= 0){
+        const cantidadDe = Math.floor(number / numeros[lastIndex][0]);
+        number = number - cantidadDe*numeros[lastIndex][0];
+        numeroRomano.push(numeros[lastIndex][1].repeat(cantidadDe))
+    }else{
+      if((lastIndex - 1) >= 0 && (number + 1) === numeros[lastIndex - 1][0]){
+        numeroRomano.push(numeros[lastIndex - 1][1]);
+        number = numeros[lastIndex - 1][0] - number;
+      }else{
+        lastIndex--;
+      }
+    }
+  }
+  const result = numeroRomano.reverse().join("");
+  return result
+}
+
+
