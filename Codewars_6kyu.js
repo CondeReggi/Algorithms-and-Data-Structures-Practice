@@ -203,4 +203,42 @@ function solution(number){
   return result
 }
 
+/*-Find the missing letter-*/
+
+function findMissingLetter(array)
+{
+  let index = 1;
+  let firstNumber = array[0].charCodeAt(0);
+  
+  while(index < (array.length - 1) && firstNumber === array[index].charCodeAt(0) - 1){
+    firstNumber = array[index].charCodeAt(0);
+    index++;
+  }
+  
+  if(firstNumber !== array[index].charCodeAt(0)){
+    return String.fromCharCode(firstNumber + 1)
+  }
+  
+  return '';
+}
+
+/*-Persistent Bugger.-*/
+
+function persistence(num) {
+  if(num < 10) return 0;
+  let aux = num.toString().split("");
+  let sum = 1;
+  
+  while(aux.length !== 1){
+    let multiply = 1;
+    for(let number of aux){
+      multiply *= Number(number);
+    }
+    
+    if(multiply < 10) return sum;
+    sum ++;
+    aux = multiply.toString().split("");
+  }
+}
+
 
