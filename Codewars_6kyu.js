@@ -336,5 +336,38 @@ function dot(n,m){
   return resultado.join(circles.join(" o ") + '\n').trim()
 }
 
+/*-Maze Runner-*/
+
+function mazeRunner(maze, directions) {
+  let x = 0;
+  let y = 0;
+  let index = 0;
+  for(let position of maze){
+    if(position.some(x => x === 2)){
+      y = index;
+      x = position.indexOf(2);
+    }
+    index++;
+  }
+  
+  for(let direction of directions){
+    switch(direction){
+        case 'N': y--;
+          break;
+        case 'S': y++;
+          break;
+        case 'E': x++;
+          break;
+        case 'W': x--;
+          break;
+    }
+  }
+  if(maze[y][x] === 3 || maze[y][x] === 0) return 'Finish'
+  
+  if(y < 0 || x < 0 || y === 0 || y === (maze.length - 1) || x === 0 || x === (maze[0].length - 1) ) return 'Dead'
+  
+  return 'Lost'
+}
+
 
 
