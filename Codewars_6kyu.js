@@ -256,4 +256,85 @@ function binaryToString(binary) {
   return String.fromCharCode(...array_to_binarys)
 }
 
+/*-Highest Scoring Word-*/
+
+function high(x){
+  const rest = 'a'.charCodeAt(0) - 1;
+  const arr = x.split(" ").map(x => {
+    return {
+      word: x,
+      cant: x.split("").reduce((acc, res) => acc + res.charCodeAt(0) - rest,0)
+    }
+  });
+  
+  arr.sort((a, b) => b.cant - a.cant);
+  return arr[0].word
+}
+
+/*-Split Strings-*/
+
+function solution(str){
+  if(str === "") return []
+  let result = []
+  while(str !== ""){
+    if(str.length >= 2){
+      result.push(str.substring(0,2));
+      str = str.substring(2, str.length);
+    }else{
+      result.push(str.padEnd(2,'_'))
+      str = ""
+    }
+  }
+  return result;
+}
+
+/*-The maximum sum value of ranges -- Simple version-*/
+
+function maxSum(arr,ranges){
+  let values = []
+  for(let range of ranges){
+    let sum = 0;
+    for(let i = range[0] ; i <= range[1] ; i++){
+      sum += arr[i];      
+    }
+    values.push(sum);
+  }
+  return Math.max(...values)  
+}
+
+/*-Duplicate Encoder-*/
+
+function duplicateEncode(words){
+  let object = {}
+  let result = ""
+  
+  for(let word of words.split("")){
+    word = word.toLowerCase()
+    object[word] = object[word] ? object[word] + 1 : 1
+  }
+  
+  for(let word of words.split("")){
+    result += object[word] === 1 ? '(' : ')'
+  }
+  return result;
+}
+
+
+/*-ASCII Fun #2: Funny Dots-*/
+
+function dot(n,m){
+  let circles = []
+  let lines = []
+  for(let i = 0; i <= n ; i++){
+    circles.push("|");
+    lines.push("+");
+  }
+  let resultado = []
+  for(let i = 0; i <= m ; i++){
+    resultado.push(lines.join("---") + '\n');
+  }
+  return resultado.join(circles.join(" o ") + '\n').trim()
+}
+
+
 
