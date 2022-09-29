@@ -241,4 +241,19 @@ function persistence(num) {
   }
 }
 
+/*-Binary to Text (ASCII) Conversion-*/
+
+function binaryToString(binary) {
+  let array_to_binarys = []
+  let cantidad = binary.length;
+  while(binary != ""){
+    array_to_binarys.push(binary.substring(0, 8))
+    if(binary.length >= 8){
+      binary = binary.substring(8, binary.length);
+    }
+  }
+  array_to_binarys = array_to_binarys.map(x => parseInt(x, 2))
+  return String.fromCharCode(...array_to_binarys)
+}
+
 
