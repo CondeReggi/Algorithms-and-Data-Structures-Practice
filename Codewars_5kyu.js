@@ -305,4 +305,13 @@ function sameFactRev(nMax) {
   return result;
 }
 
+/*-Lazy Repeater-*/
 
+function makeLooper(str) {
+  let memo = str.split("");
+  return () => {
+    const result = memo.shift();
+    memo.push(result);
+    return result;
+  }
+}
