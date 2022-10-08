@@ -767,3 +767,34 @@ function maxMultiple(divisor, bound){
 function removeUrlAnchor(url){
   return url.split("#")[0]
 }
+
+/*-Stop gninnipS My sdroW!-*/
+
+function spinWords(string){
+  let mapeado = string.split(" ");
+  mapeado = mapeado.map(x => {
+    if(x.length >= 5){
+      let reverse = x.split("").reverse().join("");
+      return reverse;
+    }
+    
+    return x;
+  })
+  return mapeado.join(" ")
+}
+
+/*-Filter the number-*/
+
+var filterString = function(value) {
+  const filter = value.split("").filter(x => !isNaN(x)).join("")
+  return parseInt(filter)
+}
+
+/*-Sorted? yes? no? how?-*/
+
+const isSortedAndHow = array => {
+  let ascending = array.filter((e, i, a) => e > a[i+1]).length == 0
+  let descending = array.filter((e, i, a) => e < a[i+1]).length == 0
+  
+  return ascending ? 'yes, ascending' : descending ? 'yes, descending' : 'no'
+}
