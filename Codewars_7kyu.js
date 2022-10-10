@@ -798,3 +798,16 @@ const isSortedAndHow = array => {
   
   return ascending ? 'yes, ascending' : descending ? 'yes, descending' : 'no'
 }
+
+/*-Parts of a list-*/
+
+function partlist(arr) {
+  let result = []
+  for(let i = 1; i <=  arr.length; i++){
+    let value = []
+    let auxiliar = arr;
+    value.push(auxiliar.splice(0,i).join(" "), auxiliar.join(" "));
+    result.push(value);
+  }
+  return result
+}
