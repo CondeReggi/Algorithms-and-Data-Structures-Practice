@@ -369,5 +369,23 @@ function mazeRunner(maze, directions) {
   return 'Lost'
 }
 
+/*-Simple decrypt algo-*/
 
-
+function decrypt(cry) {
+  const arr = cry.replace(/[a-zA-Z]/ig, "");
+  let obj = {}
+  
+  for(let word of cry.split("")){
+    if(!arr.includes(word))
+      obj[word] = obj[word] ? obj[word] + 1 : 1;
+  }
+  
+  // 'a'.charCodeAt(0) = 97
+  // 'z'.charCodeAt(0) = 122
+  
+  let result = "";
+  for(let i = 97 ; i <= 122 ; i++){
+    result += obj[String.fromCharCode(i)] ? obj[String.fromCharCode(i)] : "0"
+  }
+  return result
+}
