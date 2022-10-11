@@ -811,3 +811,56 @@ function partlist(arr) {
   }
   return result
 }
+
+/*-Filter the number-*/
+
+var filterString = function(value) {
+  return parseInt(value.match(/[0-9]/ig).join(""))
+}
+
+/*-Especially Joyful Numbers-*/
+
+function numberJoy(n) {
+  const digit = `${n}`.split("").reduce((acc, res) => acc + Number(res),0)
+  return n === digit * parseInt(digit.toString().split("").reverse().join(""))
+}
+
+/*-Sorted? yes? no? how?-*/
+
+function isSortedAndHow(array) {
+  console.log(array)
+  
+  if(isAcending(array)){
+    return 'yes, ascending'
+  }else if(isDecending(array)){
+    return 'yes, descending'
+  }else{
+    return 'no'
+  }
+}
+
+function isAcending(arr){
+  let result = true;
+  for(let i = 1; i < arr.length; i++){
+    if(arr[i - 1] >= arr[i]){
+      return false;
+    }
+  }
+  return result;
+}
+
+function isDecending(arr){
+  let result = true;
+  for(let i = 1; i < arr.length; i++){
+    if(arr[i - 1] <= arr[i]){
+      return false;
+    }
+  }
+  return result;
+}
+
+/*-Testing 1-2-3-*/
+
+var number=function(array){
+  return array.map((x, i) => `${i + 1}: ${x}`)
+}
