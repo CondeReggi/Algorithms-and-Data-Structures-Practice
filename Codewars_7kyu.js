@@ -864,3 +864,39 @@ function isDecending(arr){
 var number=function(array){
   return array.map((x, i) => `${i + 1}: ${x}`)
 }
+
+/*-Sum of the first nth term of Series-*/
+
+function SeriesSum(n){
+  if(n === 0) return (0).toFixed(2);
+  let result = 0;
+  let value = 4;
+  
+  for(let i = 1; i < n ; i++){
+    result += (1 / value)
+    value += 3;
+  }
+  return (1 + result).toFixed(2);
+}
+
+/*-Tea for two-*/
+
+function tea42(input) {
+  return input.toString().replace(/2/ig,"t")
+};
+
+/*-Sort array by string length-*/
+
+function sortByLength (array) {
+  // Return an array containing the same strings, ordered from shortest to longest
+  return array.sort((a,b) => a.length - b.length)
+};
+
+/*-Simple Fun #9: Array Packing-*/
+
+function arrayPacking(a) {
+  const toBinary = a.map(x => x.toString(2).padStart(8,"0")).reverse().join("")
+  return parseInt(toBinary, 2)
+}
+
+/*--*/
