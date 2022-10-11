@@ -597,3 +597,42 @@ function typeValidation(variable, type) {
 function typeValidation(variable, type) {
   return typeof variable === type
 }
+
+/*-Multiple of index-*/
+
+function multipleOfIndex(arr) {
+  return arr.filter((x, i) => i >= 1 && x % i === 0 );
+}
+
+/*-Multiplication table for number-*/
+
+function multiTable(number) {
+  let result = [];
+  for(let i = 1; i <= 10 ; i++){
+    result.push(`${i} * ${number} = ${number * i}`);
+  }
+  return result.join("\n");
+}
+
+/*-Type of sum-*/
+
+function typeOfSum(a, b) {
+  if(typeof a === "string" || typeof b === "string") return "string"
+  return "number"
+}
+
+/*-Convert to Binary-*/
+
+function toBinary(n){
+  return parseInt(n.toString(2))
+}
+
+/*-Training JS #9: loop statement --while and do..while-*/
+
+function padIt(str,n){
+  if(n % 2){
+    return "*".repeat(Math.ceil(n/2)) + str + "*".repeat(Math.floor(n/2))
+  }else{
+    return "*".repeat(n/2) + str + "*".repeat(n/2)
+  }
+}
