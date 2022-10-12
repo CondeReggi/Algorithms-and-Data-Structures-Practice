@@ -404,3 +404,40 @@ function pyramid(n) {
   return result
 }
 
+/*-Palindrome for your Dome-*/
+
+function palindrome(string) {
+  const palabra = string.toLowerCase().split("").filter(x => /[a-zA-Z0-9]/.test(x));
+  return palabra.join("") === palabra.reverse().join("")
+}
+
+/*-Backspaces in string-*/
+
+function cleanString(s) {
+  let result = [];
+  for(let i = 0; i < s.length ; i++){
+    if(s[i] === "#"){
+      result.pop();
+    }else{
+      result.push(s[i]);
+    }
+  }
+  return result.join("")
+}
+
+/*-Multiplication table-*/
+
+const multiplicationTable = function(size) {
+  let result = Array(size).fill([]);
+  let number = 1;
+  for(let i = 0; i < size; i++){
+    for(let j = 0; j < size ; j++){
+      result[i] = [...result[i], number + (i+1)*j]
+    }
+    number++
+  }
+  return result;
+}
+
+/*--*/
+
