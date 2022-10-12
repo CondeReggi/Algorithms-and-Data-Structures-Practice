@@ -389,3 +389,18 @@ function decrypt(cry) {
   }
   return result
 }
+
+/*-Pyramid Array-*/
+
+function pyramid(n) {
+  let result = []
+  for(let i = 1; i <= n; i++){
+    let valueToPush = []
+    for(let j = 0; j < i ; j++){
+      valueToPush.push(1);
+    }
+    result.push(valueToPush)
+  }
+  return result
+}
+
