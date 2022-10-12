@@ -899,4 +899,10 @@ function arrayPacking(a) {
   return parseInt(toBinary, 2)
 }
 
+/*-Filter Coffee-*/
+
+function search(budget, prices) {
+  return prices.filter(x => x <= budget).sort((x,y) => x - y).join()
+}
+
 /*--*/
