@@ -439,5 +439,32 @@ const multiplicationTable = function(size) {
   return result;
 }
 
-/*--*/
+/*-Reverse every other word in the string-*/
+
+function reverse(str){
+  return str.split(" ").map((x,i) => i % 2 === 0 ? x : x.split("").reverse().join("")).join(" ").trim()
+}
+
+/*-Unique In Order-*/
+
+var uniqueInOrder=function(iterable){
+  if(iterable.length === 0) return []
+  let result = []
+  let auxiliar = iterable[0]
+  result.push(auxiliar);
+  for(let i of iterable){
+    if(i !== auxiliar){
+      auxiliar = i;
+      result.push(auxiliar);
+    }
+  }
+  return result;
+}
+
+/*-Stop gninnipS My sdroW!-*/
+
+function spinWords(str){
+  return str.split(" ").map(x => x.length >= 5 ? x.split("").reverse().join("") :  x).join(" ")
+}
+
 
