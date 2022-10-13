@@ -905,4 +905,35 @@ function search(budget, prices) {
   return prices.filter(x => x <= budget).sort((x,y) => x - y).join()
 }
 
+/*-Strong Number (Special Numbers Series #2)-*/
+
+function strong(n) {
+  const values = n.toString().split("").map(Number);
+  return n === values.reduce((acc, res) => acc + factorial(res),0) ? "STRONG!!!!" : "Not Strong !!"
+}
+
+function factorial(n, arr = [1,1]){
+  if(arr[n]) return arr[n] 
+  arr[n] = n * factorial(n - 1);
+  return arr[n]
+}
+
+/*-Odd March Bits 8 bits-*/
+
+function bitMarch (n) {
+  let index = n;
+  let result = [];
+  while(8 - index >= 0){
+    let arr = Array(8).fill(0);
+    
+    let variable = 8 - index;
+    for(let i = variable; i < variable + n; i++){
+      arr[i] = 1;
+    }
+    result.push(arr)
+    index++;
+  }
+	return result;
+}
+
 /*--*/
