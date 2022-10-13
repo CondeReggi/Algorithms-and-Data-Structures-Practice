@@ -636,3 +636,116 @@ function padIt(str,n){
     return "*".repeat(n/2) + str + "*".repeat(n/2)
   }
 }
+
+/*-Training JS #12: loop statement --for..in and for..of-*/
+
+function giveMeFive(obj){
+  let result = []
+  for(let value in obj){
+    if(value.length === 5)
+      result.push(value);
+    
+    if(obj[value].length === 5)
+      result.push(obj[value])
+  }
+  return result
+}
+
+/*-Training JS #10: loop statement --for-*/
+
+function pickIt(arr){
+  var odd=[],even=[];
+  
+  while(arr.length > 0){
+    let value = arr.shift();
+    if(value % 2){
+      odd.push(value);
+    }else{
+      even.push(value);
+    }
+  }
+  
+  return [odd,even];
+}
+
+/*-All Star Code Challenge #18-*/
+
+function strCount(str, letter){ 
+  let counter = 0;
+  for(let i = 0; i < str.length ; i++){
+    if(str[i] === letter){
+      counter++
+    }
+  }
+  return counter
+}
+
+/*-Grasshopper - Terminal game move function-*/
+
+function move (position, roll) {
+  return position + 2*roll
+}
+
+/*-Removing Elements-*/
+
+function removeEveryOther(arr){
+  return arr.filter((x, i) => i % 2 === 0)
+}
+
+/*-DNA to RNA Conversion-*/
+
+function DNAtoRNA(dna) {
+  return dna.replace(/T/ig, "U")
+}
+
+/*-Area of a Square-*/
+
+function squareArea(A){
+  const result = Math.pow(4 * (A / (2 * Math.PI)), 2).toFixed(2);
+  
+  const divide = result.toString().split(".")
+  
+  if(divide[1] === '00'){
+    return parseInt(result);
+  }
+  
+  return parseFloat(result)
+}
+
+/*-Switch/Case - Bug Fixing #6-*/
+
+function evalObject(value){
+  
+  console.log(value)
+  
+  var result = 0;
+  switch(value.operation){
+    case'+': 
+      result = value.a + value.b;
+      break;
+    case'-': 
+      result = value.a - value.b;
+      break;
+    case'/': 
+      result = value.a / value.b;
+      break;
+    case'*': 
+      result = value.a * value.b;
+      break;
+    case'%': 
+      result = value.a % value.b;
+      break;
+    case'^': 
+      result = Math.pow(value.a, value.b);
+      break;
+  }
+  return result;
+}
+
+/*-Is it even?-*/
+
+function testEven(n) {
+  return n % 2 === 0
+}
+
+
