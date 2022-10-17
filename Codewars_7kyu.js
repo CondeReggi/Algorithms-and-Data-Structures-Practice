@@ -981,3 +981,31 @@ function shadesOfGrey(n){
   }
   return arr;
 }
+
+/*-Sorting Dictionaries-*/
+
+function sortDict(dict) {
+  let result = [];
+  Object.keys(dict).sort((a, b) => dict[b] - dict[a]).forEach(x => {
+    if(isNaN(x)){
+      result.push([x, dict[x]])
+    }else{
+      result.push([parseInt(x), dict[x]])
+    }
+  });
+  return result;
+}
+
+/*-Count the divisors of a number-*/
+
+function getDivisorsCnt(n){
+  let result = 0;
+  for(let i = n ; i > 0; i--){
+    if(n % i === 0){
+      result ++;
+    }
+  }
+  return result;
+}
+
+/*--*/
