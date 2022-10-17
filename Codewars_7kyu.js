@@ -936,4 +936,48 @@ function bitMarch (n) {
 	return result;
 }
 
-/*--*/
+/*-esreveR-*/
+
+const reverse = function(array) {
+  let result = [];
+  while(array.length > 0){
+    result.push(array.pop())
+  }
+  return result
+}
+
+/*-254 shades of grey-*/
+
+function shadesOfGrey(n){
+  if(n > 0){
+    let result = []
+    let codeChar = 97;
+    
+    for(let i = 1; i <= n; i++){
+      var modulo = Math.floor((i / 15));
+      var resto = (i % 15);
+      
+      var first = parseInt(modulo).toString(16)
+      var second = parseInt(resto).toString(16);
+      result.push( `#${ `${first}${second}`.repeat(3) }` );
+    }
+    return result;
+  }else{
+    return []
+  }
+}
+
+function shadesOfGrey(n){
+  const arr = [];
+  let app = ''
+  for (let i=1; i <= (n < 254 ? n : 254); i++){
+    if ( i < 16 ){
+      app = '#'+ ('0' + i.toString(16)).repeat(3);
+    }else{
+      app = '#'+ (i.toString(16)).repeat(3);
+    }
+    arr.push(app);
+    app = '';
+  }
+  return arr;
+}
