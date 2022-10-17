@@ -315,3 +315,58 @@ function makeLooper(str) {
     return result;
   }
 }
+
+/*-Array.diff hero-*/
+
+function arrayDiffVeryFast(a, b) {
+  let array = []
+  let object = {}
+  
+  for(let elem of b){
+    object[elem] = object[elem] ? object[elem] + 1 : 1;
+  }
+  
+  for(let element of a){
+    if(!object[element]){
+      array.push(element)
+    }
+  }
+  return array
+}
+
+/*-Least Common Multiple-*/
+
+var lcm = function () {
+  let args = Array.from(arguments);
+  
+  if(args.length === 1) return args[0]
+  
+  //To-Do sacar multiplos
+  
+  args = args.map(x => {
+    return encontrar(x, Array.from(args));
+  });
+  
+  args = [... new Set(args)]
+  
+  console.log(args)
+  return args.reduce((acc, res) => acc * res, 1)
+};
+
+function encontrar(x, arr){
+  let encontre = false;
+  let maximo = 9999999999999999;
+  while(!encontre && arr.length > 0){
+    let variable = arr.shift();
+    if(variable !== x && variable % x === 0){
+      encontre = true;
+      maximo = Math.max(variable, x);
+    }
+  }
+  
+  if(maximo === 9999999999999999){
+    return x;
+  }else{
+    return maximo;
+  }
+}
