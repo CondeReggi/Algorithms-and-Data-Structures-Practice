@@ -1008,4 +1008,29 @@ function getDivisorsCnt(n){
   return result;
 }
 
-/*--*/
+/*-'x' marks the spot.-*/
+
+const xMarksTheSpot = (input) => {
+  let result = [];
+  for(let i = 0; i < input.length; i++){
+    for(let j= 0; j < input[0].length ; j++){
+      if(input[i][j] == 'x'){
+        if(result.length > 0){
+          return []
+        }else{
+          result.push(i,j);
+        }
+      }
+    }
+  }
+  return result;
+}
+
+/*-Disemvowel Trolls-*/
+
+function disemvowel(str) {
+  return str.replace(/[aeiou]/ig, "")
+}
+
+/*-Sort arrays - 1-*/
+
