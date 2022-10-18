@@ -116,5 +116,48 @@ public static class Kata
     
     return results[nb_petals % 6];
   }
+  
+  // Area or Perimeter
+  
+  public static int AreaOrPerimeter(int l, int w) {
+    return l == w ? l * w : 2 * ( l + w );
+  }
+  
+  // MakeUpperCase
+  
+  public static string MakeUpperCase(string str)
+  {
+    return str.ToUpper();
+  }
+  
+  // Grasshopper - Summation
+  
+  public static int summation(int num)
+  {
+    int suma = 0;
+    for(int i = 1 ; i <= num ; i++){
+      suma += i;
+    } 
+    return suma; => Enumerable.Range(1, num).Sum()
+  }
+  
+  // Removing Elements
+  
+  public static object[] RemoveEveryOther(object[] arr)
+  {
+    if(arr.Length > 1){
+      List<object> lista = new List<object>(){};
+      for(int i = 0; i < arr.Length ; i++){
+        if(i == 0 || i % 2 == 0){
+           lista.Add(arr[i]);
+        }
+      }
+      return lista.ToArray();
+    }else{
+      return arr;
+    }
+    
+    => arr.Where((e, i) => i%2 == 0).ToArray();
+  }
 }
 
