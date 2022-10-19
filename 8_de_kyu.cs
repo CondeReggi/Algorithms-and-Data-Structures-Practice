@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class Kata
 {
@@ -159,5 +160,64 @@ public static class Kata
     
     => arr.Where((e, i) => i%2 == 0).ToArray();
   }
+  
+  // My head is at the wrong end!
+  
+  public static string[] FixTheMeerkat(string[] arr)
+  {
+    string[] result = new string[arr.Length];
+    
+    for(int i = arr.Length - 1; i >= 0; i--){
+      result[i] = arr[(arr.Length - 1) - i];
+    }
+    
+    return result;
+  }
+  
+  // Thinkful - Logic Drills: Traffic light
+  
+  public static string UpdateLight(string current)
+  {
+    var mapa = new Dictionary< string, string >();
+    mapa["green"] = "yellow";
+    mapa["yellow"] = "red";
+    mapa["red"] = "green";
+    
+    return mapa[current];
+  }
+  
+  // Calculate average
+  
+  public static double FindAverage(double[] array)
+  {
+    if(array.Length == 0) return 0;
+    
+    List<double> lista = new List<double>(array);
+    double sum = 0.0;
+    
+    foreach(double value_list in lista){
+      sum += value_list;
+    }
+    
+    return sum / array.Length; // => return array.Length == 0 ? 0 : array.Average(); con Linq
+  }
+  
+  // Is the string uppercase?
+  
+  public static bool IsUpperCase(this string text)
+  {
+    return text.ToUpper() == text;
+    =>  return !s.Any(x => Char.IsLower(x)); 
+  }
+  
+  // 5 without numbers !!
+  
+  public static int UnusualFive()
+  { 
+    var str = ".....";
+    return str.Length;
+  }
+  
+  
 }
 
