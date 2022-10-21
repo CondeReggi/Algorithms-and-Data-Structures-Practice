@@ -1032,5 +1032,45 @@ function disemvowel(str) {
   return str.replace(/[aeiou]/ig, "")
 }
 
-/*-Sort arrays - 1-*/
+/*-Descending Order-*/
+
+function descendingOrder(n){
+  const array = n.toString().split("").map(Number)
+  return parseInt(array.sort((a,b) => b-a).join(""))
+}
+
+/*-Circle cipher-*/
+
+function encode(s) {
+  let arr = s.split("");
+  let result = []
+  let index = 0;
+  
+  while(arr.length > 0){
+    if(index % 2){
+      result.push(arr.pop())
+    }else{
+      result.push(arr.shift())
+    }
+    index++
+  }
+  return result.join("");
+}
+
+function decode(s) {
+  let result = []
+  let result2 = []
+  
+  for(let i = 0; i < s.length ; i++){
+    if(i % 2){
+      result2.push(s[i])
+    }else{
+      result.push(s[i])
+    }
+  }
+  return result.concat(result2.reverse()).join("");
+}
+
+/*--*/
+
 
