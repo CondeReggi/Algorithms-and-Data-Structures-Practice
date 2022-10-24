@@ -748,4 +748,21 @@ function testEven(n) {
   return n % 2 === 0
 }
 
+/*-Power-*/
 
+function numberToPower(number, power){
+  let result = 1;
+  for(let i = 1; i <= power; i++){
+    result *= number;
+  }
+  return result;
+}
+
+/*-pick a set of first elements-*/
+
+function first(arr, n) {
+  if (arguments.length === 1) return [arr.shift()]; 
+  return arr.slice(0, n)
+}
+
+/*--*/
