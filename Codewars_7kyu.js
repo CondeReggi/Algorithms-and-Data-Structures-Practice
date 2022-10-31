@@ -1071,6 +1071,25 @@ function decode(s) {
   return result.concat(result2.reverse()).join("");
 }
 
+/*-Vowel one-*/
+
+function vowelOne(s){
+  const vowels = { a: true, e: true, i: true, o: true, u: true }
+  return s.toLowerCase().split("").map(x => vowels[x] ? "1" : "0").join("")
+}
+
+/*-Debug Sum of Digits of a Number-*/
+
+function getSumOfDigits(integer) {
+  const str = integer.toString().split("").map(Number)
+  return str.reduce((acc, res) => acc + res, 0)
+}
+
+/*-Recursion #1 - Factorial-*/
+
+const factorial = n => n <= 1 ? 1 : n * factorial(n - 1)
+
 /*--*/
+
 
 
