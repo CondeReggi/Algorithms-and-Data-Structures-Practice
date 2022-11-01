@@ -370,3 +370,29 @@ function encontrar(x, arr){
     return maximo;
   }
 }
+
+/*-Math Issues-*/
+
+Math.round = function(number) {
+  const result = number.toString().split(".");
+  if(result.length < 2) return Number(result[0])
+  
+  if(Number(result[1][0]) >= 5)
+    return Number(result[0]) + 1
+
+  return Number(result[0]);
+};
+
+Math.ceil = function(number) {
+  const result = number.toString().split(".");
+  if(result.length < 2) return Number(result[0])
+  return Number(result[0]) + 1
+};
+
+Math.floor = function(number) {
+  const result = number.toString().split(".");
+  if(result.length < 2) return Number(result[0])
+  return Number(result[0])
+};
+
+/*--*/
