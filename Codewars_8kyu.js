@@ -765,4 +765,51 @@ function first(arr, n) {
   return arr.slice(0, n)
 }
 
+/*-Localize The Barycenter of a Triangle-*/
+
+function barTriang(p1, p2, p3){
+  let x = ((p1[0] + p2[0] + p3[0]) / 3)
+  let y = ((p1[1] + p2[1] + p3[1]) / 3)
+  
+  if(!Number.isInteger(x)){
+    x = parseFloat(x.toFixed(4))
+  }
+  
+  if(!Number.isInteger(y)){
+    y = parseFloat(y.toFixed(4))
+  }
+  
+  return [x, y]
+}
+
+/*-Beginner Series #2 Clock-*/
+
+function past(h, m, s){
+  return 1000 * ((h * 60 * 60) + (m * 60) + s)
+}
+
+/*-String repeat-*/
+
+function repeatStr (n, s) {
+  return s.repeat(n)
+}
+
+/*-You Can't Code Under Pressure #1-*/
+
+function doubleInteger(i) {
+  return 2 * i;
+}
+
+/*-Count Odd Numbers below n-*/
+
+function oddCount(n){
+  return Math.floor(n / 2)
+}
+
+/*-The 'if' function-*/
+
+function _if(bool, func1, func2) {
+  return bool ? func1() : func2()
+}
+
 /*--*/
