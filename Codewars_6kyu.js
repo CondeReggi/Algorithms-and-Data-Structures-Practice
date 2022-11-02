@@ -538,3 +538,22 @@ function stringExpansion(s) {
   
   return result;
 }
+
+/*-Collatz-*/
+
+function collatz(n){
+  let result = n;
+  let arr = []
+  while(result !== 1){
+    arr.push(result);
+    if(result % 2){
+      result = 3*result + 1
+    }else{
+      result = result/2
+    }
+  }
+  arr.push(1);
+  return arr.join("->")
+}
+
+
