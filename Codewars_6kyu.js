@@ -467,4 +467,74 @@ function spinWords(str){
   return str.split(" ").map(x => x.length >= 5 ? x.split("").reverse().join("") :  x).join(" ")
 }
 
+/*-Counting Duplicates-*/
 
+function duplicateCount(text){
+  if(text == "") return 0;
+  let obj = {}
+  for(let elem of text.toLowerCase().split("")){
+    obj[elem] = obj[elem] ? obj[elem] + 1 : 1
+  }
+  return Object.entries(obj).filter(x => x[1] !== 1).length
+}
+
+/*-Difference of perfect squares displayed as sum of consecutive odd numbers-*/
+
+function squaresToOdd(sqr1, sqr2){
+  const suma = Math.pow(sqr1, 2) - Math.pow(sqr2, 2);
+  let sumar = 1;
+  let initial_value = Math.min(sqr1, sqr2) * 2 + 1
+  let resultado_en_suma = 0;
+  let arr = []
+  
+  for(let i = initial_value; resultado_en_suma < suma; i += 2){
+    resultado_en_suma += i;
+    arr.push(i);
+  }
+  
+  if(resultado_en_suma !== suma){
+    return `${sqr1}^2 - ${sqr2}^2 = ${suma} = ${suma}`;
+  }
+  
+  return `${sqr1}^2 - ${sqr2}^2 = ${arr.join(" + ")} = ${suma}`;
+}
+
+/*-Most consecutive 0's in a row [Code-golf]-*/
+
+function f(input) {
+  const arr = input.toString().split(/[1-9]/ig).map(x => x.length)
+  return Math.max(...arr)
+}
+
+/*-Most consecutive 0's in a row [Code-golf]-*/
+
+function f(input) {
+  const arr = input.toString().split(/[1-9]/ig).map(x => x.length)
+  const result = Math.max(...arr)
+  
+  return result >= 59 ? `oops, code length is ${result} but should be less than or equal to 60` : result
+}
+
+/*-Simple Simple Simple String Expansion-*/
+
+function stringExpansion(s) {
+  let initial_value = 1;
+  let result = "";
+  const arr = s.split("");
+  if(arr.every(x => isNaN(x))){
+    return arr.join("")
+  }
+  
+  for(let element of arr){
+    if(!isNaN(element)){
+      initial_value = Number(element);
+      continue;
+    }
+    
+    if(initial_value > 0){
+      result += element.repeat(initial_value)
+    }
+  }
+  
+  return result;
+}
