@@ -1089,7 +1089,59 @@ function getSumOfDigits(integer) {
 
 const factorial = n => n <= 1 ? 1 : n * factorial(n - 1)
 
-/*--*/
+/*-disemvowel-*/
 
-
+function disemvowel(str) {
+  //Expresion regular
+  return str.replace(/[aeiouAEIOU]/ig, "")
+  
+  //Recorriendo y evaluando con expresion regular, concatenando string
+  let result = ""
+  for(let word of str.split("")){
+    if(!/[aeiouAEIOU]/.test(word)){
+      result += word;
+    }
+  }
+  return result;
+  
+  //Recorriendo y evalauando en array de vocales, concatenando string
+  const vowels = ['a','e','i','o','u']
+  let result = ""
+  
+  for(let word of str.split("")){
+    if(!vowels.includes(word.toLowerCase())){
+      result += word;
+    }
+  }
+  return result;
+  
+  //Recorriendo y filtrando por las que no cumplen el test de que son vocales, por ultimo join
+  return str.split("").filter(x => !/[aeiouAEIOU]/.test(x)).join("")
+  
+  //Recorro con for convencional y uso includes, agrego NO vocales a un array
+  const arr = str.split("");
+  let result = []
+  for(let i = 0; i < arr.length; i++){
+    if(!['a','e','i','o','u','A','E','I','O','U'].includes(arr[i])){
+      result.push(arr[i])
+    }
+  }
+  return result.join("")
+  
+  //Usando reduce, concatenando a string
+  return str.split("").reduce((acc, res) => {
+    if(!/[aeiou]/.test(res.toLowerCase())){
+      return acc + res;
+    }
+    return acc
+  }, "")
+  
+  //Usando reduce, cargando y joineando array
+  return str.split("").reduce((acc, res) => {
+    if(!/[aeiou]/.test(res.toLowerCase())){
+      return [...acc, res];
+    }
+    return [...acc]
+  }, []).join("")
+}
 
