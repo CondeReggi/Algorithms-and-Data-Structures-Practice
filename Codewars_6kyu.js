@@ -580,4 +580,46 @@ function nthFibo(n) {
   return prev;
 }
 
-/*--*/
+/*-Rotate an array matrix-*/
+
+function rotate(matrix, direction) {
+  let new_matrix = []
+  //Ordenar la matrix
+  if(direction === 'clockwise'){
+    for(let i = 0; i < matrix[0].length; i++){
+      let fila = []
+      for(let j = 0; j < matrix.length; j++){
+        fila[j] = matrix[j][i]
+      }
+      new_matrix.push(fila.reverse())
+    }
+    return new_matrix
+  }
+  
+  for(let i = matrix[0].length - 1; i >= 0; i--){
+    let fila = []
+    for(let j = matrix.length - 1; j >= 0; j--){
+      fila[j] = matrix[j][i]
+    }
+    new_matrix.push(fila)
+  }
+  return new_matrix    
+}
+
+/*-Break camelCase-*/
+
+// complete the function
+function solution(string) {
+  const arr = string.split("");
+  let result = "";
+  
+  for(let word of arr){
+    if(word.toUpperCase() === word){
+      result += " " + word
+    }else{
+      result += word
+    }
+  }
+  
+  return result
+}
