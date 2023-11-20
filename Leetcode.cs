@@ -83,4 +83,77 @@ public class Solution {
     
         return res;
     }
+
+    public IList<string> BinaryTreePaths(TreeNode root) {
+        List<string> result = new List<string>();
+        
+        Dfs(root, "", result);
+        return result;
+    }
+
+    public void Dfs(TreeNode node, String path, List<string> result){
+        if(node == null) return;
+
+        path += node.val;
+
+        if(node.left == null && node.right == null){
+            result.Add(path);
+        }else{
+            path += "->";
+            Dfs(node.left, path, result);
+            Dfs(node.right, path, result);
+        }
+    }
+
+    public int AddDigits(int num) {
+        if(num >= 10){
+            var array = num.ToString().ToCharArray();
+            int sum = 0;
+
+            foreach(var character in array){
+                int toInt = Int32.Parse(character.ToString());
+                sum += toInt;
+            }
+            return AddDigits(sum);
+        }
+        return num;
+    }
+
+    public bool IsUgly(int n) {
+        if (n <= 0) {
+            return false;
+        }
+        int[] factoresPermitidos = {2, 3, 5};
+        foreach (int factor in factoresPermitidos) {
+            while (n % factor == 0) {
+                n /= factor;
+            }
+        }
+        return n == 1;
+    }
+
+    public List<int> FactoresPrimos(int n) {
+        List<int> result = new List<int>();
+        int[] factoresExcluidos = {2, 3, 5};
+
+        foreach (int factor in factoresExcluidos) {
+            while (n % factor == 0) {
+                n /= factor;
+            }
+        }
+        for (int i = 2; i <= n / i; ++i) {
+            while (n % i == 0) {
+                if (!factoresExcluidos.Contains(i)) {
+                    result.Add(i);
+                }
+                n /= i;
+            }
+        }
+        if (n > 1 && !factoresExcluidos.Contains(n)) {
+            result.Add(n);
+        }
+        return result;
+    }
+
+    
 }
