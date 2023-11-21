@@ -155,5 +155,32 @@ public class Solution {
         return result;
     }
 
+    public void MoveZeroes(int[] nums) {
+        var noZeros = nums.Where(x => x != 0).ToList();
+        
+        if(nums.Length - noZeros.Count() == nums.Length) return;
+
+        for (int j = 0; j < noZeros.Count; j++) {
+            nums[j] = noZeros[j];
+        }
+
+        for (int j = noZeros.Count; j < nums.Length; j++) {
+            nums[j] = 0;
+        }
+    }
+
     
+}
+
+public class Solution : VersionControl {
+    public int FirstBadVersion(int n) {
+        while(!IsBadVersion(n)){
+            n = n/2;
+        }
+
+        while(IsBadVersion(n)){
+            n--;
+        }
+        return  n+1;
+    }
 }
