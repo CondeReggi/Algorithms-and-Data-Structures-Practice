@@ -169,7 +169,91 @@ public class Solution {
         }
     }
 
+    public bool IsPowerOfThree(int n) {
+        if(n < 1) return false;
+        while(n % 3 == 0) n /= 3;
+        
+        return n == 1;
+    }
+
+    public int[] CountBits(int n) {
+        int[] binarios = new int[n+1];
+
+        for(int i = 0; i <= n; i++){
+            string binary = Convert.ToString(i, 2);
+            int sum = 0;
+            foreach(var character in binary.ToCharArray()){
+                if(character == '1') sum++;
+            }
+            binarios[i] = sum;
+        }
+
+        return binarios;
+    }
+
+    public bool IsPowerOfFour(int n) {
+        if(n < 1) return false;
+        while(n % 4 == 0) n /= 4;
+        
+        return n == 1;
+    }
+
+    public void ReverseString(char[] s) {
+        for(int i = 0; i < s.Length / 2; i++){
+            char auxiliar = s[i];
+            s[i] = s[s.Length - i - 1];
+            s[s.Length - i - 1] = auxiliar;
+        }
+    }
+
+    public string Convert(string s, int numRows) {
+        Dictionary<int, string> dict = new Dictionary<int, string>();
+        int counter = 1;
+        bool sumo = true;
+        for(int i = 0; i < s.Length; i++){
+            string character = s[i].ToString();
+
+            if(dict.ContainsKey(counter)) dict[counter] = dict[counter] + character;
+            else dict[counter] = character;
+
+            if(counter == numRows) sumo = false;
+            if(counter == 1) sumo = true;
+
+            if(sumo){
+                counter++;
+            }else{
+                counter--;
+            }
+        }
+        string result = "";
+        foreach(var a in dict){
+            // Console.WriteLine($"{a.Key} {a.Value}");
+            result += a.Value;
+        }
+
+        return result;
+    }
+
     
+}
+
+public class NumArray {
+    private int[] _numbers;
+    public NumArray(int[] nums) {
+        _numbers = nums;
+    }
+    
+    public int SumRange(int left, int right) {
+        if(_numbers.Length < left) return 0;
+
+        int min = Math.Min(_numbers.Length, right);
+        int sum = 0;
+        for(int i = left; i <= min; i++){
+            sum += _numbers[i];
+        }
+
+        return sum;
+    }
 }
 
 public class Solution : VersionControl {
