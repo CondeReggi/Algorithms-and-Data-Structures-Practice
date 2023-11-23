@@ -234,7 +234,44 @@ public class Solution {
         return result;
     }
 
-    
+    public int FirstUniqChar(string s) {
+        for(int i = 0; i < s.Length; i++){
+            if(s.IndexOf(s[i]) == s.LastIndexOf(s[i])) return i;
+        }
+        return -1;
+    }
+
+    public int[] Intersect(int[] nums1, int[] nums2) {
+        Dictionary<int, int> map = new Dictionary<int, int>();
+        List<int> result = new List<int>();
+
+        foreach (int num in nums1) {
+            if (map.ContainsKey(num)) {
+                map[num]++;
+            } else {
+                map[num] = 1;
+            }
+        }
+
+        foreach (int num in nums2) {
+            if (map.ContainsKey(num) && map[num] > 0) {
+                result.Add(num);
+                map[num]--;
+            }
+        }
+
+        return result.ToArray();
+    }
+
+    public int MissingNumber(int[] nums) {
+        for (int i = 0; i <= nums.Length; i++) {
+            if (Array.IndexOf(nums, i) == -1) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 }
 
 public class NumArray {
