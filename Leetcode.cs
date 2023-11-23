@@ -272,6 +272,31 @@ public class Solution {
 
         return -1;
     }
+
+    public IList<IList<string>> GroupAnagrams(string[] strs) {
+        Dictionary<string, List<string>> dictionary = new Dictionary<string,List<string>>();
+
+        for(int i = 0; i < strs.Length; i++){
+            
+            var palabra =  new String(strs[i].ToList().OrderBy(x => x).ToArray());
+
+            if(dictionary.ContainsKey(palabra)){
+                dictionary[palabra].Add(strs[i]);
+            }else{
+                dictionary[palabra] = new List<string>() { strs[i] };
+            }
+        }
+
+        IList<IList<string>> result = new List<IList<string>>();
+
+        foreach(var element in dictionary){
+            result.Add(element.Value);
+        }
+
+        return result;
+    }
+
+    
 }
 
 public class NumArray {
