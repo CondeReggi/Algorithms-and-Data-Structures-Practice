@@ -316,7 +316,97 @@ public class Solution {
         return steps;
     }
 
-    
+    public bool IsBalanced(TreeNode root) {
+        if(root == null) return true;
+
+        var alturaIzquierda = Altura(root.left);
+        var alturaDerecha = Altura(root.right);
+
+        return (Math.Abs(alturaIzquierda - alturaDerecha) <= 1 && IsBalanced(root.left) && IsBalanced(root.right));
+    }
+
+    public int Altura(TreeNode root) {
+        if(root == null) return 0;
+
+        return 1 + Math.Max(Altura(root.left), Altura(root.right));
+    }
+
+    public string ConvertToTitle(int columnNumber) {
+        string result = "";
+
+        while(columnNumber > 0){
+            columnNumber--;
+            char letter = (char)('A' + columnNumber % 26);
+            result = letter + result;
+            columnNumber = columnNumber / 26;
+        }
+
+        return result;
+    }
+
+    public uint reverseBits(uint n) {
+        string binaryString = Convert.ToString(n, 2).PadLeft(32, '0');
+
+        char[] binaryArray = binaryString.ToCharArray();
+        Array.Reverse(binaryArray);
+        string reversedBinaryString = new string(binaryArray);
+
+        uint result = Convert.ToUInt32(reversedBinaryString, 2);
+
+        return result;
+    }
+
+    public int HammingWeight(uint n) {
+        var characters = Convert.ToString(n, 2).PadLeft(32, '0').ToString();
+            Console.WriteLine(n);
+        int count = 0;
+
+        foreach(var element in characters.ToCharArray()){
+            if(element == '1') count++;
+        }
+        return count;
+    }
+
+    public int[] Intersection(int[] nums1, int[] nums2) {
+        Dictionary<int, bool> datos = new Dictionary<int, bool>();
+        List<int> result = new List<int>();
+        foreach(var elem in nums1){
+            datos[elem] = true;
+        }
+
+        foreach(var elem2 in nums2){
+            if(datos.ContainsKey(elem2) && datos[elem2] == true)
+            {
+                result.Add(elem2);
+                datos[elem2] = false;
+            }
+        }
+
+        return result.ToArray();
+    }
+
+    public bool CanConstruct(string ransomNote, string magazine) {
+        if (string.IsNullOrEmpty(ransomNote)) {
+            return true; 
+        }
+
+        if (string.IsNullOrEmpty(magazine) || ransomNote.Length > magazine.Length) {
+            return false; 
+        }
+
+        StringBuilder magazineBuilder = new StringBuilder(magazine);
+
+        foreach (char c in ransomNote) {
+            int index = magazineBuilder.ToString().IndexOf(c);
+            if (index == -1) {
+                return false;
+            } else {
+                magazineBuilder.Remove(index, 1);
+            }
+        }
+
+        return true;
+    }
 }
 
 public class NumArray {
