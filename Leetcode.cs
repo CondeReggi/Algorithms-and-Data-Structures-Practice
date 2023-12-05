@@ -407,6 +407,21 @@ public class Solution {
 
         return true;
     }
+
+    public int NumberOfMatches(int n) {
+        int counter = 0;
+        var auxiliar = n;
+        while(auxiliar > 1){
+            if(auxiliar % 2 == 0){ 
+                counter += (int)Math.Floor(auxiliar / 2.0);
+                auxiliar = (int)Math.Round(auxiliar / 2.0);
+            }else{ 
+                counter += (int)Math.Floor((auxiliar - 1) / 2.0);
+                auxiliar = (int)Math.Round(((auxiliar - 1) / 2.0) + 1.0);
+            }
+        }
+        return counter;
+    }
 }
 
 public class NumArray {
