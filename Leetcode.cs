@@ -441,6 +441,87 @@ public class NumArray {
 
         return sum;
     }
+
+    public int RemoveDuplicates(int[] nums) {
+        if(nums.Length == 0) return 0;
+
+        Dictionary<int, bool> datos = new Dictionary<int, bool>();
+
+        foreach(var a in nums){
+            if(!datos.ContainsKey(a)) datos[a] = true;
+        }
+
+        int index = 0;
+        foreach(var key in datos.Keys) {
+            nums[index++] = key;
+        }
+        return datos.Values.Count();
+    }
+
+    public int RemoveDuplicates(int[] nums) {
+        if(nums.Length == 0) return 0;
+
+        Dictionary<int, int> datos = new Dictionary<int, int>();
+
+        foreach(var a in nums){
+            if(!datos.ContainsKey(a)) datos[a] = 1;
+            else if(datos[a] < 2) datos[a]++;
+        }
+
+        int index = 0;
+        foreach(var key in datos) {
+            Console.WriteLine($"{key.Key} {key.Value}");
+            for(int i = 0; i < key.Value; i++){
+                nums[index] = key.Key;
+                index++;
+            }
+            
+        }
+        return datos.Values.Sum();
+    }
+
+    public int MajorityElement(int[] nums) {
+        if(nums.Length == 1) return nums[0];
+
+        var cantidad = Math.Ceiling(nums.Length / 2.0);
+        Console.WriteLine(cantidad);
+        Dictionary<int, int> datos = new Dictionary<int, int>();
+
+        foreach(var element in nums){
+            if(!datos.ContainsKey(element)) datos[element] = 1;
+            else {
+                datos[element]++;
+                if(datos[element] >= cantidad) return element;
+            }
+        }
+
+        return -1;
+    }
+
+    public int MaxProfit(int[] prices) {
+        if (prices == null || prices.Length < 2) return 0;
+
+        int maxProfit = 0;
+        int minPrice = prices[0];
+
+        for (int i = 1; i < prices.Length; i++) {
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
+            } else {
+                maxProfit = Math.Max(maxProfit, prices[i] - minPrice);
+            }
+        }
+        return maxProfit;
+    }
+
+    public bool CanJump(int[] nums) {
+        int maxReachable = 0;
+        for (int i = 0; i < nums.Length; i++) {
+            if (i > maxReachable) return false;
+            maxReachable = Math.Max(maxReachable, i + nums[i]);
+        }
+        return true;
+    }
 }
 
 public class Solution : VersionControl {
