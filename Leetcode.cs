@@ -422,6 +422,32 @@ public class Solution {
         }
         return counter;
     }
+
+    //Solucion no solucion
+    public int TotalMoney(int n) {
+        int result = 0;
+        int modulo = n % 7;
+
+        if(modulo == 0) return (n/7) * GaussSum(n);
+        return (int)(Math.Floor(n / 7.0) * GaussSum(7)) + GaussSum(modulo);
+    }
+
+    //Eta si
+    public int TotalMoney(int n) {
+       int result = 0;
+       int j = 0;
+       for(int i = 1; i <= Math.Floor(n/7.0); i++){
+           result += (GaussSum(6 + i) - GaussSum(i - 1));
+           j = i;
+       }
+       result += (GaussSum((n % 7) + j) - GaussSum(j));
+       return result;
+    }
+
+    public int GaussSum(int n){
+        return (n*(n+1))/2;
+    }
+
 }
 
 public class NumArray {
