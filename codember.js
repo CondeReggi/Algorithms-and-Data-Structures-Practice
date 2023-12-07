@@ -38,4 +38,33 @@ function a(str){
 }
 
 //cat CHALLENGE_03.txt
+function CHALLENGE_03(cadenas) {
+    const esValido = (string) => {
+        const separate = string.split(":").map(x => x.trim());
+        const [rango, letra] = separate[0].split(" ");
+        const palabra = separate[1].split("");
+        const [inicio, final] = rango.split("-").map(Number);
+        
+        const map = {}
+        
+        for(let letras of palabra){
+            if(map[letras]) letras++;
+            map[letras] = 1;
+        }
+        
+        return { valor: map[letra] >= inicio && map[letra] <= final, resultado: separate[1] };
+    } 
+
+    let palabras = cadenas.split("\n");
+    let cantidad = 0;
+    for(let palabra of palabras){
+        const {valor, resultado} = esValido(palabra);
+        if(!valor) cantidad++;
+        if(!valor && cantidad == 42) return resultado;
+    }
+    return cantidad;
+}
+
+//cat CHALLENGE_04.txt
+
 
