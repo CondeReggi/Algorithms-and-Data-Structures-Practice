@@ -566,6 +566,22 @@ public class NumArray {
 
         return datos.Values.Sum();
     }
+
+    public string LargestOddNumber(string num) {
+        long a = Int64.Parse(num[num.Length - 1].ToString());
+        if(a % 2 != 0) return num;
+
+        List<long> array = num.ToCharArray().Select(x => Int64.Parse(x.ToString())).ToList();
+        Stack<long> stack = new Stack<long>(array);
+        int index = 0;
+        while (stack.Count > 0 && stack.Peek() % 2 == 0)
+        {
+          stack.Pop();
+          index++;
+        }
+
+        return stack.Count == 0 ? "" : num.Substring(0, num.Length - index);
+    }
 }
 
 public class Solution : VersionControl {
