@@ -582,6 +582,23 @@ public class NumArray {
 
         return stack.Count == 0 ? "" : num.Substring(0, num.Length - index);
     }
+
+    public string Tree2str(TreeNode root) {
+        string result = Tree2strAux(root);
+
+        return result;
+    }
+
+    private string Tree2strAux(TreeNode root) {
+        if (root == null) return "";
+        if (root.left == null && root.right == null) return root.val.ToString();
+        
+        if (root.left == null) return $"{root.val}()({Tree2strAux(root.right)})";
+        
+        if (root.right == null) return $"{root.val}({Tree2strAux(root.left)})";
+        
+        return $"{root.val}({Tree2strAux(root.left)})({Tree2strAux(root.right)})";
+    }
 }
 
 public class Solution : VersionControl {
