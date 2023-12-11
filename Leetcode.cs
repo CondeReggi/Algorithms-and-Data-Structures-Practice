@@ -611,6 +611,25 @@ public class NumArray {
         
         return $"{root.val}({Tree2strAux(root.left)})({Tree2strAux(root.right)})";
     }
+
+    public int FindSpecialInteger(int[] arr) {
+        if(arr.Length == 1) return arr[0];
+        
+        var porcentaje = arr.Length * 0.25;
+
+        Dictionary<int, int> datos = new Dictionary<int, int>();
+
+        foreach(int value in arr){
+            if(datos.ContainsKey(value)){
+                datos[value]++;
+                if(datos[value] > porcentaje) return value;
+            }else{
+                datos[value] = 1;
+            }
+        }
+
+        return -1;
+    }
 }
 
 public class Solution : VersionControl {
