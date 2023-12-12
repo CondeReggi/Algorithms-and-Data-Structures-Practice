@@ -623,3 +623,23 @@ function solution(string) {
   
   return result
 }
+
+/*-One down-*/
+
+function oneDown(str) {
+  if(typeof str !== 'string') return "Input is not a string";
+  const coso = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  
+  return str.split("")
+    .map(x => {
+    if(x == " ") return x;
+    
+    let index = coso.indexOf(x);
+    if(index == 0) index = coso.length;
+    
+    return coso[index - 1];
+  }).join("")
+}
+
+/*--*/
+
