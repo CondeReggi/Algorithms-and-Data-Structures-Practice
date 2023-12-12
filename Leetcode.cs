@@ -630,6 +630,18 @@ public class NumArray {
 
         return -1;
     }
+
+    public int MaxProduct(int[] nums) {
+        if(nums.Length < 1) return 0;
+        var max = Int32.MinValue;
+        for(int i = 0; i < nums.Length; i++){
+            for(int j = i + 1; j < nums.Length; j++){
+                var value = (nums[i]-1)*(nums[j]-1);
+                if(value > max) max = value;
+            }
+        }
+        return max;
+    }
 }
 
 public class Solution : VersionControl {
