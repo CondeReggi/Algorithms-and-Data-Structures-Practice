@@ -660,6 +660,59 @@ public class NumArray {
         }
         return max;
     }
+
+    public int[][] OnesMinusZeros(int[][] grid) {
+        int[][] result = new int[grid.Length][];
+
+        var values = FindValues(grid, 0, 1);
+
+        for(int i = 0; i < grid.Length; i++){
+            result[i] = new int[grid[i].Length];
+            for(int j = 0; j < grid[i].Length; j++){
+                int onesRowi = values[i][1];
+                int zerosRowi = values[i][0];
+
+                int onesColj = values[-2][j];
+                int zerosColj = values[-1][j];
+
+                result[i][j] = onesRowi + onesColj - zerosRowi - zerosColj;
+            }
+        }
+
+        return result;
+    }
+
+    private Dictionary<int, int[]> FindValues(int[][] grid, int value1, int value2)
+    {
+        Dictionary<int, int[]> result = new Dictionary<int, int[]>();
+        int[] countByColumnValue1 = new int[grid[0].Length];
+        int[] countByColumnValue2 = new int[grid[0].Length];
+
+        for (int i = 0; i < grid.Length; i++)
+        {
+            int countRowValue1 = 0;
+            int countRowValue2 = 0;
+
+            for (int j = 0; j < grid[i].Length; j++)
+            {
+                if (grid[i][j] == value1)
+                {
+                    countRowValue1++;
+                    countByColumnValue1[j]++;
+                }
+                else if (grid[i][j] == value2)
+                {
+                    countRowValue2++;
+                    countByColumnValue2[j]++;
+                }
+            }
+            result[i] = new int[] { countRowValue1, countRowValue2 };
+        }
+
+        result[-1] = countByColumnValue1; 
+        result[-2] = countByColumnValue2; 
+        return result;
+    }
 }
 
 public class Solution : VersionControl {
