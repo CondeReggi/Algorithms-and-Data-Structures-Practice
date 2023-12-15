@@ -713,6 +713,19 @@ public class NumArray {
         result[-2] = countByColumnValue2; 
         return result;
     }
+
+    public string DestCity(IList<IList<string>> paths) {
+        List<string> primeros = paths.Select(x => x[0]).ToList();
+        List<string> segundos = paths.Select(x => x[1]).ToList();
+        
+        foreach(var letra in segundos){
+            if(!primeros.Any(x => x == letra)) return letra;
+        }
+
+        return "";
+    }
+
+    
 }
 
 public class Solution : VersionControl {
