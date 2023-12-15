@@ -345,3 +345,99 @@ function calculateTime(deliveries) {
     return new Date(Math.abs(diff)).toISOString().slice(11, 19)
   }
 }
+
+//DIA 14
+function maxGifts(houses) {
+  if (houses.length === 0) return 0;
+    if (houses.length === 1) return houses[0];
+
+    let prevMax = houses[0];
+    let currMax = Math.max(houses[0], houses[1]);
+
+    for (let i = 2; i < houses.length; i++) {
+        let newMax = Math.max(currMax, prevMax + houses[i]);
+        prevMax = currMax;
+        currMax = newMax;
+    }
+
+    return currMax;
+}
+
+function maxGifts(houses) {
+  const obj = {}
+  for(let i = 0; i < houses.length; i++){
+    obj[i] = houses[i];
+  }
+  let result = 0;
+  while(!!Object.keys(obj).length){
+    let arr = Object.values(obj);
+    let max = Math.max(...arr);
+   
+    let indexof = houses.indexOf(max);
+    result += max;
+    houses[indexof] = Infinity;
+    delete obj[`${indexof}`]
+    if(obj[`${indexof + 1}`]) {
+        delete obj[`${indexof + 1}`]
+        houses[indexof + 1] = Infinity;
+    }
+    if(obj[`${indexof - 1}`]) {
+        delete obj[`${indexof - 1}`]
+        houses[indexof - 1] = Infinity;
+    }
+  }
+  return result;
+}
+
+//DIA 15
+function autonomousDrive(store, movements) {
+    if (store.length === 0) return [];
+
+    let [fila, columna] = [0, 0];
+    for (let i = 0; i < store.length; i++) {
+        let j = store[i].indexOf('!');
+        if (j !== -1) {
+            fila = i;
+            columna = j;
+            break;
+        }
+    }
+
+    store[fila] = store[fila].replace('!', '.');
+
+    for (let move of movements) {
+        let nuevaFila = fila, nuevaColumna = columna;
+        switch (move) {
+            case 'R': 
+              nuevaColumna++; 
+              break;
+            case 'D': 
+              nuevaFila++; 
+              break;
+            case 'L': 
+              nuevaColumna--; 
+              break;
+            case 'U': 
+              nuevaFila--; 
+              break;
+        }
+
+        if (nuevaFila >= 0 
+          && nuevaFila < store.length 
+          && nuevaColumna >= 0 
+          && nuevaColumna < store[nuevaFila].length 
+          && store[nuevaFila][nuevaColumna] !== '*') 
+        {
+            fila = nuevaFila;
+            columna = nuevaColumna;
+        }
+    }
+
+    store[fila] = 
+      store[fila].substring(0, columna) 
+      + '!' 
+      + store[fila].substring(columna + 1);
+
+    return store;
+}
+
