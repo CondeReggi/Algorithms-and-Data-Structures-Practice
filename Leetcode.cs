@@ -730,21 +730,27 @@ public class NumArray {
         
         int[] letterCounts = new int[26]; // Para letras del alfabeto inglés
 
-        // Contar frecuencias de letras en s
         foreach (char c in s) {
             letterCounts[c - 'a']++;
         }
 
         foreach (char c in t) {
             letterCounts[c - 'a']--;
-            // Si alguna letra tiene una frecuencia negativa, no es un anagrama
             if (letterCounts[c - 'a'] < 0) {
                 return false;
             }
         }
-
-
         return true;
+    }
+
+    public int MaxProductDifference(int[] nums) {
+        if(nums.Length < 4) return 0;
+        Array.Sort(nums);
+        int a = nums[nums.Length - 1];
+        int b = nums[nums.Length - 2];
+        int c = nums[0];
+        int d = nums[1];
+        return (a * b) - (c * d);
     }
 }
 
