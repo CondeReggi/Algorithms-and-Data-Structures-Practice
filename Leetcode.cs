@@ -811,6 +811,33 @@ public class FoodRatings {
 
         return string.Empty;
     }
+
+    public int[][] ImageSmoother(int[][] img) {
+        if (img.Length == 0 || img[0].Length == 0) return img;
+
+        int rows = img.Length;
+        int cols = img[0].Length;
+        int[][] result = new int[rows][];
+
+        for (int i = 0; i < rows; i++) {
+            result[i] = new int[cols];
+            for (int j = 0; j < cols; j++) {
+                int sum = 0;
+                int count = 0;
+                for (int ni = i - 1; ni <= i + 1; ni++) {
+                    for (int nj = j - 1; nj <= j + 1; nj++) {
+                        if (ni >= 0 && ni < rows && nj >= 0 && nj < cols) {
+                            sum += img[ni][nj];
+                            count++;
+                        }
+                    }
+                }
+                result[i][j] = sum / count;
+            }
+        }
+
+        return result;
+    }
 }
 
 public class Solution : VersionControl {
