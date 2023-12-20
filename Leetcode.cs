@@ -752,6 +752,18 @@ public class NumArray {
         int d = nums[1];
         return (a * b) - (c * d);
     }
+
+    public int BuyChoco(int[] prices, int money) {
+        Array.Sort(prices);
+        if(prices.Length == 0) return money;
+
+        var primero = prices[0];
+        var segundo = prices[1];
+
+        if(money - (primero + segundo) >= 0) return money - (primero + segundo);
+
+        return money;
+    }
 }
 
 public class FoodRatings {
