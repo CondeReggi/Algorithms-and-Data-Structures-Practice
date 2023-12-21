@@ -764,6 +764,18 @@ public class NumArray {
 
         return money;
     }
+
+    public int MaxWidthOfVerticalArea(int[][] points) {
+        if(points.Length <= 1) return 0;
+        Array.Sort(points, (a, b) => a[0].CompareTo(b[0]));
+        int max = int.MinValue; 
+
+        for(int i = 1; i < points.Length; i++){
+            var distancia = Math.Abs(points[i-1][0] - points[i][0]);
+            if(distancia > max) max = distancia;
+        }
+        return max;
+    }
 }
 
 public class FoodRatings {
