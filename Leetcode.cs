@@ -776,6 +776,40 @@ public class NumArray {
         }
         return max;
     }
+
+    public bool IsPathCrossing(string path) {
+        Dictionary<string, bool> datos = new Dictionary<string, bool>();
+
+        datos["0,0"] = true;
+
+        int y = 0;
+        int x = 0;
+
+        foreach(var letra in path.ToCharArray()){
+            switch(letra){
+                case 'N':
+                    y++;
+                    break;
+                case 'S':
+                    y--;
+                    break;
+                case 'W':
+                    x--;
+                    break;
+                case 'E':
+                    x++;
+                    break;
+            }
+
+            var str = $"{x},{y}";
+
+            if(datos.ContainsKey(str)) return true;
+            
+            datos[str] = true;
+        }
+
+        return false;
+    }
 }
 
 public class FoodRatings {
