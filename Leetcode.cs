@@ -828,6 +828,17 @@ public class NumArray {
         return dp[n, target];
     }
 
+    public int FirstBadVersion(int n) {
+        while(!IsBadVersion(n)){
+            n = n/2;
+        }
+
+        while(IsBadVersion(n)){
+            n--;
+        }
+        return  n+1;
+    }
+
     public int MinCost(string colors, int[] neededTime) {
         if (colors.Length == 0) return 0;
 
@@ -927,18 +938,5 @@ public class FoodRatings {
         }
 
         return result;
-    }
-}
-
-public class Solution : VersionControl {
-    public int FirstBadVersion(int n) {
-        while(!IsBadVersion(n)){
-            n = n/2;
-        }
-
-        while(IsBadVersion(n)){
-            n--;
-        }
-        return  n+1;
     }
 }
