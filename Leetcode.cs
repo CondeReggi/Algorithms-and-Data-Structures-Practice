@@ -828,7 +828,20 @@ public class NumArray {
         return dp[n, target];
     }
 
-    
+    public int MinCost(string colors, int[] neededTime) {
+        if (colors.Length == 0) return 0;
+
+        int sum = 0;
+
+        for (int i = 1; i < colors.Length; i++) {
+            if (colors[i] == colors[i - 1]) {
+                sum += Math.Min(neededTime[i - 1], neededTime[i]);
+                neededTime[i] = Math.Max(neededTime[i - 1], neededTime[i]);
+            }
+        }
+
+        return sum;
+    }
 }
 
 public class FoodRatings {
