@@ -853,6 +853,38 @@ public class NumArray {
 
         return sum;
     }
+
+    public string LongestPalindrome(string s) {
+        if(s.Length == 0) return "";
+
+        if(isPalindome(s)) return s;
+
+        int n = s.Length;
+        bool[,] dp = new bool[n,n];
+        int start = 0;
+        int maxLength = 1;
+
+        for(int i = 0; i < n; i++){
+            for(int j = i; j < n; j++){
+                var substring = s.Substring(i, j - i + 1);
+                dp[i,j] = isPalindome(substring);
+
+                if(dp[i,j] == true && substring.Length > maxLength){
+                    start = i;
+                    maxLength = substring.Length;
+                }
+            }
+        }
+
+        return s.Substring(start, maxLength);
+    }
+
+    private bool isPalindome(string s){
+        for(int i = 0; i < s.Length / 2; i++){
+            if(s[i] != s[s.Length - 1 - i]) return false;
+        }
+        return true;
+    }
 }
 
 public class FoodRatings {
