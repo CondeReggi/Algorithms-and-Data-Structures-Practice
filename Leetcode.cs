@@ -901,6 +901,34 @@ public class NumArray {
         if(open < max) Generate(result, current + "(", open + 1, close, max);
         if(close < open) Generate(result, current + ")", open, close + 1, max);
     }
+
+    public int MinDifficulty(int[] jobDifficulty, int d) {
+        int n = jobDifficulty.Length;
+        if(n < d) return -1;
+
+        int[,] dp = new int[n+1, d+1];
+
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= d; j++) {
+                dp[i, j] = Int32.MaxValue;
+            }
+        }
+        dp[0, 0] = 0;
+
+        for (int day = 1; day <= d; day++) {
+            for (int i = day; i <= n; i++) {
+                int maxDiff = 0;
+                for (int j = i; j >= day; j--) {
+                    maxDiff = Math.Max(maxDiff, jobDifficulty[j - 1]);
+                    if (dp[j - 1, day - 1] != Int32.MaxValue) {
+                        dp[i, day] = Math.Min(dp[i, day], dp[j - 1, day - 1] + maxDiff);
+                    }
+                }
+            }
+        }
+
+        return dp[n,d];
+    }
 }
 
 public class FoodRatings {
