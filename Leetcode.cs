@@ -1033,7 +1033,36 @@ public class NumArray {
         }
     }
 
-    
+    public IList<IList<int>> CombinationSum2(int[] candidates, int target) {
+        IList<IList<int>> result = new List<IList<int>>();
+        HashSet<int> visited = new HashSet<int>();
+        Array.Sort(candidates);
+        Backtrack(result, new List<int>(), 0, 0, target, candidates, visited);
+        return result;
+    }
+
+    private void Backtrack(IList<IList<int>> result, 
+                           IList<int> current, int startIndex, int suma, int target, 
+                           int[] candidates, HashSet<int> visited) {
+        if (suma == target) {
+            result.Add(new List<int>(current));
+            return;
+        }
+
+        for (int i = startIndex; i < candidates.Length; i++) {
+            if (i > startIndex && candidates[i] == candidates[i - 1]) continue;
+            if (visited.Contains(i)) continue;
+
+            int sum = suma + candidates[i];
+            if (sum <= target) {
+                visited.Add(i); 
+                current.Add(candidates[i]);
+                Backtrack(result, current, i + 1, sum, target, candidates, visited);
+                current.RemoveAt(current.Count - 1); 
+                visited.Remove(i);
+            }
+        }
+    }
 }
 
 public class FoodRatings {
