@@ -1063,6 +1063,48 @@ public class NumArray {
             }
         }
     }
+
+    public IList<IList<string>> SolveNQueens(int n) {
+        IList<IList<string>> result = new List<IList<string>>();
+        Backtrack(result, new string[n], 0, n);
+        return result;
+    }
+
+    private void Backtrack(IList<IList<string>> result, string[] current, int row, int n) {
+        if (row == n) {
+            result.Add(new List<string>(current));
+            return;
+        }
+
+        for (int col = 0; col < n; col++) {
+            if (IsSafe(current, row, col, n)) {
+                char[] rowArray = new string('.', n).ToCharArray();
+                rowArray[col] = 'Q';
+                current[row] = new string(rowArray);
+                Backtrack(result, current, row + 1, n);
+                current[row] = new string('.', n);
+            }
+        }
+    }
+
+    private bool IsSafe(string[] current, int row, int col, int n) {
+        for (int i = 0; i < row; i++) {
+            if (current[i][col] == 'Q') {
+                return false; 
+            }
+
+            int diagLeft = col - row + i;
+            if (diagLeft >= 0 && current[i][diagLeft] == 'Q') {
+                return false; 
+            }
+
+            int diagRight = col + row - i;
+            if (diagRight < n && current[i][diagRight] == 'Q') {
+                return false; 
+            }
+        }
+        return true;
+    }
 }
 
 public class FoodRatings {
