@@ -1010,6 +1010,29 @@ public class NumArray {
         }
     }
 
+    public IList<IList<int>> CombinationSum(int[] candidates, int target) {
+        IList<IList<int>> result =  new List<IList<int>>();
+        Backtrack(result, new List<int>() {},0, 0, target, candidates);
+        return result;
+    }
+
+    private void Backtrack(IList<IList<int>> result, 
+            IList<int> current, int startIndex, int suma, int target, int[] candidates) {
+        if (suma == target) {
+            result.Add(new List<int>(current));
+            return;
+        }
+
+        for (int i = startIndex; i < candidates.Length; i++) {
+            int sum = suma + candidates[i];
+            if (sum <= target) {
+                current.Add(candidates[i]);
+                Backtrack(result, current, i, sum, target, candidates); 
+                current.RemoveAt(current.Count - 1); //Importante remover siempre length - 1
+            }
+        }
+    }
+
     
 }
 
