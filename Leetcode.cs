@@ -960,6 +960,25 @@ public class NumArray {
 
         return result;
     }
+
+    public IList<IList<int>> Combine(int n, int k) {
+        IList<IList<int>> result = new List<IList<int>>();
+        Backtrack(result, new List<int>() {}, n, k, 1);
+        return result;
+    }
+
+    private void Backtrack(IList<IList<int>> result, List<int> current, int n, int k, int start){
+        if(current.Count() == k){
+            result.Add(new List<int>(current));
+            return;
+        }
+    
+        for (int i = start; i <= n; i++) {
+            current.Add(i);
+            Backtrack(result, current, n, k, i + 1);
+            current.RemoveAt(current.Count() - 1);
+        }
+    }
 }
 
 public class FoodRatings {
