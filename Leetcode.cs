@@ -1130,6 +1130,43 @@ public class NumArray {
         }
         return -1;
     }
+
+    public int[] SearchRange(int[] nums, int target) {
+        int[] result = new int[2];
+        result[0] = FindFirst(nums, target);
+        result[1] = FindLast(nums, target);
+        return result;
+    }
+
+    private int FindFirst(int[] nums, int target) {
+        int idx = -1;
+        int start = 0, end = nums.Length - 1;
+        while(start <= end) {
+            int mid = start + (end - start) / 2;
+            if(nums[mid] >= target) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+            if(nums[mid] == target) idx = mid;
+        }
+        return idx;
+    }
+
+    private int FindLast(int[] nums, int target) {
+        int idx = -1;
+        int start = 0, end = nums.Length - 1;
+        while(start <= end) {
+            int mid = start + (end - start) / 2;
+            if(nums[mid] <= target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+            if(nums[mid] == target) idx = mid;
+        }
+        return idx;
+    }
 }
 
 public class FoodRatings {
