@@ -929,6 +929,37 @@ public class NumArray {
 
         return dp[n,d];
     }
+
+    public IList<IList<int>> FindMatrix(int[] nums) {
+        IList<IList<int>> result = new List<IList<int>>();
+        Queue<int> queue = new Queue<int>(nums);
+        HashSet<int> currentRowSet = new HashSet<int>();
+
+        while (queue.Count > 0)
+        {
+            int size = queue.Count;
+            List<int> currentRow = new List<int>();
+
+            for (int i = 0; i < size; i++)
+            {
+                int num = queue.Dequeue();
+                if (!currentRowSet.Contains(num))
+                {
+                    currentRow.Add(num);
+                    currentRowSet.Add(num);
+                }
+                else
+                {
+                    queue.Enqueue(num);
+                }
+            }
+
+            result.Add(currentRow);
+            currentRowSet.Clear();
+        }
+
+        return result;
+    }
 }
 
 public class FoodRatings {
