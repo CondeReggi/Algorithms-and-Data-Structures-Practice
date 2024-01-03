@@ -713,6 +713,9 @@ function getStaircasePaths(steps, maxJump) {
             currentPath.pop();
         }
     }
+
+    backtrack([], steps);
+    return result;
 }
 
 //DIA 25 (Final)
@@ -737,9 +740,4 @@ function travelDistance(map) {
         [x1, y1] = [x, y];
         return acc;
     }, 0);
-}
-
-
-    backtrack([], steps);
-    return result;
 }
