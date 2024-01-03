@@ -1167,6 +1167,32 @@ public class NumArray {
         }
         return idx;
     }
+
+    public int NumberOfBeams(string[] bank) {
+        int counter = 0;
+        if(bank.Length == 0) return counter;
+        Dictionary<int, int> datos = new Dictionary<int,int>();
+
+        for(int i = 0; i < bank.Length; i++){
+            int cantidad = 0;
+            for(int j = 0; j < bank[i].Length; j++){
+                if(bank[i][j] == '1'){
+                    if (!datos.ContainsKey(i)) {
+                        datos[i] = 0;
+                    }
+                    datos[i]++;
+                }
+            }
+        }
+
+        var orderedValues = datos.Select(kvp => kvp.Value).ToList();
+
+        for (int i = 1; i < orderedValues.Count; i++) {
+            counter += orderedValues[i] * orderedValues[i - 1];
+        }
+
+        return counter;
+    }
 }
 
 public class FoodRatings {
