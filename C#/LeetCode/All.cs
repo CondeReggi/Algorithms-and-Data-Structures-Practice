@@ -1,53 +1,64 @@
-public class Solution {
-    public bool HasPathSum(TreeNode root, int targetSum) {
-        if(root == null) return false;
-        
-        if(root.left == null && root.right == null) return targetSum == root.val;
+public class Solution
+{
+    public bool HasPathSum(TreeNode root, int targetSum)
+    {
+        if (root == null) return false;
+
+        if (root.left == null && root.right == null) return targetSum == root.val;
 
         return HasPathSum(root.right, (targetSum - root.val)) || HasPathSum(root.left, (targetSum - root.val));
     }
 
-    public int CountNodes(TreeNode root) {
-        if(root == null) return 0;
+    public int CountNodes(TreeNode root)
+    {
+        if (root == null) return 0;
 
         TreeNode aux = root;
         int sum = 0;
         return Counter(aux, sum);
     }
 
-    public int Counter(TreeNode root, int sum){
-        if(root == null) return 0;
+    public int Counter(TreeNode root, int sum)
+    {
+        if (root == null) return 0;
         return 1 + Counter(root.left, sum) + Counter(root.right, sum);
     }
 
-    public bool IsHappy(int n) {
-        if(n == 1) return true;
-        if(n < 7) return false;
+    public bool IsHappy(int n)
+    {
+        if (n == 1) return true;
+        if (n < 7) return false;
         var sum = 0.0;
         var stringfy = (n).ToString().ToCharArray();
 
-        for(int i = 0; i < stringfy.Length; i++){
+        for (int i = 0; i < stringfy.Length; i++)
+        {
             var value = Math.Pow(Double.Parse(stringfy[i].ToString()), 2);
             Console.WriteLine(stringfy[i]);
             sum += value;
-        } 
+        }
 
         return IsHappy((int)sum);
     }
 
-    public ListNode GetIntersectionNode(ListNode headA, ListNode headB) {
-        if(headA == null && headB == null) return null;
+    public ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+    {
+        if (headA == null && headB == null) return null;
 
         Dictionary<ListNode, bool> resultados = new Dictionary<ListNode, bool>();
-        while(headA != null){
-            if(!resultados.ContainsKey(headA)){
+        while (headA != null)
+        {
+            if (!resultados.ContainsKey(headA))
+            {
                 resultados[headA] = true;
             }
             headA = headA.next;
         }
 
-        while(headB != null){
-            if(resultados.ContainsKey(headB)){
+        while (headB != null)
+        {
+            if (resultados.ContainsKey(headB))
+            {
                 return headB;
             }
             headB = headB.next;
@@ -56,11 +67,14 @@ public class Solution {
         return null;
     }
 
-    public IList<IList<int>> Generate(int numRows) {
+    public IList<IList<int>> Generate(int numRows)
+    {
         IList<IList<int>> resultado = new List<IList<int>>();
-        for(int i = 0; i < numRows; i++){
+        for (int i = 0; i < numRows; i++)
+        {
             IList<int> inserted = new List<int>();
-            for (int j = 0; j <= i; j++){
+            for (int j = 0; j <= i; j++)
+            {
                 var a = binomialCoeff(i, j);
                 inserted.Add(a);
                 Console.WriteLine(a);
@@ -76,41 +90,50 @@ public class Solution {
         int res = 1;
         if (k > n - k)
             k = n - k;
-        for (int i = 0; i < k; ++i) {
+        for (int i = 0; i < k; ++i)
+        {
             res *= (n - i);
             res /= (i + 1);
         }
-    
+
         return res;
     }
 
-    public IList<string> BinaryTreePaths(TreeNode root) {
+    public IList<string> BinaryTreePaths(TreeNode root)
+    {
         List<string> result = new List<string>();
-        
+
         Dfs(root, "", result);
         return result;
     }
 
-    public void Dfs(TreeNode node, String path, List<string> result){
-        if(node == null) return;
+    public void Dfs(TreeNode node, String path, List<string> result)
+    {
+        if (node == null) return;
 
         path += node.val;
 
-        if(node.left == null && node.right == null){
+        if (node.left == null && node.right == null)
+        {
             result.Add(path);
-        }else{
+        }
+        else
+        {
             path += "->";
             Dfs(node.left, path, result);
             Dfs(node.right, path, result);
         }
     }
 
-    public int AddDigits(int num) {
-        if(num >= 10){
+    public int AddDigits(int num)
+    {
+        if (num >= 10)
+        {
             var array = num.ToString().ToCharArray();
             int sum = 0;
 
-            foreach(var character in array){
+            foreach (var character in array)
+            {
                 int toInt = Int32.Parse(character.ToString());
                 sum += toInt;
             }
@@ -119,71 +142,89 @@ public class Solution {
         return num;
     }
 
-    public bool IsUgly(int n) {
-        if (n <= 0) {
+    public bool IsUgly(int n)
+    {
+        if (n <= 0)
+        {
             return false;
         }
-        int[] factoresPermitidos = {2, 3, 5};
-        foreach (int factor in factoresPermitidos) {
-            while (n % factor == 0) {
+        int[] factoresPermitidos = { 2, 3, 5 };
+        foreach (int factor in factoresPermitidos)
+        {
+            while (n % factor == 0)
+            {
                 n /= factor;
             }
         }
         return n == 1;
     }
 
-    public List<int> FactoresPrimos(int n) {
+    public List<int> FactoresPrimos(int n)
+    {
         List<int> result = new List<int>();
-        int[] factoresExcluidos = {2, 3, 5};
+        int[] factoresExcluidos = { 2, 3, 5 };
 
-        foreach (int factor in factoresExcluidos) {
-            while (n % factor == 0) {
+        foreach (int factor in factoresExcluidos)
+        {
+            while (n % factor == 0)
+            {
                 n /= factor;
             }
         }
-        for (int i = 2; i <= n / i; ++i) {
-            while (n % i == 0) {
-                if (!factoresExcluidos.Contains(i)) {
+        for (int i = 2; i <= n / i; ++i)
+        {
+            while (n % i == 0)
+            {
+                if (!factoresExcluidos.Contains(i))
+                {
                     result.Add(i);
                 }
                 n /= i;
             }
         }
-        if (n > 1 && !factoresExcluidos.Contains(n)) {
+        if (n > 1 && !factoresExcluidos.Contains(n))
+        {
             result.Add(n);
         }
         return result;
     }
 
-    public void MoveZeroes(int[] nums) {
+    public void MoveZeroes(int[] nums)
+    {
         var noZeros = nums.Where(x => x != 0).ToList();
-        
-        if(nums.Length - noZeros.Count() == nums.Length) return;
 
-        for (int j = 0; j < noZeros.Count; j++) {
+        if (nums.Length - noZeros.Count() == nums.Length) return;
+
+        for (int j = 0; j < noZeros.Count; j++)
+        {
             nums[j] = noZeros[j];
         }
 
-        for (int j = noZeros.Count; j < nums.Length; j++) {
+        for (int j = noZeros.Count; j < nums.Length; j++)
+        {
             nums[j] = 0;
         }
     }
 
-    public bool IsPowerOfThree(int n) {
-        if(n < 1) return false;
-        while(n % 3 == 0) n /= 3;
-        
+    public bool IsPowerOfThree(int n)
+    {
+        if (n < 1) return false;
+        while (n % 3 == 0) n /= 3;
+
         return n == 1;
     }
 
-    public int[] CountBits(int n) {
-        int[] binarios = new int[n+1];
+    public int[] CountBits(int n)
+    {
+        int[] binarios = new int[n + 1];
 
-        for(int i = 0; i <= n; i++){
+        for (int i = 0; i <= n; i++)
+        {
             string binary = Convert.ToString(i, 2);
             int sum = 0;
-            foreach(var character in binary.ToCharArray()){
-                if(character == '1') sum++;
+            foreach (var character in binary.ToCharArray())
+            {
+                if (character == '1') sum++;
             }
             binarios[i] = sum;
         }
@@ -191,42 +232,51 @@ public class Solution {
         return binarios;
     }
 
-    public bool IsPowerOfFour(int n) {
-        if(n < 1) return false;
-        while(n % 4 == 0) n /= 4;
-        
+    public bool IsPowerOfFour(int n)
+    {
+        if (n < 1) return false;
+        while (n % 4 == 0) n /= 4;
+
         return n == 1;
     }
 
-    public void ReverseString(char[] s) {
-        for(int i = 0; i < s.Length / 2; i++){
+    public void ReverseString(char[] s)
+    {
+        for (int i = 0; i < s.Length / 2; i++)
+        {
             char auxiliar = s[i];
             s[i] = s[s.Length - i - 1];
             s[s.Length - i - 1] = auxiliar;
         }
     }
 
-    public string Convert(string s, int numRows) {
+    public string Convert(string s, int numRows)
+    {
         Dictionary<int, string> dict = new Dictionary<int, string>();
         int counter = 1;
         bool sumo = true;
-        for(int i = 0; i < s.Length; i++){
+        for (int i = 0; i < s.Length; i++)
+        {
             string character = s[i].ToString();
 
-            if(dict.ContainsKey(counter)) dict[counter] = dict[counter] + character;
+            if (dict.ContainsKey(counter)) dict[counter] = dict[counter] + character;
             else dict[counter] = character;
 
-            if(counter == numRows) sumo = false;
-            if(counter == 1) sumo = true;
+            if (counter == numRows) sumo = false;
+            if (counter == 1) sumo = true;
 
-            if(sumo){
+            if (sumo)
+            {
                 counter++;
-            }else{
+            }
+            else
+            {
                 counter--;
             }
         }
         string result = "";
-        foreach(var a in dict){
+        foreach (var a in dict)
+        {
             // Console.WriteLine($"{a.Key} {a.Value}");
             result += a.Value;
         }
@@ -234,27 +284,36 @@ public class Solution {
         return result;
     }
 
-    public int FirstUniqChar(string s) {
-        for(int i = 0; i < s.Length; i++){
-            if(s.IndexOf(s[i]) == s.LastIndexOf(s[i])) return i;
+    public int FirstUniqChar(string s)
+    {
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (s.IndexOf(s[i]) == s.LastIndexOf(s[i])) return i;
         }
         return -1;
     }
 
-    public int[] Intersect(int[] nums1, int[] nums2) {
+    public int[] Intersect(int[] nums1, int[] nums2)
+    {
         Dictionary<int, int> map = new Dictionary<int, int>();
         List<int> result = new List<int>();
 
-        foreach (int num in nums1) {
-            if (map.ContainsKey(num)) {
+        foreach (int num in nums1)
+        {
+            if (map.ContainsKey(num))
+            {
                 map[num]++;
-            } else {
+            }
+            else
+            {
                 map[num] = 1;
             }
         }
 
-        foreach (int num in nums2) {
-            if (map.ContainsKey(num) && map[num] > 0) {
+        foreach (int num in nums2)
+        {
+            if (map.ContainsKey(num) && map[num] > 0)
+            {
                 result.Add(num);
                 map[num]--;
             }
@@ -263,9 +322,12 @@ public class Solution {
         return result.ToArray();
     }
 
-    public int MissingNumber(int[] nums) {
-        for (int i = 0; i <= nums.Length; i++) {
-            if (Array.IndexOf(nums, i) == -1) {
+    public int MissingNumber(int[] nums)
+    {
+        for (int i = 0; i <= nums.Length; i++)
+        {
+            if (Array.IndexOf(nums, i) == -1)
+            {
                 return i;
             }
         }
@@ -273,30 +335,37 @@ public class Solution {
         return -1;
     }
 
-    public IList<IList<string>> GroupAnagrams(string[] strs) {
-        Dictionary<string, List<string>> dictionary = new Dictionary<string,List<string>>();
+    public IList<IList<string>> GroupAnagrams(string[] strs)
+    {
+        Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
 
-        for(int i = 0; i < strs.Length; i++){
-            
-            var palabra =  new String(strs[i].ToList().OrderBy(x => x).ToArray());
+        for (int i = 0; i < strs.Length; i++)
+        {
 
-            if(dictionary.ContainsKey(palabra)){
+            var palabra = new String(strs[i].ToList().OrderBy(x => x).ToArray());
+
+            if (dictionary.ContainsKey(palabra))
+            {
                 dictionary[palabra].Add(strs[i]);
-            }else{
+            }
+            else
+            {
                 dictionary[palabra] = new List<string>() { strs[i] };
             }
         }
 
         IList<IList<string>> result = new List<IList<string>>();
 
-        foreach(var element in dictionary){
+        foreach (var element in dictionary)
+        {
             result.Add(element.Value);
         }
 
         return result;
     }
 
-    public long MinimumSteps(string s) {
+    public long MinimumSteps(string s)
+    {
         int n = s.Length;
         long blackCount = 0;
         long steps = 0;
@@ -316,8 +385,9 @@ public class Solution {
         return steps;
     }
 
-    public bool IsBalanced(TreeNode root) {
-        if(root == null) return true;
+    public bool IsBalanced(TreeNode root)
+    {
+        if (root == null) return true;
 
         var alturaIzquierda = Altura(root.left);
         var alturaDerecha = Altura(root.right);
@@ -325,16 +395,19 @@ public class Solution {
         return (Math.Abs(alturaIzquierda - alturaDerecha) <= 1 && IsBalanced(root.left) && IsBalanced(root.right));
     }
 
-    public int Altura(TreeNode root) {
-        if(root == null) return 0;
+    public int Altura(TreeNode root)
+    {
+        if (root == null) return 0;
 
         return 1 + Math.Max(Altura(root.left), Altura(root.right));
     }
 
-    public string ConvertToTitle(int columnNumber) {
+    public string ConvertToTitle(int columnNumber)
+    {
         string result = "";
 
-        while(columnNumber > 0){
+        while (columnNumber > 0)
+        {
             columnNumber--;
             char letter = (char)('A' + columnNumber % 26);
             result = letter + result;
@@ -344,7 +417,8 @@ public class Solution {
         return result;
     }
 
-    public uint reverseBits(uint n) {
+    public uint reverseBits(uint n)
+    {
         string binaryString = Convert.ToString(n, 2).PadLeft(32, '0');
 
         char[] binaryArray = binaryString.ToCharArray();
@@ -356,26 +430,31 @@ public class Solution {
         return result;
     }
 
-    public int HammingWeight(uint n) {
+    public int HammingWeight(uint n)
+    {
         var characters = Convert.ToString(n, 2).PadLeft(32, '0').ToString();
-            Console.WriteLine(n);
+        Console.WriteLine(n);
         int count = 0;
 
-        foreach(var element in characters.ToCharArray()){
-            if(element == '1') count++;
+        foreach (var element in characters.ToCharArray())
+        {
+            if (element == '1') count++;
         }
         return count;
     }
 
-    public int[] Intersection(int[] nums1, int[] nums2) {
+    public int[] Intersection(int[] nums1, int[] nums2)
+    {
         Dictionary<int, bool> datos = new Dictionary<int, bool>();
         List<int> result = new List<int>();
-        foreach(var elem in nums1){
+        foreach (var elem in nums1)
+        {
             datos[elem] = true;
         }
 
-        foreach(var elem2 in nums2){
-            if(datos.ContainsKey(elem2) && datos[elem2] == true)
+        foreach (var elem2 in nums2)
+        {
+            if (datos.ContainsKey(elem2) && datos[elem2] == true)
             {
                 result.Add(elem2);
                 datos[elem2] = false;
@@ -385,22 +464,29 @@ public class Solution {
         return result.ToArray();
     }
 
-    public bool CanConstruct(string ransomNote, string magazine) {
-        if (string.IsNullOrEmpty(ransomNote)) {
-            return true; 
+    public bool CanConstruct(string ransomNote, string magazine)
+    {
+        if (string.IsNullOrEmpty(ransomNote))
+        {
+            return true;
         }
 
-        if (string.IsNullOrEmpty(magazine) || ransomNote.Length > magazine.Length) {
-            return false; 
+        if (string.IsNullOrEmpty(magazine) || ransomNote.Length > magazine.Length)
+        {
+            return false;
         }
 
         StringBuilder magazineBuilder = new StringBuilder(magazine);
 
-        foreach (char c in ransomNote) {
+        foreach (char c in ransomNote)
+        {
             int index = magazineBuilder.ToString().IndexOf(c);
-            if (index == -1) {
+            if (index == -1)
+            {
                 return false;
-            } else {
+            }
+            else
+            {
                 magazineBuilder.Remove(index, 1);
             }
         }
@@ -408,14 +494,19 @@ public class Solution {
         return true;
     }
 
-    public int NumberOfMatches(int n) {
+    public int NumberOfMatches(int n)
+    {
         int counter = 0;
         var auxiliar = n;
-        while(auxiliar > 1){
-            if(auxiliar % 2 == 0){ 
+        while (auxiliar > 1)
+        {
+            if (auxiliar % 2 == 0)
+            {
                 counter += (int)Math.Floor(auxiliar / 2.0);
                 auxiliar = (int)Math.Round(auxiliar / 2.0);
-            }else{ 
+            }
+            else
+            {
                 counter += (int)Math.Floor((auxiliar - 1) / 2.0);
                 auxiliar = (int)Math.Round(((auxiliar - 1) / 2.0) + 1.0);
             }
@@ -424,48 +515,57 @@ public class Solution {
     }
 
     //Solucion no solucion
-    public int TotalMoney(int n) {
+    public int TotalMoney(int n)
+    {
         int result = 0;
         int modulo = n % 7;
 
-        if(modulo == 0) return (n/7) * GaussSum(n);
+        if (modulo == 0) return (n / 7) * GaussSum(n);
         return (int)(Math.Floor(n / 7.0) * GaussSum(7)) + GaussSum(modulo);
     }
 
     //Eta si
-    public int TotalMoney(int n) {
-       int result = 0;
-       int j = 0;
-       for(int i = 1; i <= Math.Floor(n/7.0); i++){
-           result += (GaussSum(6 + i) - GaussSum(i - 1));
-           j = i;
-       }
-       result += (GaussSum((n % 7) + j) - GaussSum(j));
-       return result;
+    public int TotalMoney(int n)
+    {
+        int result = 0;
+        int j = 0;
+        for (int i = 1; i <= Math.Floor(n / 7.0); i++)
+        {
+            result += (GaussSum(6 + i) - GaussSum(i - 1));
+            j = i;
+        }
+        result += (GaussSum((n % 7) + j) - GaussSum(j));
+        return result;
     }
 
-    public int GaussSum(int n){
-        return (n*(n+1))/2;
+    public int GaussSum(int n)
+    {
+        return (n * (n + 1)) / 2;
     }
 
-    public int[][] Transpose(int[][] matrix) {
+    public int[][] Transpose(int[][] matrix)
+    {
         int[][] result = new int[matrix[0].Length][];
 
-        for (int i = 0; i < matrix[0].Length; i++) {
+        for (int i = 0; i < matrix[0].Length; i++)
+        {
             result[i] = new int[matrix.Length];
-            for (int j = 0; j < matrix.Length; j++) {
+            for (int j = 0; j < matrix.Length; j++)
+            {
                 result[i][j] = matrix[j][i];
             }
         }
         return result;
     }
 
-    public int MaxArea(int[] height) {
+    public int MaxArea(int[] height)
+    {
         int maxArea = 0;
         int left = 0;
         int right = height.Length - 1;
 
-        while (left < right) {
+        while (left < right)
+        {
             int width = right - left;
             int minHeight = Math.Min(height[left], height[right]);
             maxArea = Math.Max(maxArea, width * minHeight);
@@ -480,168 +580,200 @@ public class Solution {
     }
 }
 
-public class NumArray {
+public class NumArray
+{
     private int[] _numbers;
-    public NumArray(int[] nums) {
+    public NumArray(int[] nums)
+    {
         _numbers = nums;
     }
-    
-    public int SumRange(int left, int right) {
-        if(_numbers.Length < left) return 0;
+
+    public int SumRange(int left, int right)
+    {
+        if (_numbers.Length < left) return 0;
 
         int min = Math.Min(_numbers.Length, right);
         int sum = 0;
-        for(int i = left; i <= min; i++){
+        for (int i = left; i <= min; i++)
+        {
             sum += _numbers[i];
         }
 
         return sum;
     }
 
-    public int RemoveDuplicates(int[] nums) {
-        if(nums.Length == 0) return 0;
+    public int RemoveDuplicates(int[] nums)
+    {
+        if (nums.Length == 0) return 0;
 
         Dictionary<int, bool> datos = new Dictionary<int, bool>();
 
-        foreach(var a in nums){
-            if(!datos.ContainsKey(a)) datos[a] = true;
+        foreach (var a in nums)
+        {
+            if (!datos.ContainsKey(a)) datos[a] = true;
         }
 
         int index = 0;
-        foreach(var key in datos.Keys) {
+        foreach (var key in datos.Keys)
+        {
             nums[index++] = key;
         }
         return datos.Values.Count();
     }
 
-    public int RemoveDuplicates(int[] nums) {
-        if(nums.Length == 0) return 0;
+    public int RemoveDuplicates(int[] nums)
+    {
+        if (nums.Length == 0) return 0;
 
         Dictionary<int, int> datos = new Dictionary<int, int>();
 
-        foreach(var a in nums){
-            if(!datos.ContainsKey(a)) datos[a] = 1;
-            else if(datos[a] < 2) datos[a]++;
+        foreach (var a in nums)
+        {
+            if (!datos.ContainsKey(a)) datos[a] = 1;
+            else if (datos[a] < 2) datos[a]++;
         }
 
         int index = 0;
-        foreach(var key in datos) {
+        foreach (var key in datos)
+        {
             Console.WriteLine($"{key.Key} {key.Value}");
-            for(int i = 0; i < key.Value; i++){
+            for (int i = 0; i < key.Value; i++)
+            {
                 nums[index] = key.Key;
                 index++;
             }
-            
+
         }
         return datos.Values.Sum();
     }
 
-    public int MajorityElement(int[] nums) {
-        if(nums.Length == 1) return nums[0];
+    public int MajorityElement(int[] nums)
+    {
+        if (nums.Length == 1) return nums[0];
 
         var cantidad = Math.Ceiling(nums.Length / 2.0);
         Console.WriteLine(cantidad);
         Dictionary<int, int> datos = new Dictionary<int, int>();
 
-        foreach(var element in nums){
-            if(!datos.ContainsKey(element)) datos[element] = 1;
-            else {
+        foreach (var element in nums)
+        {
+            if (!datos.ContainsKey(element)) datos[element] = 1;
+            else
+            {
                 datos[element]++;
-                if(datos[element] >= cantidad) return element;
+                if (datos[element] >= cantidad) return element;
             }
         }
 
         return -1;
     }
 
-    public int MaxProfit(int[] prices) {
+    public int MaxProfit(int[] prices)
+    {
         if (prices == null || prices.Length < 2) return 0;
 
         int maxProfit = 0;
         int minPrice = prices[0];
 
-        for (int i = 1; i < prices.Length; i++) {
-            if (prices[i] < minPrice) {
+        for (int i = 1; i < prices.Length; i++)
+        {
+            if (prices[i] < minPrice)
+            {
                 minPrice = prices[i];
-            } else {
+            }
+            else
+            {
                 maxProfit = Math.Max(maxProfit, prices[i] - minPrice);
             }
         }
         return maxProfit;
     }
 
-    public bool CanJump(int[] nums) {
+    public bool CanJump(int[] nums)
+    {
         int maxReachable = 0;
-        for (int i = 0; i < nums.Length; i++) {
+        for (int i = 0; i < nums.Length; i++)
+        {
             if (i > maxReachable) return false;
             maxReachable = Math.Max(maxReachable, i + nums[i]);
         }
         return true;
     }
 
-    public int Candy(int[] ratings) {
+    public int Candy(int[] ratings)
+    {
         int n = ratings.Length;
         Dictionary<int, int> datos = new Dictionary<int, int>();
         int[] candies = new int[n];
 
         for (int i = 0; i < n; i++) datos[i] = 1;
 
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < n; i++)
+        {
             if (ratings[i] > ratings[i - 1]) datos[i] = datos[i - 1] + 1;
         }
 
-        for (int i = n - 2; i >= 0; i--) {
+        for (int i = n - 2; i >= 0; i--)
+        {
             if (ratings[i] > ratings[i + 1] && datos[i] <= datos[i + 1]) datos[i] = datos[i + 1] + 1;
         }
 
         return datos.Values.Sum();
     }
 
-    public string LargestOddNumber(string num) {
+    public string LargestOddNumber(string num)
+    {
         long a = Int64.Parse(num[num.Length - 1].ToString());
-        if(a % 2 != 0) return num;
+        if (a % 2 != 0) return num;
 
         List<long> array = num.ToCharArray().Select(x => Int64.Parse(x.ToString())).ToList();
         Stack<long> stack = new Stack<long>(array);
         int index = 0;
         while (stack.Count > 0 && stack.Peek() % 2 == 0)
         {
-          stack.Pop();
-          index++;
+            stack.Pop();
+            index++;
         }
 
         return stack.Count == 0 ? "" : num.Substring(0, num.Length - index);
     }
 
-    public string Tree2str(TreeNode root) {
+    public string Tree2str(TreeNode root)
+    {
         string result = Tree2strAux(root);
 
         return result;
     }
 
-    private string Tree2strAux(TreeNode root) {
+    private string Tree2strAux(TreeNode root)
+    {
         if (root == null) return "";
         if (root.left == null && root.right == null) return root.val.ToString();
-        
+
         if (root.left == null) return $"{root.val}()({Tree2strAux(root.right)})";
-        
+
         if (root.right == null) return $"{root.val}({Tree2strAux(root.left)})";
-        
+
         return $"{root.val}({Tree2strAux(root.left)})({Tree2strAux(root.right)})";
     }
 
-    public int FindSpecialInteger(int[] arr) {
-        if(arr.Length == 1) return arr[0];
-        
+    public int FindSpecialInteger(int[] arr)
+    {
+        if (arr.Length == 1) return arr[0];
+
         var porcentaje = arr.Length * 0.25;
 
         Dictionary<int, int> datos = new Dictionary<int, int>();
 
-        foreach(int value in arr){
-            if(datos.ContainsKey(value)){
+        foreach (int value in arr)
+        {
+            if (datos.ContainsKey(value))
+            {
                 datos[value]++;
-                if(datos[value] > porcentaje) return value;
-            }else{
+                if (datos[value] > porcentaje) return value;
+            }
+            else
+            {
                 datos[value] = 1;
             }
         }
@@ -649,26 +781,32 @@ public class NumArray {
         return -1;
     }
 
-    public int MaxProduct(int[] nums) {
-        if(nums.Length < 1) return 0;
+    public int MaxProduct(int[] nums)
+    {
+        if (nums.Length < 1) return 0;
         var max = Int32.MinValue;
-        for(int i = 0; i < nums.Length; i++){
-            for(int j = i + 1; j < nums.Length; j++){
-                var value = (nums[i]-1)*(nums[j]-1);
-                if(value > max) max = value;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            for (int j = i + 1; j < nums.Length; j++)
+            {
+                var value = (nums[i] - 1) * (nums[j] - 1);
+                if (value > max) max = value;
             }
         }
         return max;
     }
 
-    public int[][] OnesMinusZeros(int[][] grid) {
+    public int[][] OnesMinusZeros(int[][] grid)
+    {
         int[][] result = new int[grid.Length][];
 
         var values = FindValues(grid, 0, 1);
 
-        for(int i = 0; i < grid.Length; i++){
+        for (int i = 0; i < grid.Length; i++)
+        {
             result[i] = new int[grid[i].Length];
-            for(int j = 0; j < grid[i].Length; j++){
+            for (int j = 0; j < grid[i].Length; j++)
+            {
                 int onesRowi = values[i][1];
                 int zerosRowi = values[i][0];
 
@@ -709,42 +847,49 @@ public class NumArray {
             result[i] = new int[] { countRowValue1, countRowValue2 };
         }
 
-        result[-1] = countByColumnValue1; 
-        result[-2] = countByColumnValue2; 
+        result[-1] = countByColumnValue1;
+        result[-2] = countByColumnValue2;
         return result;
     }
 
-    public string DestCity(IList<IList<string>> paths) {
+    public string DestCity(IList<IList<string>> paths)
+    {
         List<string> primeros = paths.Select(x => x[0]).ToList();
         List<string> segundos = paths.Select(x => x[1]).ToList();
-        
-        foreach(var letra in segundos){
-            if(!primeros.Any(x => x == letra)) return letra;
+
+        foreach (var letra in segundos)
+        {
+            if (!primeros.Any(x => x == letra)) return letra;
         }
 
         return "";
     }
 
-    public bool IsAnagram(string s, string t) {
-        if(s.Length != t.Length) return false;
-        
+    public bool IsAnagram(string s, string t)
+    {
+        if (s.Length != t.Length) return false;
+
         int[] letterCounts = new int[26]; // Para letras del alfabeto inglés
 
-        foreach (char c in s) {
+        foreach (char c in s)
+        {
             letterCounts[c - 'a']++;
         }
 
-        foreach (char c in t) {
+        foreach (char c in t)
+        {
             letterCounts[c - 'a']--;
-            if (letterCounts[c - 'a'] < 0) {
+            if (letterCounts[c - 'a'] < 0)
+            {
                 return false;
             }
         }
         return true;
     }
 
-    public int MaxProductDifference(int[] nums) {
-        if(nums.Length < 4) return 0;
+    public int MaxProductDifference(int[] nums)
+    {
+        if (nums.Length < 4) return 0;
         Array.Sort(nums);
         int a = nums[nums.Length - 1];
         int b = nums[nums.Length - 2];
@@ -753,31 +898,35 @@ public class NumArray {
         return (a * b) - (c * d);
     }
 
-    public int BuyChoco(int[] prices, int money) {
+    public int BuyChoco(int[] prices, int money)
+    {
         Array.Sort(prices);
-        if(prices.Length == 0) return money;
+        if (prices.Length == 0) return money;
 
         var primero = prices[0];
         var segundo = prices[1];
 
-        if(money - (primero + segundo) >= 0) return money - (primero + segundo);
+        if (money - (primero + segundo) >= 0) return money - (primero + segundo);
 
         return money;
     }
 
-    public int MaxWidthOfVerticalArea(int[][] points) {
-        if(points.Length <= 1) return 0;
+    public int MaxWidthOfVerticalArea(int[][] points)
+    {
+        if (points.Length <= 1) return 0;
         Array.Sort(points, (a, b) => a[0].CompareTo(b[0]));
-        int max = int.MinValue; 
+        int max = int.MinValue;
 
-        for(int i = 1; i < points.Length; i++){
-            var distancia = Math.Abs(points[i-1][0] - points[i][0]);
-            if(distancia > max) max = distancia;
+        for (int i = 1; i < points.Length; i++)
+        {
+            var distancia = Math.Abs(points[i - 1][0] - points[i][0]);
+            if (distancia > max) max = distancia;
         }
         return max;
     }
 
-    public bool IsPathCrossing(string path) {
+    public bool IsPathCrossing(string path)
+    {
         Dictionary<string, bool> datos = new Dictionary<string, bool>();
 
         datos["0,0"] = true;
@@ -785,8 +934,10 @@ public class NumArray {
         int y = 0;
         int x = 0;
 
-        foreach(var letra in path.ToCharArray()){
-            switch(letra){
+        foreach (var letra in path.ToCharArray())
+        {
+            switch (letra)
+            {
                 case 'N':
                     y++;
                     break;
@@ -803,22 +954,27 @@ public class NumArray {
 
             var str = $"{x},{y}";
 
-            if(datos.ContainsKey(str)) return true;
-            
+            if (datos.ContainsKey(str)) return true;
+
             datos[str] = true;
         }
 
         return false;
     }
 
-    public int NumRollsToTarget(int n, int k, int target) {
+    public int NumRollsToTarget(int n, int k, int target)
+    {
         int[,] dp = new int[n + 1, target + 1];
         dp[0, 0] = 1;
 
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= target; j++) {
-                for (int l = 1; l <= k; l++) {
-                    if (j - l >= 0) {
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 1; j <= target; j++)
+            {
+                for (int l = 1; l <= k; l++)
+                {
+                    if (j - l >= 0)
+                    {
                         dp[i, j] = (dp[i, j] + dp[i - 1, j - l]) % 1000000007;
                     }
                 }
@@ -828,24 +984,30 @@ public class NumArray {
         return dp[n, target];
     }
 
-    public int FirstBadVersion(int n) {
-        while(!IsBadVersion(n)){
-            n = n/2;
+    public int FirstBadVersion(int n)
+    {
+        while (!IsBadVersion(n))
+        {
+            n = n / 2;
         }
 
-        while(IsBadVersion(n)){
+        while (IsBadVersion(n))
+        {
             n--;
         }
-        return  n+1;
+        return n + 1;
     }
 
-    public int MinCost(string colors, int[] neededTime) {
+    public int MinCost(string colors, int[] neededTime)
+    {
         if (colors.Length == 0) return 0;
 
         int sum = 0;
 
-        for (int i = 1; i < colors.Length; i++) {
-            if (colors[i] == colors[i - 1]) {
+        for (int i = 1; i < colors.Length; i++)
+        {
+            if (colors[i] == colors[i - 1])
+            {
                 sum += Math.Min(neededTime[i - 1], neededTime[i]);
                 neededTime[i] = Math.Max(neededTime[i - 1], neededTime[i]);
             }
@@ -854,22 +1016,26 @@ public class NumArray {
         return sum;
     }
 
-    public string LongestPalindrome(string s) {
-        if(s.Length == 0) return "";
+    public string LongestPalindrome(string s)
+    {
+        if (s.Length == 0) return "";
 
-        if(isPalindome(s)) return s;
+        if (isPalindome(s)) return s;
 
         int n = s.Length;
-        bool[,] dp = new bool[n,n];
+        bool[,] dp = new bool[n, n];
         int start = 0;
         int maxLength = 1;
 
-        for(int i = 0; i < n; i++){
-            for(int j = i; j < n; j++){
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i; j < n; j++)
+            {
                 var substring = s.Substring(i, j - i + 1);
-                dp[i,j] = isPalindome(substring);
+                dp[i, j] = isPalindome(substring);
 
-                if(dp[i,j] == true && substring.Length > maxLength){
+                if (dp[i, j] == true && substring.Length > maxLength)
+                {
                     start = i;
                     maxLength = substring.Length;
                 }
@@ -879,58 +1045,71 @@ public class NumArray {
         return s.Substring(start, maxLength);
     }
 
-    private bool isPalindome(string s){
-        for(int i = 0; i < s.Length / 2; i++){
-            if(s[i] != s[s.Length - 1 - i]) return false;
+    private bool isPalindome(string s)
+    {
+        for (int i = 0; i < s.Length / 2; i++)
+        {
+            if (s[i] != s[s.Length - 1 - i]) return false;
         }
         return true;
     }
 
-    public IList<string> GenerateParenthesis(int n) {
+    public IList<string> GenerateParenthesis(int n)
+    {
         List<string> result = new List<string>();
         Generate(result, "", 0, 0, n);
         return result;
     }
 
-    private void Generate(List<string> result, string current, int open, int close, int max){
-        if(current.Length == 2 * max){
+    private void Generate(List<string> result, string current, int open, int close, int max)
+    {
+        if (current.Length == 2 * max)
+        {
             result.Add(current);
             return;
         }
 
-        if(open < max) Generate(result, current + "(", open + 1, close, max);
-        if(close < open) Generate(result, current + ")", open, close + 1, max);
+        if (open < max) Generate(result, current + "(", open + 1, close, max);
+        if (close < open) Generate(result, current + ")", open, close + 1, max);
     }
 
-    public int MinDifficulty(int[] jobDifficulty, int d) {
+    public int MinDifficulty(int[] jobDifficulty, int d)
+    {
         int n = jobDifficulty.Length;
-        if(n < d) return -1;
+        if (n < d) return -1;
 
-        int[,] dp = new int[n+1, d+1];
+        int[,] dp = new int[n + 1, d + 1];
 
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j <= d; j++) {
+        for (int i = 0; i <= n; i++)
+        {
+            for (int j = 0; j <= d; j++)
+            {
                 dp[i, j] = Int32.MaxValue;
             }
         }
         dp[0, 0] = 0;
 
-        for (int day = 1; day <= d; day++) {
-            for (int i = day; i <= n; i++) {
+        for (int day = 1; day <= d; day++)
+        {
+            for (int i = day; i <= n; i++)
+            {
                 int maxDiff = 0;
-                for (int j = i; j >= day; j--) {
+                for (int j = i; j >= day; j--)
+                {
                     maxDiff = Math.Max(maxDiff, jobDifficulty[j - 1]);
-                    if (dp[j - 1, day - 1] != Int32.MaxValue) {
+                    if (dp[j - 1, day - 1] != Int32.MaxValue)
+                    {
                         dp[i, day] = Math.Min(dp[i, day], dp[j - 1, day - 1] + maxDiff);
                     }
                 }
             }
         }
 
-        return dp[n,d];
+        return dp[n, d];
     }
 
-    public IList<IList<int>> FindMatrix(int[] nums) {
+    public IList<IList<int>> FindMatrix(int[] nums)
+    {
         IList<IList<int>> result = new List<IList<int>>();
         Queue<int> queue = new Queue<int>(nums);
         HashSet<int> currentRowSet = new HashSet<int>();
@@ -961,19 +1140,23 @@ public class NumArray {
         return result;
     }
 
-    public IList<IList<int>> Combine(int n, int k) {
+    public IList<IList<int>> Combine(int n, int k)
+    {
         IList<IList<int>> result = new List<IList<int>>();
-        Backtrack(result, new List<int>() {}, n, k, 1);
+        Backtrack(result, new List<int>() { }, n, k, 1);
         return result;
     }
 
-    private void Backtrack(IList<IList<int>> result, List<int> current, int n, int k, int start){
-        if(current.Count() == k){
+    private void Backtrack(IList<IList<int>> result, List<int> current, int n, int k, int start)
+    {
+        if (current.Count() == k)
+        {
             result.Add(new List<int>(current));
             return;
         }
-    
-        for (int i = start; i <= n; i++) {
+
+        for (int i = start; i <= n; i++)
+        {
             current.Add(i);
             Backtrack(result, current, n, k, i + 1);
             current.RemoveAt(current.Count() - 1);
@@ -987,53 +1170,63 @@ public class NumArray {
         {5, new List<string>(){ "j", "k", "l" }},
         {6, new List<string>(){ "m", "n", "o" }},
         {7, new List<string>(){ "p", "q", "r", "s" }},
-        {8, new List<string>(){ "t", "u", "v" }}, 
+        {8, new List<string>(){ "t", "u", "v" }},
         {9, new List<string>(){ "w", "x", "y", "z" }}
     };
 
-    public IList<string> LetterCombinations(string digits) {
+    public IList<string> LetterCombinations(string digits)
+    {
         List<string> result = new List<string>();
-        if(String.IsNullOrEmpty(digits)) return result;
+        if (String.IsNullOrEmpty(digits)) return result;
 
         Backtrack(result, "", digits, 0);
-        return result; 
+        return result;
     }
 
-    private void Backtrack(IList<string> result, string current, string digits, int start){
-        if(current.Length == digits.Length){
+    private void Backtrack(IList<string> result, string current, string digits, int start)
+    {
+        if (current.Length == digits.Length)
+        {
             result.Add(current);
             return;
         }
 
-        foreach(var letter in datos[digits[start] - '0']){
+        foreach (var letter in datos[digits[start] - '0'])
+        {
             Backtrack(result, current + letter, digits, start + 1);
         }
     }
 
-    public IList<IList<int>> CombinationSum(int[] candidates, int target) {
-        IList<IList<int>> result =  new List<IList<int>>();
-        Backtrack(result, new List<int>() {},0, 0, target, candidates);
+    public IList<IList<int>> CombinationSum(int[] candidates, int target)
+    {
+        IList<IList<int>> result = new List<IList<int>>();
+        Backtrack(result, new List<int>() { }, 0, 0, target, candidates);
         return result;
     }
 
-    private void Backtrack(IList<IList<int>> result, 
-            IList<int> current, int startIndex, int suma, int target, int[] candidates) {
-        if (suma == target) {
+    private void Backtrack(IList<IList<int>> result,
+            IList<int> current, int startIndex, int suma, int target, int[] candidates)
+    {
+        if (suma == target)
+        {
             result.Add(new List<int>(current));
             return;
         }
 
-        for (int i = startIndex; i < candidates.Length; i++) {
+        for (int i = startIndex; i < candidates.Length; i++)
+        {
             int sum = suma + candidates[i];
-            if (sum <= target) {
+            if (sum <= target)
+            {
                 current.Add(candidates[i]);
-                Backtrack(result, current, i, sum, target, candidates); 
+                Backtrack(result, current, i, sum, target, candidates);
                 current.RemoveAt(current.Count - 1); //Importante remover siempre length - 1
             }
         }
     }
 
-    public IList<IList<int>> CombinationSum2(int[] candidates, int target) {
+    public IList<IList<int>> CombinationSum2(int[] candidates, int target)
+    {
         IList<IList<int>> result = new List<IList<int>>();
         HashSet<int> visited = new HashSet<int>();
         Array.Sort(candidates);
@@ -1041,43 +1234,52 @@ public class NumArray {
         return result;
     }
 
-    private void Backtrack(IList<IList<int>> result, 
-                           IList<int> current, int startIndex, int suma, int target, 
-                           int[] candidates, HashSet<int> visited) {
-        if (suma == target) {
+    private void Backtrack(IList<IList<int>> result,
+                           IList<int> current, int startIndex, int suma, int target,
+                           int[] candidates, HashSet<int> visited)
+    {
+        if (suma == target)
+        {
             result.Add(new List<int>(current));
             return;
         }
 
-        for (int i = startIndex; i < candidates.Length; i++) {
+        for (int i = startIndex; i < candidates.Length; i++)
+        {
             if (i > startIndex && candidates[i] == candidates[i - 1]) continue;
             if (visited.Contains(i)) continue;
 
             int sum = suma + candidates[i];
-            if (sum <= target) {
-                visited.Add(i); 
+            if (sum <= target)
+            {
+                visited.Add(i);
                 current.Add(candidates[i]);
                 Backtrack(result, current, i + 1, sum, target, candidates, visited);
-                current.RemoveAt(current.Count - 1); 
+                current.RemoveAt(current.Count - 1);
                 visited.Remove(i);
             }
         }
     }
 
-    public IList<IList<string>> SolveNQueens(int n) {
+    public IList<IList<string>> SolveNQueens(int n)
+    {
         IList<IList<string>> result = new List<IList<string>>();
         Backtrack(result, new string[n], 0, n);
         return result;
     }
 
-    private void Backtrack(IList<IList<string>> result, string[] current, int row, int n) {
-        if (row == n) {
+    private void Backtrack(IList<IList<string>> result, string[] current, int row, int n)
+    {
+        if (row == n)
+        {
             result.Add(new List<string>(current));
             return;
         }
 
-        for (int col = 0; col < n; col++) {
-            if (IsSafe(current, row, col, n)) {
+        for (int col = 0; col < n; col++)
+        {
+            if (IsSafe(current, row, col, n))
+            {
                 char[] rowArray = new string('.', n).ToCharArray();
                 rowArray[col] = 'Q';
                 current[row] = new string(rowArray);
@@ -1087,43 +1289,59 @@ public class NumArray {
         }
     }
 
-    private bool IsSafe(string[] current, int row, int col, int n) {
-        for (int i = 0; i < row; i++) {
-            if (current[i][col] == 'Q') {
-                return false; 
+    private bool IsSafe(string[] current, int row, int col, int n)
+    {
+        for (int i = 0; i < row; i++)
+        {
+            if (current[i][col] == 'Q')
+            {
+                return false;
             }
 
             int diagLeft = col - row + i;
-            if (diagLeft >= 0 && current[i][diagLeft] == 'Q') {
-                return false; 
+            if (diagLeft >= 0 && current[i][diagLeft] == 'Q')
+            {
+                return false;
             }
 
             int diagRight = col + row - i;
-            if (diagRight < n && current[i][diagRight] == 'Q') {
-                return false; 
+            if (diagRight < n && current[i][diagRight] == 'Q')
+            {
+                return false;
             }
         }
         return true;
     }
 
-    public int Search(int[] nums, int target) {
-        if(nums == null || nums.Length == 0) return -1;
+    public int Search(int[] nums, int target)
+    {
+        if (nums == null || nums.Length == 0) return -1;
         int start = 0, end = nums.Length - 1;
 
-        while(start <= end){
+        while (start <= end)
+        {
             int mid = start + (end - start) / 2;
-            if(nums[mid] == target) return mid;
+            if (nums[mid] == target) return mid;
 
-            if(nums[start] <= nums[mid]) {
-                if(target >= nums[start] && target < nums[mid]) {
+            if (nums[start] <= nums[mid])
+            {
+                if (target >= nums[start] && target < nums[mid])
+                {
                     end = mid - 1;
-                } else {
+                }
+                else
+                {
                     start = mid + 1;
                 }
-            } else {
-                if(target > nums[mid] && target <= nums[end]) {
+            }
+            else
+            {
+                if (target > nums[mid] && target <= nums[end])
+                {
                     start = mid + 1;
-                } else {
+                }
+                else
+                {
                     end = mid - 1;
                 }
             }
@@ -1131,53 +1349,69 @@ public class NumArray {
         return -1;
     }
 
-    public int[] SearchRange(int[] nums, int target) {
+    public int[] SearchRange(int[] nums, int target)
+    {
         int[] result = new int[2];
         result[0] = FindFirst(nums, target);
         result[1] = FindLast(nums, target);
         return result;
     }
 
-    private int FindFirst(int[] nums, int target) {
+    private int FindFirst(int[] nums, int target)
+    {
         int idx = -1;
         int start = 0, end = nums.Length - 1;
-        while(start <= end) {
+        while (start <= end)
+        {
             int mid = start + (end - start) / 2;
-            if(nums[mid] >= target) {
+            if (nums[mid] >= target)
+            {
                 end = mid - 1;
-            } else {
+            }
+            else
+            {
                 start = mid + 1;
             }
-            if(nums[mid] == target) idx = mid;
+            if (nums[mid] == target) idx = mid;
         }
         return idx;
     }
 
-    private int FindLast(int[] nums, int target) {
+    private int FindLast(int[] nums, int target)
+    {
         int idx = -1;
         int start = 0, end = nums.Length - 1;
-        while(start <= end) {
+        while (start <= end)
+        {
             int mid = start + (end - start) / 2;
-            if(nums[mid] <= target) {
+            if (nums[mid] <= target)
+            {
                 start = mid + 1;
-            } else {
+            }
+            else
+            {
                 end = mid - 1;
             }
-            if(nums[mid] == target) idx = mid;
+            if (nums[mid] == target) idx = mid;
         }
         return idx;
     }
 
-    public int NumberOfBeams(string[] bank) {
+    public int NumberOfBeams(string[] bank)
+    {
         int counter = 0;
-        if(bank.Length == 0) return counter;
-        Dictionary<int, int> datos = new Dictionary<int,int>();
+        if (bank.Length == 0) return counter;
+        Dictionary<int, int> datos = new Dictionary<int, int>();
 
-        for(int i = 0; i < bank.Length; i++){
+        for (int i = 0; i < bank.Length; i++)
+        {
             int cantidad = 0;
-            for(int j = 0; j < bank[i].Length; j++){
-                if(bank[i][j] == '1'){
-                    if (!datos.ContainsKey(i)) {
+            for (int j = 0; j < bank[i].Length; j++)
+            {
+                if (bank[i][j] == '1')
+                {
+                    if (!datos.ContainsKey(i))
+                    {
                         datos[i] = 0;
                     }
                     datos[i]++;
@@ -1187,7 +1421,8 @@ public class NumArray {
 
         var orderedValues = datos.Select(kvp => kvp.Value).ToList();
 
-        for (int i = 1; i < orderedValues.Count; i++) {
+        for (int i = 1; i < orderedValues.Count; i++)
+        {
             counter += orderedValues[i] * orderedValues[i - 1];
         }
 
@@ -1195,7 +1430,8 @@ public class NumArray {
     }
 }
 
-public class FoodRatings {
+public class FoodRatings
+{
     private Dictionary<string, string> map;
 
     private Dictionary<string, PriorityQueue<(int r, string f, int t), (int r, string f, int t)>> items;
@@ -1204,14 +1440,15 @@ public class FoodRatings {
 
     private int t;
 
-    public FoodRatings(string[] foods, string[] cuisines, int[] ratings) {
+    public FoodRatings(string[] foods, string[] cuisines, int[] ratings)
+    {
         this.map = new();
         this.items = new();
         this.time = new();
 
         // initial t = 0
         int n = foods.Length;
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             this.map.Add(foods[i], cuisines[i]);
             this.time.Add(foods[i], 0);
@@ -1224,8 +1461,9 @@ public class FoodRatings {
 
         this.t = -1;
     }
-    
-    public void ChangeRating(string food, int newRating) {
+
+    public void ChangeRating(string food, int newRating)
+    {
 
         var que = this.items[this.map[food]];
         que.Enqueue((-newRating, food, this.t), (-newRating, food, this.t));
@@ -1233,8 +1471,9 @@ public class FoodRatings {
         this.time[food] = this.t;
         this.t--;
     }
-    
-    public string HighestRated(string cuisine) {
+
+    public string HighestRated(string cuisine)
+    {
         var que = this.items[cuisine];
 
         while (que.Count > 0)
@@ -1253,21 +1492,27 @@ public class FoodRatings {
         return string.Empty;
     }
 
-    public int[][] ImageSmoother(int[][] img) {
+    public int[][] ImageSmoother(int[][] img)
+    {
         if (img.Length == 0 || img[0].Length == 0) return img;
 
         int rows = img.Length;
         int cols = img[0].Length;
         int[][] result = new int[rows][];
 
-        for (int i = 0; i < rows; i++) {
+        for (int i = 0; i < rows; i++)
+        {
             result[i] = new int[cols];
-            for (int j = 0; j < cols; j++) {
+            for (int j = 0; j < cols; j++)
+            {
                 int sum = 0;
                 int count = 0;
-                for (int ni = i - 1; ni <= i + 1; ni++) {
-                    for (int nj = j - 1; nj <= j + 1; nj++) {
-                        if (ni >= 0 && ni < rows && nj >= 0 && nj < cols) {
+                for (int ni = i - 1; ni <= i + 1; ni++)
+                {
+                    for (int nj = j - 1; nj <= j + 1; nj++)
+                    {
+                        if (ni >= 0 && ni < rows && nj >= 0 && nj < cols)
+                        {
                             sum += img[ni][nj];
                             count++;
                         }
