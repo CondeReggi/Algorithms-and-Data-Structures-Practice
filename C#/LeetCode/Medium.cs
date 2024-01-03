@@ -6,7 +6,7 @@ public class Solution
 
         Array.Sort(points, (a, b) => a[0].CompareTo(b[0]));
 
-        int max = points[1][0] - points[0][0]; 
+        int max = points[1][0] - points[0][0];
 
         for (int i = 1; i < points.Length; i++)
         {
@@ -116,4 +116,58 @@ public class Solution
 
         return counter;
     }
+
+    public IList<IList<int>> SubsetsWithDup(int[] nums)
+    {
+        Array.Sort(nums);
+        IList<IList<int>> result = new List<IList<int>>();
+        Backtrack(result, new List<int>(), 0, nums);
+        return result;
+    }
+
+    private void Backtrack(IList<IList<int>> result, IList<int> current, int idx, int[] nums)
+    {
+        result.Add(new List<int>(current));
+
+        for (int i = idx; i < nums.Length; i++)
+        {
+            if (i > idx && nums[i] == nums[i - 1]) continue;
+
+            current.Add(nums[i]);
+            Backtrack(result, current, i + 1, nums);
+            current.RemoveAt(current.Count - 1);
+        }
+    }
+
+    public IList<IList<string>> Partition(string s) {
+        var result = new List<IList<string>>();
+        Backtrack(result, new List<string>(), 0, s);
+        return result;
+    }
+
+    private void Backtrack(IList<IList<string>> result, IList<string> current, int start, string s) {
+        if (start == s.Length) {
+            result.Add(new List<string>(current));
+            return;
+        }
+
+        for (int end = start; end < s.Length; end++) {
+            if (IsPalindrome(s, start, end)) {
+                current.Add(s.Substring(start, end - start + 1));
+                Backtrack(result, current, end + 1, s);
+                current.RemoveAt(current.Count - 1);
+            }
+        }
+    }
+
+    private bool IsPalindrome(string s, int low, int high) {
+        while (low < high) {
+            if (s[low++] != s[high--]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    
 }
