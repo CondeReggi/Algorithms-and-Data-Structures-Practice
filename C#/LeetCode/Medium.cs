@@ -139,20 +139,25 @@ public class Solution
         }
     }
 
-    public IList<IList<string>> Partition(string s) {
+    public IList<IList<string>> Partition(string s)
+    {
         var result = new List<IList<string>>();
         Backtrack(result, new List<string>(), 0, s);
         return result;
     }
 
-    private void Backtrack(IList<IList<string>> result, IList<string> current, int start, string s) {
-        if (start == s.Length) {
+    private void Backtrack(IList<IList<string>> result, IList<string> current, int start, string s)
+    {
+        if (start == s.Length)
+        {
             result.Add(new List<string>(current));
             return;
         }
 
-        for (int end = start; end < s.Length; end++) {
-            if (IsPalindrome(s, start, end)) {
+        for (int end = start; end < s.Length; end++)
+        {
+            if (IsPalindrome(s, start, end))
+            {
                 current.Add(s.Substring(start, end - start + 1));
                 Backtrack(result, current, end + 1, s);
                 current.RemoveAt(current.Count - 1);
@@ -160,14 +165,60 @@ public class Solution
         }
     }
 
-    private bool IsPalindrome(string s, int low, int high) {
-        while (low < high) {
-            if (s[low++] != s[high--]) {
+    private bool IsPalindrome(string s, int low, int high)
+    {
+        while (low < high)
+        {
+            if (s[low++] != s[high--])
+            {
                 return false;
             }
         }
         return true;
     }
 
-    
+    public int MinOperations(int[] nums)
+    {
+        Array.Sort(nums);
+        if (nums.Length <= 1) return -1;
+
+        int current = nums[0];
+        int counter = 1;
+        int result = 0;
+
+        for (int i = 1; i < nums.Length; i++)
+        {
+            int siguiente = nums[i];
+
+            if (current != siguiente)
+            {
+                int paquetes = GetMinBoxes(counter);
+                if (paquetes == -1) return paquetes;
+                result += paquetes;
+                current = siguiente;
+                counter = 1;
+            }
+            else
+            {
+                counter++;
+            }
+        }
+
+        int ultimosPaquetes = GetMinBoxes(counter);
+        if (ultimosPaquetes == -1) return -1;
+        result += ultimosPaquetes;
+
+        return result;
+    }
+
+    private int GetMinBoxes(int n)
+    {
+        if (n < 2) return -1;
+        if (n % 3 == 0) return n / 3;
+        int paquetes = n / 3;
+        if (n % 3 == 1 && paquetes >= 1) return paquetes + 1;
+        if (n % 3 == 2) return paquetes + 1;
+
+        return -1;
+    }
 }
