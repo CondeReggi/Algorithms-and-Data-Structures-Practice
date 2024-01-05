@@ -242,4 +242,25 @@ public class Solution
 
         return dp.ToList().Max();
     }
+
+    public int MaxProduct(int[] nums)
+    {
+        if (nums.Length == 0) return 0;
+
+        var maxSoFar = nums[0];
+        var minSoFar = nums[0];
+        var result = maxSoFar;
+
+        for (int i = 1; i < nums.Length; i++)
+        {
+            var curr = nums[i];
+            var tempMax = Math.Max(curr, Math.Max(maxSoFar * curr, minSoFar * curr));
+            minSoFar = Math.Min(curr, Math.Min(maxSoFar * curr, minSoFar * curr));
+
+            maxSoFar = tempMax;
+            result = Math.Max(maxSoFar, result);
+        }
+
+        return result;
+    }
 }
