@@ -40,4 +40,23 @@ public class Solution
 
         return actual + izq + der;
     }
+
+    public bool LeafSimilar(TreeNode root1, TreeNode root2) {
+        List<int> lista1 = new List<int>();
+        List<int> lista2 = new List<int>();
+        CounterLeaf(root1, lista1);
+        CounterLeaf(root2, lista2);
+
+        return lista1.SequenceEqual(lista2);
+    }
+
+    public void CounterLeaf(TreeNode node, List<int> lista){
+        if(node == null) return;
+
+        if(node.left == null && node.right == null) {
+            lista.Add(node.val);
+        }
+        CounterLeaf(node.left, lista);
+        CounterLeaf(node.right, lista);
+    }
 }
