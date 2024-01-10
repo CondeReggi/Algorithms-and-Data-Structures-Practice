@@ -263,4 +263,54 @@ public class Solution
 
         return result;
     }
+
+    public int AmountOfTime(TreeNode root, int start) {
+        if (root == null) return 0;
+
+        // Construyo grafo de listas de adyacencia
+        var graph = new Dictionary<int, List<int>>();
+        BuildGraph(root, null, graph);
+
+        // BFS para infectar todos los nodos
+        var queue = new Queue<int>();
+        var visited = new HashSet<int>();
+
+        int counter = 0;
+
+        queue.Enqueue(start);
+        visited.Add(start);
+
+        while(queue.Count > 0){
+            int size = queue.Count;
+            for(int i = 0; i < size; i++){
+                var current = queue.Dequeue();
+                var listaAdyacentes = graph[current];
+
+                foreach(var adyacente in listaAdyacentes){
+                    if(!visited.Contains(adyacente)){
+                        visited.Add(adyacente);
+                        queue.Enqueue(adyacente);
+                    }
+                }
+            }
+            
+            if(queue.Count > 0) counter++;
+        }
+
+        return counter;
+    }
+
+    private void BuildGraph(TreeNode node, TreeNode parent, Dictionary<int, List<int>> graph){
+        if (node == null) return;
+
+        if (!graph.ContainsKey(node.val)) {
+            graph[node.val] = new List<int>();
+        }
+        if (parent != null) {
+            graph[node.val].Add(parent.val);
+            graph[parent.val].Add(node.val);
+        }
+        BuildGraph(node.left, node, graph);
+        BuildGraph(node.right, node, graph);
+    }
 }

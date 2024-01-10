@@ -28,4 +28,16 @@ public class Solution
 
         return cantidadUnosDer + cantidadCerosIzq - 1;
     }
+
+    public int RangeSumBST(TreeNode root, int low, int high)
+    {
+        if (root == null) return 0;
+
+        var actual = (root.val >= low && root.val <= high) ? root.val : 0;
+
+        var izq = RangeSumBST(root.left, low, high);
+        var der = RangeSumBST(root.right, low, high);
+
+        return actual + izq + der;
+    }
 }
