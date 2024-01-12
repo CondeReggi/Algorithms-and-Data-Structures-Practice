@@ -150,4 +150,26 @@ public class Solution
 
         return false;
     }
+
+    public IList<int> Postorder(Node root)
+    {
+        var result = new List<int>();
+        if (root == null) return result;
+
+        var stack = new Stack<Node>();
+        stack.Push(root);
+
+        while (stack.Count > 0)
+        {
+            var current = stack.Pop();
+            result.Insert(0, current.val);
+
+            foreach (var child in current.children)
+            {
+                stack.Push(child);
+            }
+        }
+
+        return result;
+    }
 }
