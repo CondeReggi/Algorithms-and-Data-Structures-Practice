@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class TreeNode
 {
     public int val;
@@ -171,5 +173,31 @@ public class Solution
         }
 
         return result;
+    }
+
+    public int SumRootToLeaf(TreeNode root) {
+        List<string> datos = new List<string>();
+        AddNumbers(root, "", datos);
+
+        var sum = 0;
+
+        foreach(var str in datos){
+            sum += Convert.ToInt32(str, 2);
+        }
+        return sum;
+    }
+
+    public void AddNumbers(TreeNode node, string str, List<string> datos){
+        if(node == null) return;
+
+        str += node.val.ToString();
+
+        if(node.left == null && node.right == null){
+            datos.Add(str);
+            return;
+        }
+
+        if(node.left != null) AddNumbers(node.left, str, datos);
+        if(node.right != null) AddNumbers(node.right, str, datos);
     }
 }
