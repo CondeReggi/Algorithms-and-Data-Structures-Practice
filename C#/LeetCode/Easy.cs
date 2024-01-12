@@ -88,4 +88,24 @@ public class Solution
         TreeNode rightResult = GetTargetCopy(original.right, cloned.right, target);
         return rightResult;
     }
+
+    public TreeNode MergeTrees(TreeNode root1, TreeNode root2)
+    {
+        if (root1 == null && root2 == null) return null;
+
+        int val1 = root1 != null ? root1.val : 0;
+        int val2 = root2 != null ? root2.val : 0;
+
+        TreeNode mergedNode = new TreeNode(val1 + val2);
+
+        TreeNode left1 = root1 != null ? root1.left : null;
+        TreeNode left2 = root2 != null ? root2.left : null;
+        mergedNode.left = MergeTrees(left1, left2);
+
+        TreeNode right1 = root1 != null ? root1.right : null;
+        TreeNode right2 = root2 != null ? root2.right : null;
+        mergedNode.right = MergeTrees(right1, right2);
+
+        return mergedNode;
+    }
 }
