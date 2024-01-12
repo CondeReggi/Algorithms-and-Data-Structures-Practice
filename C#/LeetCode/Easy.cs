@@ -41,7 +41,8 @@ public class Solution
         return actual + izq + der;
     }
 
-    public bool LeafSimilar(TreeNode root1, TreeNode root2) {
+    public bool LeafSimilar(TreeNode root1, TreeNode root2)
+    {
         List<int> lista1 = new List<int>();
         List<int> lista2 = new List<int>();
         CounterLeaf(root1, lista1);
@@ -50,25 +51,41 @@ public class Solution
         return lista1.SequenceEqual(lista2);
     }
 
-    public void CounterLeaf(TreeNode node, List<int> lista){
-        if(node == null) return;
+    public void CounterLeaf(TreeNode node, List<int> lista)
+    {
+        if (node == null) return;
 
-        if(node.left == null && node.right == null) {
+        if (node.left == null && node.right == null)
+        {
             lista.Add(node.val);
         }
         CounterLeaf(node.left, lista);
         CounterLeaf(node.right, lista);
     }
 
-    public bool HalvesAreAlike(string s) {
-        HashSet<char> vowels = new HashSet<char>(){'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+    public bool HalvesAreAlike(string s)
+    {
+        HashSet<char> vowels = new HashSet<char>() { 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' };
         int counter = 0;
 
-        for(int i = 0; i < s.Length; i++){
+        for (int i = 0; i < s.Length; i++)
+        {
             var letter = s[i];
-            if(i < s.Length / 2 && vowels.Contains(letter)) counter++;
-            else if(vowels.Contains(letter)) counter--;
+            if (i < s.Length / 2 && vowels.Contains(letter)) counter++;
+            else if (vowels.Contains(letter)) counter--;
         }
         return counter == 0;
+    }
+
+    public TreeNode GetTargetCopy(TreeNode original, TreeNode cloned, TreeNode target)
+    {
+        if (original == null) return original;
+        if (original == target) return cloned;
+
+        TreeNode leftResult = GetTargetCopy(original.left, cloned.left, target);
+        if (leftResult != null) return leftResult;
+
+        TreeNode rightResult = GetTargetCopy(original.right, cloned.right, target);
+        return rightResult;
     }
 }
