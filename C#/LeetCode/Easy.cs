@@ -108,4 +108,21 @@ public class Solution
 
         return mergedNode;
     }
+
+    public TreeNode IncreasingBST(TreeNode root)
+    {
+        return ConvertInOrder(root, null);
+    }
+
+    private TreeNode ConvertInOrder(TreeNode node, TreeNode tail)
+    {
+        if (node == null) return tail;
+
+        // In Order
+        TreeNode res = ConvertInOrder(node.left, node);
+        node.left = null;
+        node.right = ConvertInOrder(node.right, tail);
+
+        return res;
+    }
 }
