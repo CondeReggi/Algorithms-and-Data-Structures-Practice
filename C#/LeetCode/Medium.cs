@@ -313,4 +313,49 @@ public class Solution
         BuildGraph(node.left, node, graph);
         BuildGraph(node.right, node, graph);
     }
+
+    private Dictionary<int, string> numeralToRoman = new Dictionary<int, string>
+    {
+        {1000, "M"},
+        {900, "CM"},
+        {500, "D"},
+        {400, "CD"},
+        {100, "C"},
+        {90, "XC"},
+        {50, "L"},
+        {40, "XL"},
+        {10, "X"},
+        {9, "IX"},
+        {5, "V"},
+        {4, "IV"},
+        {1, "I"}
+    };
+
+    public string IntToRoman(int num) {
+        string roman = "";
+
+        foreach (var item in numeralToRoman) {
+            while (num >= item.Key) {
+                roman += item.Value;
+                num -= item.Key;
+            }
+        }
+        return roman;
+    }
+
+    public int MaxAncestorDiff(TreeNode root) {
+        return DFS(root, root.val, root.val);
+    }
+
+    public int DFS(TreeNode node, int currentMax, int currentMin){
+        if(node == null) return currentMax - currentMin;
+
+        var current_max = Math.Max(currentMax, node.val);
+        var current_min = Math.Min(currentMin, node.val);
+
+        var left_diff = DFS(node.left, current_max, current_min);
+        var right_diff = DFS(node.right, current_max, current_min);
+
+        return Math.Max(left_diff, right_diff);
+    }
 }
