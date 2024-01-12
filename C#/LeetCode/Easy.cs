@@ -59,4 +59,16 @@ public class Solution
         CounterLeaf(node.left, lista);
         CounterLeaf(node.right, lista);
     }
+
+    public bool HalvesAreAlike(string s) {
+        HashSet<char> vowels = new HashSet<char>(){'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
+        int counter = 0;
+
+        for(int i = 0; i < s.Length; i++){
+            var letter = s[i];
+            if(i < s.Length / 2 && vowels.Contains(letter)) counter++;
+            else if(vowels.Contains(letter)) counter--;
+        }
+        return counter == 0;
+    }
 }
