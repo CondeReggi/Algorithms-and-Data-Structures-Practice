@@ -175,29 +175,62 @@ public class Solution
         return result;
     }
 
-    public int SumRootToLeaf(TreeNode root) {
+    public int SumRootToLeaf(TreeNode root)
+    {
         List<string> datos = new List<string>();
         AddNumbers(root, "", datos);
 
         var sum = 0;
 
-        foreach(var str in datos){
+        foreach (var str in datos)
+        {
             sum += Convert.ToInt32(str, 2);
         }
         return sum;
     }
 
-    public void AddNumbers(TreeNode node, string str, List<string> datos){
-        if(node == null) return;
+    public void AddNumbers(TreeNode node, string str, List<string> datos)
+    {
+        if (node == null) return;
 
         str += node.val.ToString();
 
-        if(node.left == null && node.right == null){
+        if (node.left == null && node.right == null)
+        {
             datos.Add(str);
             return;
         }
 
-        if(node.left != null) AddNumbers(node.left, str, datos);
-        if(node.right != null) AddNumbers(node.right, str, datos);
+        if (node.left != null) AddNumbers(node.left, str, datos);
+        if (node.right != null) AddNumbers(node.right, str, datos);
+    }
+
+    public IList<double> AverageOfLevels(TreeNode root)
+    {
+        var levels = new List<IList<int>>();
+        AddNumbers(root, 0, levels);
+
+        var averages = new List<double>();
+        foreach (var level in levels)
+        {
+            averages.Add(level.Average());
+        }
+
+        return averages;
+    }
+
+    private void AddNumbers(TreeNode node, int depth, IList<IList<int>> levels)
+    {
+        if (node == null) return;
+
+        while (levels.Count <= depth)
+        {
+            levels.Add(new List<int>());
+        }
+
+        levels[depth].Add(node.val);
+
+        AddNumbers(node.left, depth + 1, levels);
+        AddNumbers(node.right, depth + 1, levels);
     }
 }
