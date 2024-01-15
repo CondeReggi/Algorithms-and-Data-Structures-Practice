@@ -233,4 +233,47 @@ public class Solution
         AddNumbers(node.left, depth + 1, levels);
         AddNumbers(node.right, depth + 1, levels);
     }
+
+    public bool ValidPath(int n, int[][] edges, int source, int destination)
+    {
+        if (source == destination) return true;
+
+        Dictionary<int, List<int>> adjacencyList = new Dictionary<int, List<int>>();
+        foreach (var edge in edges)
+        {
+            if (!adjacencyList.ContainsKey(edge[0]))
+            {
+                adjacencyList[edge[0]] = new List<int>();
+            }
+            if (!adjacencyList.ContainsKey(edge[1]))
+            {
+                adjacencyList[edge[1]] = new List<int>();
+            }
+
+            adjacencyList[edge[0]].Add(edge[1]);
+            adjacencyList[edge[1]].Add(edge[0]);
+        }
+
+        var visited = new HashSet<int>();
+        var stack = new Stack<int>();
+        stack.Push(source);
+
+        while (stack.Count > 0)
+        {
+            var current = stack.Pop();
+            if (current == destination) return true;
+            if (visited.Contains(current)) continue;
+            visited.Add(current);
+
+            foreach (var neighbor in adjacencyList[current])
+            {
+                if (!visited.Contains(neighbor))
+                {
+                    stack.Push(neighbor);
+                }
+            }
+        }
+
+        return false;
+    }
 }

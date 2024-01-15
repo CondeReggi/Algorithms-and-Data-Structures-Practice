@@ -264,7 +264,8 @@ public class Solution
         return result;
     }
 
-    public int AmountOfTime(TreeNode root, int start) {
+    public int AmountOfTime(TreeNode root, int start)
+    {
         if (root == null) return 0;
 
         // Construyo grafo de listas de adyacencia
@@ -280,33 +281,40 @@ public class Solution
         queue.Enqueue(start);
         visited.Add(start);
 
-        while(queue.Count > 0){
+        while (queue.Count > 0)
+        {
             int size = queue.Count;
-            for(int i = 0; i < size; i++){
+            for (int i = 0; i < size; i++)
+            {
                 var current = queue.Dequeue();
                 var listaAdyacentes = graph[current];
 
-                foreach(var adyacente in listaAdyacentes){
-                    if(!visited.Contains(adyacente)){
+                foreach (var adyacente in listaAdyacentes)
+                {
+                    if (!visited.Contains(adyacente))
+                    {
                         visited.Add(adyacente);
                         queue.Enqueue(adyacente);
                     }
                 }
             }
-            
-            if(queue.Count > 0) counter++;
+
+            if (queue.Count > 0) counter++;
         }
 
         return counter;
     }
 
-    private void BuildGraph(TreeNode node, TreeNode parent, Dictionary<int, List<int>> graph){
+    private void BuildGraph(TreeNode node, TreeNode parent, Dictionary<int, List<int>> graph)
+    {
         if (node == null) return;
 
-        if (!graph.ContainsKey(node.val)) {
+        if (!graph.ContainsKey(node.val))
+        {
             graph[node.val] = new List<int>();
         }
-        if (parent != null) {
+        if (parent != null)
+        {
             graph[node.val].Add(parent.val);
             graph[parent.val].Add(node.val);
         }
@@ -331,11 +339,14 @@ public class Solution
         {1, "I"}
     };
 
-    public string IntToRoman(int num) {
+    public string IntToRoman(int num)
+    {
         string roman = "";
 
-        foreach (var item in numeralToRoman) {
-            while (num >= item.Key) {
+        foreach (var item in numeralToRoman)
+        {
+            while (num >= item.Key)
+            {
                 roman += item.Value;
                 num -= item.Key;
             }
@@ -343,12 +354,14 @@ public class Solution
         return roman;
     }
 
-    public int MaxAncestorDiff(TreeNode root) {
+    public int MaxAncestorDiff(TreeNode root)
+    {
         return DFS(root, root.val, root.val);
     }
 
-    public int DFS(TreeNode node, int currentMax, int currentMin){
-        if(node == null) return currentMax - currentMin;
+    public int DFS(TreeNode node, int currentMax, int currentMin)
+    {
+        if (node == null) return currentMax - currentMin;
 
         var current_max = Math.Max(currentMax, node.val);
         var current_min = Math.Min(currentMin, node.val);
@@ -357,5 +370,40 @@ public class Solution
         var right_diff = DFS(node.right, current_max, current_min);
 
         return Math.Max(left_diff, right_diff);
+    }
+
+    public IList<IList<int>> FindWinners(int[][] matches)
+    {
+        Dictionary<int, int> datos = new Dictionary<int, int>();
+
+        for (int i = 0; i < matches.Length; i++)
+        {
+            var ganador = matches[i][0];
+            var perdio = matches[i][1];
+
+            if (!datos.ContainsKey(ganador)) datos[ganador] = 0;
+
+            if (datos.ContainsKey(perdio))
+            {
+                datos[perdio]++;
+            }
+            else
+            {
+                datos[perdio] = 1;
+            }
+        }
+
+        var ganadores = datos
+            .Where(kvp => kvp.Value == 0)
+            .Select(kvp => kvp.Key)
+            .OrderBy(x => x)
+            .ToList();
+        var jugadoresConUnaDerrota = datos
+            .Where(kvp => kvp.Value == 1)
+            .Select(kvp => kvp.Key)
+            .OrderBy(x => x)
+            .ToList();
+
+        return new List<IList<int>>() { ganadores, jugadoresConUnaDerrota };
     }
 }
