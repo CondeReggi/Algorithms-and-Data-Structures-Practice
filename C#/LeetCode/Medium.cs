@@ -1,3 +1,99 @@
+
+public class RandomizedSet
+{
+    private List<int> _lista;
+    private Dictionary<int, int> _map;
+    private Random _rand;
+
+    public RandomizedSet()
+    {
+        _lista = new List<int>();
+        _map = new Dictionary<int, int>();
+        _rand = new Random();
+    }
+
+    public bool Insert(int val)
+    {
+        if (_map != null && _map.ContainsKey(val)) return false;
+
+        _lista.Add(val);
+        _map[val] = _lista.Count() - 1;
+
+        return true;
+    }
+
+    public bool Remove(int val)
+    {
+        if (_map != null && !_map.ContainsKey(val))
+        {
+            return false;
+        }
+
+        int utlimoElemento = _lista[_lista.Count() - 1];
+        int index = _map[val];
+
+        //seteo nuevo index y cambio el valor en la lista.
+        _lista[index] = utlimoElemento;
+        _map[utlimoElemento] = index;
+
+        _lista.RemoveAt(_lista.Count() - 1);
+        _map.Remove(val);
+
+        return true;
+    }
+
+    public int GetRandom()
+    {
+        int randomIndex = _rand.Next(_lista.Count());
+        return _lista[randomIndex];
+    }
+}
+
+public class MinStack
+{
+    private Stack<int> _minStack;
+    private Stack<int> _stack;
+
+    public MinStack()
+    {
+        _stack = new Stack<int>();
+        _minStack = new Stack<int>();
+    }
+
+    public void Push(int val)
+    {
+        _stack.Push(val);
+
+        if (_minStack.Count == 0 || val <= GetMin()) _minStack.Push(val);
+    }
+
+    public void Pop()
+    {
+        if (_stack.Count() == 0) return;
+
+        var ultimo = _stack.Pop();
+        if (ultimo == GetMin())
+        {
+            _minStack.Pop();
+        }
+    }
+
+    public int Top()
+    {
+        if (_stack.Count() == 0) return -1;
+
+        var value = _stack.Peek();
+        return value;
+    }
+
+    public int GetMin()
+    {
+        if (_minStack.Count() == 0) return -1;
+
+        return _minStack.Peek(); ;
+    }
+}
+
 public class Solution
 {
     public int MaxWidthOfVerticalArea(int[][] points)
@@ -463,54 +559,24 @@ public class Solution
 
         return head;
     }
-}
 
-public class RandomizedSet
-{
-    private List<int> _lista;
-    private Dictionary<int, int> _map;
-    private Random _rand;
+    public int FindPeakElement(int[] nums) {
+        var left = 0;
+        var right = nums.Length - 1;
 
-    public RandomizedSet()
-    {
-        _lista = new List<int>();
-        _map = new Dictionary<int, int>();
-        _rand = new Random();
-    }
+        while(left + 1 < right){
+            var mid = left + (right - left) / 2;
 
-    public bool Insert(int val)
-    {
-        if (_map != null && _map.ContainsKey(val)) return false;
-
-        _lista.Add(val);
-        _map[val] = _lista.Count() - 1;
-
-        return true;
-    }
-
-    public bool Remove(int val)
-    {
-        if (_map != null && !_map.ContainsKey(val))
-        {
-            return false;
+            if(nums[mid] < nums[mid + 1])
+            {
+                left = mid;
+            }
+            else
+            {
+                right = mid;
+            }
         }
 
-        int utlimoElemento = _lista[_lista.Count() - 1];
-        int index = _map[val];
-
-        //seteo nuevo index y cambio el valor en la lista.
-        _lista[index] = utlimoElemento;
-        _map[utlimoElemento] = index;
-
-        _lista.RemoveAt(_lista.Count() - 1);
-        _map.Remove(val);
-
-        return true;
-    }
-
-    public int GetRandom()
-    {
-        int randomIndex = _rand.Next(_lista.Count());
-        return _lista[randomIndex];
+        return nums[left] > nums[right] ? left : right;
     }
 }
