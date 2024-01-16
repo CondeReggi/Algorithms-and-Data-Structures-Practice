@@ -430,6 +430,39 @@ public class Solution
 
         return true;
     }
+
+    public ListNode RotateRight(ListNode head, int k)
+    {
+        if (head == null || head.next == null || k == 0) return head;
+
+        ListNode aux = head;
+        int length = 1;
+        while (aux.next != null)
+        {
+            aux = aux.next;
+            length++;
+        }
+
+        aux.next = head;
+
+        k = k % length;
+        if (k == 0)
+        {
+            aux.next = null;
+            return head;
+        }
+
+        aux = head;
+        for (int i = 0; i < length - k - 1; i++)
+        {
+            aux = aux.next;
+        }
+
+        head = aux.next;
+        aux.next = null;
+
+        return head;
+    }
 }
 
 public class RandomizedSet
