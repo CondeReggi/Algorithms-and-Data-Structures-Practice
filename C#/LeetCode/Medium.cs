@@ -406,4 +406,78 @@ public class Solution
 
         return new List<IList<int>>() { ganadores, jugadoresConUnaDerrota };
     }
+
+    public bool CloseStrings(string word1, string word2)
+    {
+        int[] freq1 = new int[26];
+        int[] freq2 = new int[26];
+
+        foreach (char a in word1.ToCharArray()) freq1[a - 'a']++;
+        foreach (char b in word2.ToCharArray()) freq2[b - 'a']++;
+
+        for (int i = 0; i < 26; i++)
+        {
+            if ((freq1[i] == 0 && freq2[i] != 0) || (freq1[i] != 0 && freq2[i] == 0)) return false;
+        }
+
+        Array.Sort(freq1);
+        Array.Sort(freq2);
+
+        for (int i = 0; i < 26; i++)
+        {
+            if (freq1[i] != freq2[i]) return false;
+        }
+
+        return true;
+    }
+}
+
+public class RandomizedSet
+{
+    private List<int> _lista;
+    private Dictionary<int, int> _map;
+    private Random _rand;
+
+    public RandomizedSet()
+    {
+        _lista = new List<int>();
+        _map = new Dictionary<int, int>();
+        _rand = new Random();
+    }
+
+    public bool Insert(int val)
+    {
+        if (_map != null && _map.ContainsKey(val)) return false;
+
+        _lista.Add(val);
+        _map[val] = _lista.Count() - 1;
+
+        return true;
+    }
+
+    public bool Remove(int val)
+    {
+        if (_map != null && !_map.ContainsKey(val))
+        {
+            return false;
+        }
+
+        int utlimoElemento = _lista[_lista.Count() - 1];
+        int index = _map[val];
+
+        //seteo nuevo index y cambio el valor en la lista.
+        _lista[index] = utlimoElemento;
+        _map[utlimoElemento] = index;
+
+        _lista.RemoveAt(_lista.Count() - 1);
+        _map.Remove(val);
+
+        return true;
+    }
+
+    public int GetRandom()
+    {
+        int randomIndex = _rand.Next(_lista.Count());
+        return _lista[randomIndex];
+    }
 }
