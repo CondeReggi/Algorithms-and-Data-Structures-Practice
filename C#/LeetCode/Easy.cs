@@ -276,4 +276,33 @@ public class Solution
 
         return false;
     }
+
+    public bool UniqueOccurrences(int[] arr)
+    {
+        Dictionary<int, int> datos = new Dictionary<int, int>();
+
+        foreach (var number in arr)
+        {
+            if (!datos.ContainsKey(number)) datos[number] = 1;
+            else datos[number]++;
+        }
+
+        try
+        {
+            Dictionary<int, int> result = new Dictionary<int, int>();
+
+            foreach (var dato in datos)
+            {
+                var key = dato.Key;
+                var value = dato.Value;
+
+                result.Add(value, key);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
 }
