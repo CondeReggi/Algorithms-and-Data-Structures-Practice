@@ -686,4 +686,28 @@ public class Solution
         return minSum;
     }
 
+    public void Rotate(int[][] matrix)
+    {
+        var n = matrix.Length;
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                var aux = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = aux;
+            }
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n / 2; j++)
+            {
+                var auxiliar = matrix[i][j];
+                matrix[i][j] = matrix[i][n - j - 1];
+                matrix[i][n - j - 1] = auxiliar;
+            }
+        }
+    }
 }
