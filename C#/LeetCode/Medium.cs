@@ -560,14 +560,16 @@ public class Solution
         return head;
     }
 
-    public int FindPeakElement(int[] nums) {
+    public int FindPeakElement(int[] nums)
+    {
         var left = 0;
         var right = nums.Length - 1;
 
-        while(left + 1 < right){
+        while (left + 1 < right)
+        {
             var mid = left + (right - left) / 2;
 
-            if(nums[mid] < nums[mid + 1])
+            if (nums[mid] < nums[mid + 1])
             {
                 left = mid;
             }
@@ -579,4 +581,109 @@ public class Solution
 
         return nums[left] > nums[right] ? left : right;
     }
+
+    public bool IsValidSudoku(char[][] board)
+    {
+        Dictionary<int, HashSet<int>> datosColumn = new Dictionary<int, HashSet<int>>();
+        Dictionary<int, HashSet<int>> datosRow = new Dictionary<int, HashSet<int>>();
+        Dictionary<int, HashSet<int>> datosCube = new Dictionary<int, HashSet<int>>();
+
+        //Creo hashes de columns
+        for (int k = 0; k < board[0].Length; k++)
+        {
+            datosColumn.Add(k, new HashSet<int>());
+            datosRow.Add(k, new HashSet<int>());
+            datosCube.Add(k, new HashSet<int>());
+        }
+
+        for (int i = 0; i < board.Length; i++)
+        {
+            for (int j = 0; j < board[i].Length; j++)
+            {
+                var value = board[i][j];
+                int cubeIndex = (i / 3) * 3 + j / 3;
+
+                if (value == '.') continue;
+
+                if (datosCube[cubeIndex].Contains((int)value)) return false;
+                datosCube[cubeIndex].Add((int)value);
+
+                if (datosRow[i].Contains((int)value)) return false;
+                datosRow[i].Add((int)value);
+
+                if (datosColumn[j].Contains((int)value)) return false;
+                datosColumn[j].Add((int)value);
+            }
+        }
+
+        return true;
+    }
+
+    //Con backtracking
+    public int MinFallingPathSum(int[][] matrix)
+    {
+        int minSum = int.MaxValue;
+        for (int col = 0; col < matrix[0].Length; col++)
+        {
+            minSum = Math.Min(minSum, Backtrack(0, col, matrix));
+        }
+        return minSum;
+    }
+
+    private int Backtrack(int row, int col, int[][] matrix)
+    {
+        if (row == matrix.Length - 1)
+        {
+            return matrix[row][col];
+        }
+
+        int left = int.MaxValue, down = int.MaxValue, right = int.MaxValue;
+
+        if (col > 0)
+        {
+            left = Backtrack(row + 1, col - 1, matrix);
+        }
+
+        down = Backtrack(row + 1, col, matrix);
+
+        if (col < matrix[0].Length - 1)
+        {
+            right = Backtrack(row + 1, col + 1, matrix);
+        }
+
+        return matrix[row][col] + Math.Min(left, Math.Min(down, right));
+    }
+
+    //Con dp
+    public int MinFallingPathSum(int[][] matrix)
+    {
+        int n = matrix.Length;
+        int[,] dp = new int[n, n];
+
+        for (int col = 0; col < n; col++)
+        {
+            dp[0, col] = matrix[0][col];
+        }
+
+        for (int row = 1; row < n; row++)
+        {
+            for (int col = 0; col < n; col++)
+            {
+                int left = col > 0 ? dp[row - 1, col - 1] : int.MaxValue;
+                int middle = dp[row - 1, col];
+                int right = col < n - 1 ? dp[row - 1, col + 1] : int.MaxValue;
+
+                dp[row, col] = matrix[row][col] + Math.Min(left, Math.Min(middle, right));
+            }
+        }
+
+        int minSum = int.MaxValue;
+        for (int col = 0; col < n; col++)
+        {
+            minSum = Math.Min(minSum, dp[n - 1, col]);
+        }
+
+        return minSum;
+    }
+
 }

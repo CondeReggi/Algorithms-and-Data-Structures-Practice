@@ -1,0 +1,18 @@
+<html>
+<body>
+    <form id="geoPayForm" action="https://posnetgatewaytest.geocom.com.uy:9443/posnetgateway-ui/services/cards/requestAddCard" method="POST">
+        <input type="hidden" name="sessionToken" value="ccd0c096-a98f-497b-a6c8-16e8fa1822ad">
+        <input type="hidden" name="cardType" value="AMEX">
+        <input type="hidden" name="netId" value="DUCSA_TEST">
+        <input type="hidden" name="cssFileName" value="ducsa">
+        <input type="hidden" name="callbackUrl" value="URL_1">
+        <input type="hidden" name="commerceOperation" value="11442176">
+        <input type="hidden" name="email" value="deboye2796@akapple.com">
+        <input type="hidden" name="phone" value="099666522">
+        <input type="hidden" name="firstName" value="Natalia">
+        <input type="hidden" name="lastName" value="Gio">
+        <input type="hidden" name="document" value="11442176">
+    </form>
+    <script>document.getElementById("geoPayForm").submit();</script>
+</body>
+</html>
