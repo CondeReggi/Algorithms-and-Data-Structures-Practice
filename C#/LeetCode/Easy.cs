@@ -13,6 +13,35 @@ public class TreeNode
     }
 }
 
+public class MyQueue
+{
+    private Queue<int> queue;
+    public MyQueue()
+    {
+        queue = new Queue<int>();
+    }
+
+    public void Push(int x)
+    {
+        queue.Enqueue(x);
+    }
+
+    public int Pop()
+    {
+        return queue.Dequeue();
+    }
+
+    public int Peek()
+    {
+        return queue.Peek();
+    }
+
+    public bool Empty()
+    {
+        return queue.Count() == 0;
+    }
+}
+
 public class Solution
 {
     public int BuyChoco(int[] prices, int money)
@@ -304,5 +333,14 @@ public class Solution
         {
             return false;
         }
+    }
+
+    public int FirstUniqChar(string s)
+    {
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (s.IndexOf(s[i]) == s.LastIndexOf(s[i])) return i;
+        }
+        return -1;
     }
 }
