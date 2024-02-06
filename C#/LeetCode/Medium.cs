@@ -734,4 +734,193 @@ public class Solution
 
         return dp[n, m];
     }
+
+    public int MaximumGap(int[] nums)
+    {
+        if (nums.Length <= 1) return 0;
+
+        Array.Sort(nums);
+        int maxGap = 0;
+
+        for (int i = 1; i < nums.Length; i++)
+        {
+            var first = nums[i - 1];
+            var current = nums[i];
+
+            if (maxGap < Math.Abs(current - first))
+                maxGap = current - first;
+        }
+
+        return maxGap;
+    }
+
+    public IList<IList<string>> GroupAnagrams(string[] strs)
+    {
+        Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
+
+        for (int i = 0; i < strs.Length; i++)
+        {
+            var palabra = new String(strs[i].ToList().OrderBy(x => x).ToArray());
+
+            if (dictionary.ContainsKey(palabra))
+            {
+                dictionary[palabra].Add(strs[i]);
+            }
+            else
+            {
+                dictionary[palabra] = new List<string>() { strs[i] };
+            }
+        }
+
+        IList<IList<string>> result = new List<IList<string>>();
+
+        foreach (var element in dictionary)
+        {
+            result.Add(element.Value);
+        }
+
+        return result;
+    }
+
+    public int MaxSubArray(int[] nums)
+    {
+        int n = nums.Length;
+        int[] dp = new int[n];
+        dp[0] = nums[0];
+        int maxSum = dp[0];
+
+        for (int i = 1; i < n; i++)
+        {
+            dp[i] = Math.Max(nums[i], dp[i - 1] + nums[i]);
+            maxSum = Math.Max(maxSum, dp[i]);
+        }
+
+        return maxSum;
+    }
+
+    public bool CanJump(int[] nums)
+    {
+        int maxReachable = 0;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (i > maxReachable) return false;
+            maxReachable = Math.Max(maxReachable, i + nums[i]);
+        }
+        return true;
+    }
+
+    public ListNode SortList(ListNode head)
+    {
+        if (head == null || head.next == null)
+        {
+            return head;
+        }
+
+        ListNode middle = FindMiddle(head);
+        ListNode right = middle.next;
+        middle.next = null;
+
+        ListNode leftSorted = SortList(head);
+        ListNode rightSorted = SortList(right);
+
+        return Merge(leftSorted, rightSorted);
+    }
+
+    private ListNode FindMiddle(ListNode head)
+    {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast.next != null && fast.next.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    private ListNode Merge(ListNode left, ListNode right)
+    {
+        ListNode dummy = new ListNode();
+        ListNode current = dummy;
+
+        while (left != null && right != null)
+        {
+            if (left.val < right.val)
+            {
+                current.next = left;
+                left = left.next;
+            }
+            else
+            {
+                current.next = right;
+                right = right.next;
+            }
+            current = current.next;
+        }
+
+        if (left != null)
+        {
+            current.next = left;
+        }
+        if (right != null)
+        {
+            current.next = right;
+        }
+
+        return dummy.next;
+    }
+
+    public int UniquePathsWithObstacles(int[][] obstacleGrid)
+    {
+        if (obstacleGrid == null || obstacleGrid.Length == 0 || obstacleGrid[0][0] == 1) return 0;
+
+        int m = obstacleGrid.Length;
+        int n = obstacleGrid[0].Length;
+
+        int[,] dp = new int[m, n];
+        dp[0, 0] = 1;
+
+        for (int i = 1; i < m; i++)
+        {
+            if (obstacleGrid[i][0] == 1)
+            {
+                dp[i, 0] = 0;
+            }
+            else
+            {
+                dp[i, 0] = dp[i - 1, 0];
+            }
+        } 
+
+        for (int j = 1; j < n; j++)
+        {
+            if (obstacleGrid[0][j] == 1)
+            {
+                dp[0, j] = 0;
+            }
+            else
+            {
+                dp[0, j] = dp[0, j - 1];
+            }
+        }
+
+        for (int i = 1; i < m; i++)
+        {
+            for (int j = 1; j < n; j++)
+            {
+                if (obstacleGrid[i][j] == 1)
+                {
+                    dp[i, j] = 0;
+                }
+                else
+                {
+                    dp[i, j] = dp[i - 1, j] + dp[i, j - 1];
+                }
+            }
+        }
+
+        return dp[m - 1, n - 1];
+    }
 }
