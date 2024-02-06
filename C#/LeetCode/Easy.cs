@@ -343,4 +343,31 @@ public class Solution
         }
         return -1;
     }
+
+    public bool DigitCount(string num)
+    {
+        Dictionary<char, int> data = new Dictionary<char, int>();
+
+        for (int i = 0; i < num.Length; i++)
+        {
+            var current = num[i];
+            if (data.ContainsKey(current)) data[current]++;
+            else data[current] = 1;
+        }
+
+        for (int k = 0; k < num.Length; k++)
+        {
+            int expectedCount = num[k] - '0';
+
+            if (data.TryGetValue(k.ToString()[0], out int actualCount))
+            {
+                if (actualCount != expectedCount) return false;
+            }
+            else
+            {
+                if (expectedCount != 0) return false;
+            }
+        }
+        return true;
+    }
 }
