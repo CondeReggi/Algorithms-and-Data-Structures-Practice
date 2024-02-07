@@ -892,7 +892,7 @@ public class Solution
             {
                 dp[i, 0] = dp[i - 1, 0];
             }
-        } 
+        }
 
         for (int j = 1; j < n; j++)
         {
@@ -922,5 +922,31 @@ public class Solution
         }
 
         return dp[m - 1, n - 1];
+    }
+
+    public string FrequencySort(string s)
+    {
+        Dictionary<char, int> data = new Dictionary<char, int>();
+
+        for (int i = 0; i < s.Length; i++)
+        {
+            var current = s[i];
+
+            if (data.ContainsKey(current)) data[current]++;
+            else data[current] = 1;
+        }
+
+        string result = "";
+        var dataOrdered = data.OrderByDescending(pair => pair.Value);
+
+        foreach (var elem in dataOrdered)
+        {
+            var key = elem.Key;
+            var value = elem.Value;
+
+            for (int k = 0; k < value; k++) result += key;
+        }
+
+        return result;
     }
 }
