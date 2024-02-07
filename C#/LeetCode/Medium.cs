@@ -949,4 +949,41 @@ public class Solution
 
         return result;
     }
+
+    public int CountCharacters(string[] words, string chars)
+    {
+        int[] charCount = new int[26];
+        foreach (char c in chars)
+        {
+            charCount[c - 'a']++;
+        }
+
+        int sum = 0;
+        foreach (string word in words)
+        {
+            int[] tempCharCount = new int[26];
+            Array.Copy(charCount, tempCharCount, 26);
+            bool isGood = true;
+
+            foreach (char c in word)
+            {
+                if (tempCharCount[c - 'a'] > 0)
+                {
+                    tempCharCount[c - 'a']--;
+                }
+                else
+                {
+                    isGood = false;
+                    break;
+                }
+            }
+
+            if (isGood)
+            {
+                sum += word.Length;
+            }
+        }
+
+        return sum;
+    }
 }
