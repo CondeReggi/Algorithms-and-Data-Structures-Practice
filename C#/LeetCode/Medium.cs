@@ -986,4 +986,65 @@ public class Solution
 
         return sum;
     }
+
+    public int UnhappyFriends(int n, int[][] preferences, int[][] pairs)
+    {
+        int[,] orderedPreferencesOfFriends = new int[n, n];
+        int[] matches = new int[n];
+
+        int unhappyFriendCount = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n - 1; j++)
+            {
+                orderedPreferencesOfFriends[i, preferences[i][j]] = j;
+            }
+        }
+
+        foreach (var pair in pairs)
+        {
+            matches[pair[0]] = pair[1];
+            matches[pair[1]] = pair[0];
+        }
+
+        for (int k = 0; k < n; k++)
+        {
+            int firstMatch = matches[k];
+            int firstMatchIndex = orderedPreferencesOfFriends[k, firstMatch];
+
+            for (int l = 0; l < firstMatchIndex; l++)
+            {
+                int u = preferences[k][l];
+                int v = matches[u];
+                if (orderedPreferencesOfFriends[u, k] < orderedPreferencesOfFriends[u, v])
+                {
+                    unhappyFriendCount++;
+                    break;
+                }
+            }
+        }
+
+        return unhappyFriendCount;
+    }
+
+    public int NumSquares(int n)
+    {
+        int[] dp = new int[n + 1];
+        for (int i = 0; i <= n; i++)
+        {
+            dp[i] = int.MaxValue;
+        }
+        dp[0] = 0;
+
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 1; j * j <= i; j++)
+            {
+                dp[i] = Math.Min(dp[i], dp[i - j * j] + 1);
+            }
+        }
+
+        return dp[n];
+    }
 }

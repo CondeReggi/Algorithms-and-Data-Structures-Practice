@@ -1,0 +1,156 @@
+body {
+    padding: 5em;
+}
+
+.TruckLoader {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    background: #444;
+    background-size: 100% auto;
+    border-radius: 4px;
+    -webkit-box-reflect: below 15px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.1, transparent), to(rgba(255, 255, 255, 0.1)));
+}
+
+.TruckLoader:before {
+    content: '';
+    display: block;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    background: #333;
+    position: absolute;
+    bottom: -10px;
+}
+
+.TruckLoader:after {
+    content: '';
+    display: block;
+    width: 16px; 
+    height: 16px; 
+    border-radius: 50%;
+    background: #333;
+    position: absolute;
+    bottom: -10px;
+    box-shadow: 0 0 0 2px #fff, 
+                22px 0 0 0 #333, 
+                22px 0 0 2px #fff; 
+}
+
+.TruckLoader:before {
+    left: 6px;
+}
+
+.TruckLoader:after {
+    right: 36px;
+}
+
+.TruckLoader-cab {
+    position: absolute;
+    left: -35px;
+    bottom: 0;
+    width: 33px;
+    height: 25px;
+    background: #333;
+    border-radius: 40% 0 4px 4px;
+    -webkit-box-reflect: below 15px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.1, transparent), to(rgba(255, 255, 255, 0.1)));
+}
+
+.TruckLoader-cab:before,
+.TruckLoader-cab:after {
+    position: absolute;
+    content: '';
+    display: block;
+    background: #333;
+}
+
+.TruckLoader-cab:before {
+    width: 20px;
+    height: 15px;
+    top: -15px;
+    right: 0;
+    border-radius: 100% 0 0 0;
+}
+
+.TruckLoader-cab:after {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    background: #444;
+    left: 5px;
+    border: 2px solid #fff;
+    background: #333;
+    bottom: -10px;
+}
+
+@-webkit-keyframes put-put {
+    0% {
+        margin-top: 0px;
+        height: 50px;
+    }
+
+    5% {
+        margin-top: -2px;
+        height: 52px;
+    }
+
+    20% {
+        margin-top: -1px;
+        height: 50px;
+    }
+
+    35% {
+        margin-top: 1px;
+        height: 49px;
+    }
+
+    40% {
+        margin-top: -1px;
+        height: 51px;
+    }
+
+    60% {
+        margin-top: 1px;
+        height: 49px;
+    }
+
+    75% {
+        margin-top: 0px;
+        height: 50px;
+    }
+
+    80% {
+        margin-top: -4px;
+        height: 52px;
+    }
+
+    100% {
+        margin-top: 1px;
+        height: 49px;
+    }
+}
+
+@-webkit-keyframes move-truck {
+    0% {
+        margin-left: 90%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        margin-left: 45%;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        margin-left: 0;
+        opacity: 0;
+    }
+}

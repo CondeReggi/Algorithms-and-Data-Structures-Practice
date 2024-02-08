@@ -370,4 +370,12 @@ public class Solution
         }
         return true;
     }
+
+    public bool ArrayStringsAreEqual(string[] word1, string[] word2)
+    {
+        var first = string.Join("", word1);
+        var second = string.Join("", word2);
+
+        return first == second;
+    }
 }
