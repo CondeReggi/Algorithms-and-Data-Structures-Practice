@@ -378,4 +378,81 @@ public class Solution
 
         return first == second;
     }
+
+    public int NumIdenticalPairs(int[] nums)
+    {
+        int result = 0;
+
+        for (int i = 0; i < nums.Length - 1; i++)
+        {
+            for (int j = i + 1; j < nums.Length; j++)
+            {
+                if (i < j && nums[i] == nums[j]) result++;
+            }
+        }
+
+        return result;
+    }
+
+    public int NumJewelsInStones(string jewels, string stones)
+    {
+        HashSet<char> data = new HashSet<char>();
+
+        foreach (var character in jewels.ToCharArray())
+        {
+            if (!data.Contains(character)) data.Add(character);
+        }
+
+        int result = 0;
+        for (int i = 0; i < stones.Length; i++)
+        {
+            var current = stones[i];
+
+            if (data.Contains(current)) result++;
+        }
+        return result;
+    }
+
+    public int[] SmallerNumbersThanCurrent(int[] nums)
+    {
+        var n = nums.Length;
+        int[] copy = new int[n];
+        Array.Copy(nums, copy, n);
+
+        Array.Sort(nums);
+
+        Dictionary<int, int> data = new Dictionary<int, int>();
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (!data.ContainsKey(nums[i]))
+            {
+                data[nums[i]] = i;
+            }
+        }
+
+        for (int k = 0; k < n; k++)
+        {
+            copy[k] = data[copy[k]];
+        }
+
+        return copy;
+    }
+
+    public int Fib(int n)
+    {
+        Dictionary<int, int> datos = new Dictionary<int, int>();
+        datos[0] = 0;
+        datos[1] = 1;
+        datos[2] = 1;
+
+        if (n <= 2) return datos[n];
+
+        for (int i = 3; i < n; i++)
+        {
+            datos[i] = datos[i - 2] + datos[i - 1];
+        }
+
+        return datos[n - 2] + datos[n - 1];
+    }
 }

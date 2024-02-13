@@ -1047,4 +1047,44 @@ public class Solution
 
         return dp[n];
     }
+
+    public IList<int> LargestDivisibleSubset(int[] nums)
+    {
+        var n = nums.Length;
+        int[] count = new int[n];
+        int[] prev = new int[n];
+
+        Array.Sort(nums);
+
+        int maxIndex = 0;
+        for (int i = 0; i < n; i++)
+        {
+            count[i] = 1;
+            prev[i] = -1;
+            for (int j = i - 1; j >= 0; j--)
+            {
+                if (nums[i] % nums[j] == 0)
+                {
+                    if (count[j] + 1 > count[i])
+                    {
+                        count[i] = count[j] + 1;
+                        prev[i] = j;
+                    }
+                }
+            }
+
+            if (count[i] > count[maxIndex])
+            {
+                maxIndex = i;
+            }
+        }
+
+        List<int> largestDivisibleSubset = new List<int>();
+        for (int i = maxIndex; i != -1; i = prev[i])
+        {
+            largestDivisibleSubset.Add(nums[i]);
+        }
+
+        return largestDivisibleSubset;
+    }
 }
