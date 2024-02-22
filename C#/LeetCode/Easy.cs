@@ -455,4 +455,30 @@ public class Solution
 
         return datos[n - 2] + datos[n - 1];
     }
+
+    public int FindLucky(int[] arr)
+    {
+        Array.Sort(arr);
+        Dictionary<int, int> data = new Dictionary<int, int>();
+
+        foreach (var number in arr)
+        {
+            if (!data.ContainsKey(number)) data[number] = 1;
+            else data[number]++;
+        }
+
+        int max = -1;
+
+        foreach (var dato in data)
+        {
+            var key = dato.Key;
+            var value = dato.Value;
+
+            if (key == value && key > max) max = key;
+        }
+
+        return max;
+    }
+
+    
 }
